@@ -1,0 +1,26 @@
+{
+    "idf.espIdfPathWin": "",
+    "idf.toolsPathWin": "",
+    "idf.port": "/dev/ttyACM0",
+    "idf.flashType": "UART",
+    "idf.adapterTargetName": "esp32c3",
+    "idf.openOcdConfigs": [
+        "board/esp32c3-builtin.cfg"
+    ],
+    "idf.buildPath": "${workspaceFolder}/sw/build",
+    "idf.sdkconfigFilePath": "${workspaceFolder}/sw/sdkconfig",
+    "idf.cmakeCompilerArgs": [],
+    "idf.customExtraPaths": "",
+    "files.associations": {
+        "*.h": "c",
+        "sdkconfig": "ini",
+        "sdkconfig.defaults": "ini"
+    },
+    "C_Cpp.intelliSenseEngine": "default",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": false,
+    "[c]": {
+        "editor.tabSize": 4
+    }
+}

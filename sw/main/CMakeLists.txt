@@ -1,0 +1,21 @@
+idf_component_register(
+    SRCS
+        "main.c"
+        "motor_control.c"
+        "modbus_server.c"
+        "wifi_manager.c"
+        "provisioning.c"
+        "config.c"
+        "status_led.c"
+    INCLUDE_DIRS
+        "."
+    PRIV_REQUIRES
+        driver
+        esp_timer
+        esp_wifi
+        esp_event
+        nvs_flash
+        esp_netif
+        esp_http_server
+        mdns
+)

@@ -1,0 +1,12 @@
+{
+    "folders": [
+        {
+            "path": ".",
+            "name": "traincontrol"
+        }
+    ],
+    "settings": {
+        "idf.buildPath": "${workspaceFolder}/sw/build",
+        "idf.sdkconfigFilePath": "${workspaceFolder}/sw/sdkconfig"
+    }
+}
