@@ -414,6 +414,7 @@ traincontrol/
 │   │   └── traincontrol.kicad_pcb
 │   └── bom/                     ← bill of materials
 ├── sw/
+│   ├── traincontrol.code-workspace  ← VS Code workspace
 │   ├── CMakeLists.txt
 │   ├── sdkconfig.defaults
 │   ├── main/

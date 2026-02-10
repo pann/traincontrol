@@ -25,17 +25,19 @@ be suggested automatically when you open the workspace.
 Open the workspace file from VS Code:
 
 ```
-File → Open Workspace from File → traincontrol.code-workspace
+File → Open Workspace from File → sw/traincontrol.code-workspace
 ```
 
 Or from the command line:
 
 ```bash
-code traincontrol.code-workspace
+code sw/traincontrol.code-workspace
 ```
 
-The workspace is configured so that the ESP-IDF extension finds the
-project in `sw/` and places build output in `sw/build/`.
+The workspace file lives in `sw/` alongside the ESP-IDF project, but
+its folder root points to `..` (the repository root) so that `docs/`
+and `hw/` are also visible in the explorer. The ESP-IDF extension
+finds the build output in `sw/build/`.
 
 ## 3. Select Target and Port
 
@@ -116,12 +118,12 @@ traincontrol/
 ├── .vscode/
 │   ├── settings.json          ← VS Code + ESP-IDF settings
 │   └── extensions.json        ← recommended extensions
-├── traincontrol.code-workspace
 ├── docs/
 │   ├── high-level-design.md   ← system architecture
 │   └── development-setup.md   ← this document
 ├── hw/                        ← KiCad schematics (future)
 └── sw/                        ← ESP-IDF project root
+    ├── traincontrol.code-workspace ← VS Code workspace file
     ├── CMakeLists.txt         ← top-level cmake (includes ESP-IDF)
     ├── sdkconfig.defaults     ← default build config (committed)
     ├── sdkconfig              ← local build config (git-ignored)
