@@ -4,6 +4,12 @@ sw/sdkconfig
 sw/sdkconfig.old
 sw/managed_components/
 
+# System test build output
+sw/test/system/build/
+sw/test/system/sdkconfig
+sw/test/system/sdkconfig.old
+sw/test/system/managed_components/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

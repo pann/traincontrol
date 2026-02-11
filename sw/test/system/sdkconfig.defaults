@@ -1,0 +1,14 @@
+# Target: ESP32-S3-DevKitC
+CONFIG_IDF_TARGET="esp32s3"
+
+# USB CDC/ACM console (built-in USB on DevKitC)
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+
+# FreeRTOS
+CONFIG_FREERTOS_HZ=1000
+
+# Disable task watchdog for test firmware (avoid resets during manual pauses)
+CONFIG_ESP_TASK_WDT_EN=n
+
+# Log level
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
