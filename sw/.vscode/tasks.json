@@ -1,0 +1,42 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build production firmware",
+            "type": "shell",
+            "command": "source ${config:idf.currentSetup}/export.sh && idf.py build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Build system test firmware",
+            "type": "shell",
+            "command": "source ${config:idf.currentSetup}/export.sh && idf.py build",
+            "options": {
+                "cwd": "${workspaceFolder}/test/system"
+            },
+            "group": "build",
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Flash system test firmware",
+            "type": "shell",
+            "command": "source ${config:idf.currentSetup}/export.sh && idf.py -p ${config:idf.port} flash monitor",
+            "options": {
+                "cwd": "${workspaceFolder}/test/system"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run unit tests",
+            "type": "shell",
+            "command": "${workspaceFolder}/test/run_unit_tests.sh",
+            "group": "test",
+            "problemMatcher": []
+        }
+    ]
+}
