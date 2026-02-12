@@ -3,6 +3,7 @@
 #include "nvs_flash.h"
 
 #include "config.h"
+#include "event_log.h"
 #include "wifi_manager.h"
 #include "motor_control.h"
 #include "modbus_server.h"
@@ -24,6 +25,9 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
 
+    event_log_init();
+    event_log(EVT_SYSTEM, "boot");
+
     config_init();
     status_led_init();
     motor_control_init();
@@ -31,5 +35,5 @@ void app_main(void)
     provisioning_init();
     modbus_server_init();
 
-    ESP_LOGI(TAG, "Traincontrol ready");
+    event_log(EVT_SYSTEM, "ready");
 }

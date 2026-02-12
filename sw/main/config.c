@@ -2,6 +2,7 @@
 #include "esp_log.h"
 #include "nvs_flash.h"
 #include "nvs.h"
+#include "event_log.h"
 #include <string.h>
 
 static const char *TAG = "config";
@@ -47,13 +48,13 @@ esp_err_t config_set_wifi_credentials(const char *ssid, const char *password)
     strncpy(s_ssid, ssid, sizeof(s_ssid) - 1);
     strncpy(s_password, password, sizeof(s_password) - 1);
 
-    ESP_LOGI(TAG, "WiFi credentials stored");
+    event_log(EVT_CONFIG, "wifi_credentials_stored ssid=%s", ssid);
     return ESP_OK;
 }
 
 esp_err_t config_factory_reset(void)
 {
-    ESP_LOGW(TAG, "Factory reset — erasing NVS namespace");
+    event_log(EVT_CONFIG, "factory_reset");
     nvs_handle_t nvs;
     ESP_ERROR_CHECK(nvs_open(NVS_NAMESPACE, NVS_READWRITE, &nvs));
     ESP_ERROR_CHECK(nvs_erase_all(nvs));

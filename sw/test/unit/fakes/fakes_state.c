@@ -4,14 +4,48 @@
 #include "esp_timer.h"
 #include "nvs.h"
 #include "nvs_flash.h"
+#include "event_log.h"
 #include <string.h>
 #include <stddef.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 fake_state_t g_fake;
+
+/* Storage for fake event log (declared extern in fakes/event_log.h) */
+fake_event_entry_t g_fake_events[FAKE_EVENT_LOG_MAX];
+int g_fake_event_count;
 
 void fake_state_reset(void)
 {
     memset(&g_fake, 0, sizeof(g_fake));
+    fake_event_log_reset();
+}
+
+/* --- Event log fakes --- */
+
+esp_err_t event_log_init(void)
+{
+    g_fake_event_count = 0;
+    return ESP_OK;
+}
+
+void fake_event_log_reset(void)
+{
+    g_fake_event_count = 0;
+}
+
+void event_log(event_category_t category, const char *fmt, ...)
+{
+    if (g_fake_event_count < FAKE_EVENT_LOG_MAX) {
+        g_fake_events[g_fake_event_count].category = category;
+        va_list args;
+        va_start(args, fmt);
+        vsnprintf(g_fake_events[g_fake_event_count].message,
+                  FAKE_EVENT_MSG_LEN, fmt, args);
+        va_end(args);
+        g_fake_event_count++;
+    }
 }
 
 void fake_nvs_preset(const char *key, const char *value)

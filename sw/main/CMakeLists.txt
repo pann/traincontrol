@@ -1,6 +1,7 @@
 idf_component_register(
     SRCS
         "main.c"
+        "event_log.c"
         "motor_control.c"
         "modbus_server.c"
         "wifi_manager.c"

@@ -2,6 +2,7 @@
 #include "driver/gpio.h"
 #include "esp_log.h"
 #include "esp_timer.h"
+#include "event_log.h"
 
 static const char *TAG = "motor";
 
@@ -118,7 +119,7 @@ esp_err_t motor_control_init(void)
     gpio_install_isr_service(0);
     gpio_isr_handler_add(GPIO_ZERO_CROSS, zero_cross_isr, NULL);
 
-    ESP_LOGI(TAG, "Motor control ready");
+    event_log(EVT_MOTOR, "init complete");
     return ESP_OK;
 }
 
@@ -128,6 +129,7 @@ void motor_set_direction(bool forward)
     gpio_set_level(GPIO_MOTOR_FWD, 0);
     gpio_set_level(GPIO_MOTOR_REV, 0);
     s_forward = forward;
+    event_log(EVT_MOTOR, "dir=%s", forward ? "fwd" : "rev");
 }
 
 void motor_set_speed(uint16_t speed)
@@ -136,6 +138,7 @@ void motor_set_speed(uint16_t speed)
     s_target = speed;
     /* TODO: implement ramp — for now, set directly */
     s_current = speed;
+    event_log(EVT_MOTOR, "speed=%u", speed);
 }
 
 void motor_set_enable(bool enable)
@@ -146,6 +149,7 @@ void motor_set_enable(bool enable)
         gpio_set_level(GPIO_MOTOR_REV, 0);
         s_current = 0;
     }
+    event_log(EVT_MOTOR, "enable=%d", enable);
 }
 
 void motor_emergency_stop(void)
@@ -155,6 +159,7 @@ void motor_emergency_stop(void)
     s_current = 0;
     gpio_set_level(GPIO_MOTOR_FWD, 0);
     gpio_set_level(GPIO_MOTOR_REV, 0);
+    event_log(EVT_MOTOR, "emergency_stop");
 }
 
 uint16_t motor_get_current_speed(void) { return s_current; }
