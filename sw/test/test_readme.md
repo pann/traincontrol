@@ -230,6 +230,24 @@ pip install pytest-embedded pytest-embedded-serial-esp pytest-embedded-idf
 
 These tests verify state readback (speed, direction, enable) but do **not** verify oscilloscope timing — that remains manual.
 
+## Building from VS Code
+
+VS Code tasks are configured in `.vscode/tasks.json`. Open the command palette
+and select the task to run:
+
+| How to run | What it does |
+|------------|-------------|
+| `Ctrl+Shift+B` → **Build production firmware** | Builds the main application in `sw/` |
+| `Ctrl+Shift+B` → **Build system test firmware** | Builds the test firmware in `sw/test/system/` |
+| `Ctrl+Shift+P` → Tasks: Run Task → **Flash system test firmware** | Flashes test firmware to devkit and opens serial monitor |
+| `Ctrl+Shift+P` → Tasks: Run Task → **Run unit tests** | Runs host-side unit tests (no hardware needed) |
+
+The ESP-IDF extension's built-in build button (`Ctrl+E B`) always builds the
+**production firmware**. Use the tasks above to build/flash the system test
+firmware instead.
+
+To exit the serial monitor (flash task), press `Ctrl+]`.
+
 ## TDD Workflow
 
 1. Write a failing unit test in `test/unit/test_<module>.c`
