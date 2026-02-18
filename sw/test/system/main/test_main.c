@@ -1,8 +1,9 @@
 /*
- * System test firmware for traincontrol motor_control module.
+ * System test firmware for traincontrol.
  *
  * Provides a serial REPL over USB for manual and automated testing.
- * Use with:
+ *
+ * Motor test setup:
  *   - Function generator on GPIO 6 (100 Hz square wave, 3.3 V) for zero-crossing
  *   - Oscilloscope on GPIO 4 (FWD) and GPIO 5 (REV) to observe TRIAC gate pulses
  *
@@ -10,6 +11,17 @@
  *   - Green = forward, brightness = speed
  *   - Red   = reverse, brightness = speed
  *   - Off   = disabled or speed 0
+ *
+ * WiFi commands:
+ *   - wifi_status: show connection state, IP, and SSID
+ *   - wifi_set <ssid> <password>: store credentials and connect
+ *   - factory_reset: clear credentials, start SoftAP provisioning
+ *
+ * Modbus commands (from provisioning CLI):
+ *   - mr <coil|holding|input|all> [addr]: read registers
+ *   - mw <coil|holding> <addr> <value>: write a register
+ *   - modbus_status: show client connected state and transaction count
+ *   - reset: reboot the device
  */
 
 #include <stdio.h>
@@ -18,8 +30,14 @@
 
 #include "esp_log.h"
 #include "esp_console.h"
+#include "esp_system.h"
+#include "nvs_flash.h"
 #include "led_strip.h"
 #include "motor_control.h"
+#include "modbus_server.h"
+#include "config.h"
+#include "wifi_manager.h"
+#include "provisioning.h"
 
 static const char *TAG = "sys_test";
 
@@ -113,6 +131,52 @@ static int cmd_status(int argc, char **argv)
     return 0;
 }
 
+/* --- WiFi command handlers --- */
+
+static int cmd_wifi_status(int argc, char **argv)
+{
+    (void)argc; (void)argv;
+    if (wifi_manager_is_connected()) {
+        printf("wifi: connected ip=%s ssid=%s\n",
+               wifi_manager_get_ip_str(), config_get_wifi_ssid());
+    } else {
+        printf("wifi: disconnected\n");
+    }
+    return 0;
+}
+
+static int cmd_wifi_set(int argc, char **argv)
+{
+    if (argc < 3) {
+        printf("Usage: wifi_set <ssid> <password>\n");
+        return 1;
+    }
+    config_set_wifi_credentials(argv[1], argv[2]);
+    printf("Credentials saved. Connecting...\n");
+    wifi_manager_stop();
+    wifi_manager_start_sta();
+    return 0;
+}
+
+static int cmd_factory_reset(int argc, char **argv)
+{
+    (void)argc; (void)argv;
+    printf("Factory reset: clearing credentials...\n");
+    wifi_manager_stop();
+    config_factory_reset();
+    provisioning_start_softap();
+    printf("SoftAP started. Connect to the AP to reconfigure.\n");
+    return 0;
+}
+
+static int cmd_reset(int argc, char **argv)
+{
+    (void)argc; (void)argv;
+    printf("Rebooting...\n");
+    esp_restart();
+    return 0;  /* unreachable */
+}
+
 /* --- Command table --- */
 
 static const esp_console_cmd_t s_commands[] = {
@@ -146,11 +210,47 @@ static const esp_console_cmd_t s_commands[] = {
         .hint = NULL,
         .func = &cmd_status,
     },
+    {
+        .command = "wifi_status",
+        .help = "Show WiFi connection state, IP, and SSID",
+        .hint = NULL,
+        .func = &cmd_wifi_status,
+    },
+    {
+        .command = "wifi_set",
+        .help = "Set WiFi credentials and connect",
+        .hint = "<ssid> <password>",
+        .func = &cmd_wifi_set,
+    },
+    {
+        .command = "factory_reset",
+        .help = "Clear credentials and start SoftAP provisioning",
+        .hint = NULL,
+        .func = &cmd_factory_reset,
+    },
+    {
+        .command = "reset",
+        .help = "Reboot the device",
+        .hint = NULL,
+        .func = &cmd_reset,
+    },
 };
 
 void app_main(void)
 {
     ESP_LOGI(TAG, "System test firmware starting");
+
+    /* Initialise NVS (required by config and WiFi) */
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||
+        ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
+    ESP_ERROR_CHECK(config_init());
+    ESP_ERROR_CHECK(wifi_manager_init());
 
     /* Initialise on-board RGB LED (WS2812 on GPIO 48) */
     led_strip_config_t strip_config = {
@@ -165,6 +265,7 @@ void app_main(void)
     led_strip_refresh(s_led);
 
     ESP_ERROR_CHECK(motor_control_init());
+    ESP_ERROR_CHECK(modbus_server_init());
 
     /* Initialise console REPL */
     esp_console_repl_t *repl = NULL;
@@ -182,7 +283,9 @@ void app_main(void)
         ESP_ERROR_CHECK(esp_console_cmd_register(&s_commands[i]));
     }
 
-    ESP_LOGI(TAG, "Motor control ready — type 'help' for commands");
-    ESP_LOGI(TAG, "LED: green=fwd, red=rev, brightness=speed");
+    ESP_LOGI(TAG, "Ready — type 'help' for commands");
+    ESP_LOGI(TAG, "Motor LED: green=fwd, red=rev, brightness=speed");
+    ESP_LOGI(TAG, "WiFi: wifi_status, wifi_set, factory_reset");
+    ESP_LOGI(TAG, "Modbus: mr, mw, modbus_status, reset");
     ESP_ERROR_CHECK(esp_console_start_repl(repl));
 }

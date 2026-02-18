@@ -19,4 +19,7 @@ idf_component_register(
         esp_netif
         esp_http_server
         mdns
+        console
+        lwip
+        led_strip
 )

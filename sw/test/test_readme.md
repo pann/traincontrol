@@ -41,12 +41,27 @@ test/unit/
 │   ├── esp_err.h            # ESP_OK, esp_err_t, ESP_ERROR_CHECK
 │   ├── esp_log.h            # ESP_LOGI/W/E → no-ops
 │   ├── esp_timer.h          # Timer types and stub functions
+│   ├── esp_wifi.h           # WiFi types (mode, config, events)
+│   ├── esp_event.h          # Event loop types, WIFI_EVENT/IP_EVENT
+│   ├── esp_netif.h          # Network interface stubs
+│   ├── esp_mac.h            # MAC address reading stub
+│   ├── esp_http_server.h    # HTTP server types and stubs
+│   ├── esp_console.h        # Console REPL types and stubs
+│   ├── mdns.h               # mDNS stubs
+│   ├── freertos/FreeRTOS.h  # pdMS_TO_TICKS macro
+│   ├── freertos/task.h      # vTaskDelay, xTaskCreate stubs
+│   ├── lwip/sockets.h       # Socket types and stubs for modbus_server
+│   ├── esp_system.h         # esp_restart stub
 │   ├── nvs.h                # NVS fakes with in-memory backing
 │   ├── nvs_flash.h          # nvs_flash_init stub
+│   ├── event_log.h          # Event log fakes
 │   ├── fakes_state.h        # Call-tracking state struct
 │   └── fakes_state.c        # Fake implementations + call tracking
 ├── test_motor_control.c     # 26 tests for motor_control module
-└── test_config.c            # 11 tests for config module
+├── test_config.c            # 11 tests for config module
+├── test_wifi_manager.c      # 9 tests for wifi_manager module
+├── test_provisioning.c      # 9 tests for provisioning module
+└── test_modbus_server.c     # 38 tests for modbus_server module
 ```
 
 ### Writing a new unit test
@@ -127,6 +142,16 @@ TEST_ASSERT_EQUAL_UINT64(5000, g_fake.last_timer_timeout_us);
 /* Pre-populate NVS before calling config_init() */
 fake_nvs_preset("wifi_ssid", "MyNetwork");
 fake_nvs_preset("wifi_pass", "secret");
+
+/* Set a specific MAC address for hostname tests */
+fake_set_mac(0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF);
+
+/* Verify WiFi connect was called */
+TEST_ASSERT_EQUAL(1, g_fake.wifi_connect_calls);
+
+/* Verify mDNS was registered */
+TEST_ASSERT_EQUAL(1, g_fake.mdns_init_calls);
+TEST_ASSERT_EQUAL_STRING("trainctrl-eeff", g_fake.mdns_hostname);
 ```
 
 ### Common Unity assertions
@@ -147,17 +172,13 @@ TEST_ASSERT_TRUE_MESSAGE(condition, "message");
 ```
 $ ./run_unit_tests.sh
 ...
-test_motor_control.c:281:test_speed_zero_returns_zero:PASS
-test_motor_control.c:282:test_speed_one_returns_fire_max:PASS
-...
------------------------
-26 Tests 0 Failures 0 Ignored
-OK
-...
-11 Tests 0 Failures 0 Ignored
-OK
+26 Tests 0 Failures 0 Ignored   (motor_control)
+11 Tests 0 Failures 0 Ignored   (config)
+9 Tests 0 Failures 0 Ignored    (wifi_manager)
+9 Tests 0 Failures 0 Ignored    (provisioning)
+38 Tests 0 Failures 0 Ignored   (modbus_server)
 
-100% tests passed, 0 tests failed out of 2
+100% tests passed, 0 tests failed out of 5
 ```
 
 ## System Tests
@@ -201,6 +222,23 @@ OK emergency_stop
 
 test> status
 enabled=0 dir=rev speed=0
+```
+
+#### WiFi commands
+
+```
+test> wifi_status
+wifi: disconnected
+
+test> wifi_set MyNetwork MyPassword
+Credentials saved. Connecting...
+
+test> wifi_status
+wifi: connected ip=192.168.1.42 ssid=MyNetwork
+
+test> factory_reset
+Factory reset: clearing credentials...
+SoftAP started. Connect to the AP to reconfigure.
 ```
 
 ### Manual oscilloscope test procedure
@@ -247,6 +285,118 @@ The ESP-IDF extension's built-in build button (`Ctrl+E B`) always builds the
 firmware instead.
 
 To exit the serial monitor (flash task), press `Ctrl+]`.
+
+## WiFi Provisioning
+
+### Initial setup (production)
+
+When the device boots for the first time (or after a factory reset), it has no
+WiFi credentials stored. The provisioning module automatically starts:
+
+1. **SoftAP captive portal** — the device creates an open WiFi access point
+   named `TrainCtrl-XXXX` (where XXXX is derived from the device MAC address).
+2. **USB serial CLI** — always available for credential entry.
+
+#### Method 1: Captive portal (phone/laptop)
+
+1. Flash the production firmware: `idf.py -p /dev/ttyACM0 flash`
+2. On your phone or laptop, scan for WiFi networks
+3. Connect to `TrainCtrl-XXXX` (open, no password)
+4. A captive portal page should appear automatically. If it doesn't, open a browser and navigate to `http://192.168.4.1/`
+5. Enter your home WiFi SSID and password, then tap **Connect**
+6. The device saves the credentials to NVS, stops the SoftAP, and connects to your WiFi
+7. The device's IP address is logged to serial output
+
+#### Method 2: USB serial CLI
+
+1. Connect the DevKitC via USB and open a serial monitor (`idf.py monitor` or `minicom -D /dev/ttyACM0`)
+2. Type: `wifi_set <ssid> <password>`
+3. The device saves the credentials and connects
+
+### After provisioning
+
+- Credentials persist across reboots (stored in NVS flash)
+- The device auto-connects on each boot
+- On disconnect, it retries up to 10 times with 5-second intervals
+- mDNS service is registered as `trainctrl-XXXX._modbus._tcp` on port 502
+
+### Factory reset
+
+To clear stored credentials and restart provisioning:
+
+- **USB CLI**: type `factory_reset`
+- **Programmatically**: call `config_factory_reset()` followed by `provisioning_start_softap()`
+
+### Verifying WiFi connection
+
+- **USB CLI**: type `wifi_status` — shows connected/disconnected, IP, and SSID
+- **mDNS**: from another device on the same network, `ping trainctrl-XXXX.local`
+- **Serial monitor**: connection events are logged via `event_log`
+
+## Modbus TCP Testing
+
+### Unit tests (host-side)
+
+The modbus_server unit tests exercise the PDU processing layer directly — all
+38 tests call `process_pdu()` with crafted byte arrays and verify responses.
+No sockets are involved; the lwip fakes are just stubs for compilation.
+
+Tests cover all 5 function codes (FC01, FC03, FC04, FC05, FC06), exception
+handling (illegal function, address, data value), register validation ranges,
+and the public CLI helper API (`modbus_read_*`, `modbus_write_*`).
+
+### On-device testing with mbpoll
+
+After flashing the production or system test firmware and connecting to WiFi,
+use [mbpoll](https://github.com/epsilonrt/mbpoll) to test Modbus TCP from a PC:
+
+```bash
+# Read coils (FC01)
+mbpoll -m tcp -t0 -a1 -r1 -c2 trainctrl-XXXX.local -p502
+
+# Read holding registers (FC03)
+mbpoll -m tcp -t4:int -a1 -r1 -c4 trainctrl-XXXX.local -p502
+
+# Read input registers (FC04)
+mbpoll -m tcp -t3:int -a1 -r1 -c4 trainctrl-XXXX.local -p502
+
+# Write single coil: enable motor (FC05)
+mbpoll -m tcp -t0 -a1 -r1 trainctrl-XXXX.local -p502 1
+
+# Write single register: set speed to 500 (FC06)
+mbpoll -m tcp -t4:int -a1 -r2 trainctrl-XXXX.local -p502 500
+```
+
+### On-device testing with CLI
+
+The serial CLI provides register access without needing a Modbus client:
+
+```
+test> mr all
+Coils:
+  [0] MOTOR_ENABLE     = 0
+  [1] EMERGENCY_STOP   = 0
+Holding registers:
+  [0] DIRECTION        = 0
+  [1] SPEED            = 0
+  [2] ACCEL_RATE       = 100
+  [3] DECEL_RATE       = 100
+Input registers:
+  [0] STATUS           = 0
+  [1] RAIL_VOLTAGE     = 0
+  [2] CURRENT_SPEED    = 0
+  [3] UPTIME           = 42
+
+test> mw holding 1 500
+Holding [1] SPEED = 500
+
+test> mw coil 0 1
+Coil [0] MOTOR_ENABLE = 1
+
+test> modbus_status
+Client: not connected
+Transactions: 0
+```
 
 ## TDD Workflow
 
