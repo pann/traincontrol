@@ -460,8 +460,16 @@ D2 cathode ──stub──► GND
 8. ✓ Correction: C1 symbol changed from `Device:CP` (does not exist) to `Device:C_Polarized`
 9. **→ Review + commit**
 
-### Phase 2 — Create Schematic Skeletons
-Create 8 empty `.kicad_sch` files with title blocks, paper size A4, and hierarchical sheet declarations. No components placed yet.
+### Phase 2 — Create Schematic Skeletons ✓ COMPLETE
+8 empty `.kicad_sch` files created with title blocks, A4 paper, unique UUIDs:
+- ✓ `traincontrol-shield.kicad_sch` (top-level)
+- ✓ `power-supply.kicad_sch`
+- ✓ `zero-crossing.kicad_sch`
+- ✓ `xor-interlock.kicad_sch`
+- ✓ `opto-triac-drive.kicad_sch`
+- ✓ `triacs-snubbers.kicad_sch`
+- ✓ `rail-voltage-sense.kicad_sch`
+- ✓ `mcu.kicad_sch`
 - **→ Review + commit**
 
 ### Phase 3 — Implement Sub-sheets (one at a time, in order)

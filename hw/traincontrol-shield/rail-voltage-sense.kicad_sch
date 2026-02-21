@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "e779d9a9-4c11-42ff-bec5-a02605591825")
+	(paper "A4")
+	(title_block
+		(title "Traincontrol Shield — Rail Voltage Sense")
+		(date "2026-02-21")
+		(rev "1")
+		(company "")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "ff836894-14a4-40e0-bf39-4a5b3dc36c9d")
+	(paper "A4")
+	(title_block
+		(title "Traincontrol Shield — Zero-Crossing Detector")
+		(date "2026-02-21")
+		(rev "1")
+		(company "")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

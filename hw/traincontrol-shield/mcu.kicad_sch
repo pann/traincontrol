@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "b17ddd41-b910-4f09-a62f-46566a666def")
+	(paper "A4")
+	(title_block
+		(title "Traincontrol Shield — MCU (ESP32-S3)")
+		(date "2026-02-21")
+		(rev "1")
+		(company "")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

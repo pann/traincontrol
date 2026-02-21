@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "26688641-94a2-4c54-b660-2bb712a21975")
+	(paper "A4")
+	(title_block
+		(title "Traincontrol Shield — Power Supply")
+		(date "2026-02-21")
+		(rev "1")
+		(company "")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

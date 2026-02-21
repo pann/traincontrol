@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "12cc2a67-9b1c-41e4-828f-9c2a8df6bb35")
+	(paper "A4")
+	(title_block
+		(title "Traincontrol Shield — Top Level")
+		(date "2026-02-21")
+		(rev "1")
+		(company "")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

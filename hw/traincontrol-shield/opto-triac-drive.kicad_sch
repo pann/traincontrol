@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "09b38e2f-bc9c-4a87-9439-1aae11b985c4")
+	(paper "A4")
+	(title_block
+		(title "Traincontrol Shield — Opto-TRIAC Drive")
+		(date "2026-02-21")
+		(rev "1")
+		(company "")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

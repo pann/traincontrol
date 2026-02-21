@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "ab7d41de-f42d-490a-9017-d92213e7ec79")
+	(paper "A4")
+	(title_block
+		(title "Traincontrol Shield — TRIACs + Snubbers")
+		(date "2026-02-21")
+		(rev "1")
+		(company "")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

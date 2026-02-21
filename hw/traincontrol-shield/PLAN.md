@@ -66,7 +66,7 @@ Each phase ends with user review and a git commit before the next phase begins.
 |-------|-------------|
 | 0 | ✓ Download DB107 (C2492) + BT134W-600D (C253549) via easyeda2kicad into local lib |
 | 1 | ✓ Create `traincontrol-shield.kicad_pro` + lib tables; all symbols + footprints verified |
-| 2 | Create 8 empty `.kicad_sch` skeletons (title blocks only) |
+| 2 | ✓ Create 8 empty `.kicad_sch` skeletons (title blocks only) |
 | 3 | Implement sub-sheets 1–7 with components and net labels |
 | 4 | Implement top-level sheet (sub-sheet instances + connectors) |
 
