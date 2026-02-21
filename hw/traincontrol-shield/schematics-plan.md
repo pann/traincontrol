@@ -77,12 +77,14 @@ Isolation boundaries (optocouplers cross the AC/logic divide):
 |--------|--------|
 | `traincontrol-shield:MP2359DJ-LF-Z` | ✓ Present |
 
-### Must download via easyeda2kicad before starting schematics
+### Local library (`libs/traincontrol-shield.kicad_sym`) — downloaded via easyeda2kicad
 
-| Component | Reason | LCSC to search |
-|-----------|--------|----------------|
-| **DB107** | `Diode_Bridge:DB107` not in KiCad standard lib | Search "DB107 bridge rectifier" |
-| **BTA204-600E** | `Triac_Thyristor:BTA204-600E` not in KiCad standard lib | Search "BTA204-600E" |
+| Symbol | LCSC | Footprint | Status |
+|--------|------|-----------|--------|
+| `traincontrol-shield:DB107` | C2492 | `DIO-BG-TH_DF` (DIP-4 THT) | ✓ Downloaded |
+| `traincontrol-shield:BT134W-600D` | C253549 | `SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR` | ✓ Downloaded |
+
+*Note: Original design specified BTA204-600E (4A TRIAC). That part is TO-220AB through-hole and not available on LCSC. Replaced with BT134W-600D (1A, SOT-223, WeEn), which provides adequate 2× margin over the ~0.5A motor load and fits the SMD-first design.*
 
 ---
 
@@ -289,14 +291,14 @@ GND      ──stub──► U6 pin2 (LED Cathode)
 
 ### Sheet 5: TRIACs + Snubbers (`triacs-snubbers.kicad_sch`)
 
-**Purpose:** AC motor switching. BTA204-600E TRIACs (4 A / 600 V — significantly overrated vs ~0.5 A motor load) with RC snubbers for inductive load protection.
+**Purpose:** AC motor switching. BT134W-600D TRIACs (1 A / 600 V — 2× margin over ~0.5 A motor load, SOT-223 SMD) with RC snubbers for inductive load protection.
 
 #### Components
 
 | Ref | Symbol | Value | Footprint |
 |-----|--------|-------|-----------|
-| Q1 | `traincontrol-shield:BTA204-600E` | BTA204-600E | *(downloaded)* |
-| Q2 | `traincontrol-shield:BTA204-600E` | BTA204-600E | *(downloaded)* |
+| Q1 | `traincontrol-shield:BT134W-600D` | BT134W-600D | `traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR` |
+| Q2 | `traincontrol-shield:BT134W-600D` | BT134W-600D | `traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR` |
 | R7 | `Device:R` | 39 Ω | `Resistor_SMD:R_0603_1608Metric` |
 | R8 | `Device:R` | 39 Ω | `Resistor_SMD:R_0603_1608Metric` |
 | C7 | `Device:C` | 10 nF | `Capacitor_SMD:C_0603_1608Metric` |
@@ -420,7 +422,7 @@ D2 cathode ──stub──► GND
 | U5, U6 | MOC3021 opto-TRIAC | MOC3021 | `Relay_SolidState:MOC3021M` | `Package_DIP:DIP-6_W7.62mm` | — | No |
 | R3, R4 | Opto LED resistors | 330 Ω | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
 | R5, R6 | TRIAC gate resistors | 360 Ω | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
-| Q1, Q2 | BTA204-600E TRIAC | BTA204-600E | `traincontrol-shield:BTA204-600E` | *(from easyeda2kicad)* | Search LCSC | **Yes** |
+| Q1, Q2 | BT134W-600D TRIAC | BT134W-600D | `traincontrol-shield:BT134W-600D` | `traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR` | C253549 | Already done |
 | R7, R8 | Snubber resistors | 39 Ω | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
 | R9 | Voltage divider high | 100 kΩ | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
 | R10 | Voltage divider low | **27 kΩ** *(changed from 33 kΩ)* | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
@@ -440,11 +442,12 @@ D2 cathode ──stub──► GND
 
 > All phases pause for user review and git commit before proceeding.
 
-### Phase 0 — Download Missing Components
-1. Use easyeda2kicad to find and download **DB107** (bridge rectifier)
-2. Use easyeda2kicad to find and download **BTA204-600E** (TRIAC)
-3. Verify both symbols + footprints are added to `libs/traincontrol-shield.kicad_sym` and `libs/traincontrol-shield.pretty/`
-4. **→ Review + commit**
+### Phase 0 — Download Missing Components ✓ COMPLETE
+1. ✓ DB107 (LCSC C2492) — symbol + footprint downloaded and integrated
+2. ✓ BT134W-600D (LCSC C253549) — replaces BTA204-600E (see BOM.md notes); symbol + footprint downloaded and integrated
+3. ✓ All symbols verified in `libs/traincontrol-shield.kicad_sym`: MP2359DJ-LF-Z, DB107, BT134W-600D
+4. ✓ All footprints verified in `libs/traincontrol-shield.pretty/`
+5. **→ Review + commit**
 
 ### Phase 1 — Create KiCad Project File + Verify Libraries
 1. Create `traincontrol-shield.kicad_pro` with project-local library table entries:

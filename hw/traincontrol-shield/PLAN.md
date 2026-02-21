@@ -32,7 +32,7 @@ The DB107 bridge rectifier creates two separate AC rails and a DC rail:
 | 2. Zero-Crossing | H11AA1 AC optocoupler (LED side on AC_IN/AC_RTN, transistor side on GND/+3V3), R1 series, R2 pull-up |
 | 3. XOR Interlock | 74LVC1G86 (XOR) + 74LVC2G08 (dual AND) + decoupling C10/C11 |
 | 4. Opto-TRIAC Drive | 2× MOC3021 (LED side on logic, TRIAC side on AC_RTN), gate resistors R3–R6 |
-| 5. TRIACs + Snubbers | 2× BTA204-600E (MT1→AC_RTN), 39Ω/10nF RC snubber networks |
+| 5. TRIACs + Snubbers | 2× BT134W-600D (MT1→AC_RTN), 39Ω/10nF RC snubber networks |
 | 6. Rail Voltage Sense | Resistor divider 100kΩ/27kΩ (changed from 33kΩ — see note) to ADC |
 | 7. MCU (ESP32-S3-DevKitC) | 2× 22-pin headers, decoupling C4/C5/C6, status LED D2+R11 |
 
@@ -48,13 +48,13 @@ Components are sourced in this priority order:
 
 | Component | Library | Status |
 |-----------|---------|--------|
-| DB107 | KiCad Diode_Bridge | **Not in KiCad — download via easyeda2kicad** |
-| MP2359DJ | `traincontrol-shield` (local) | ✓ Already downloaded (LCSC C14259) |
+| DB107 | `traincontrol-shield` (local) | ✓ Downloaded via easyeda2kicad (LCSC C2492) |
+| MP2359DJ | `traincontrol-shield` (local) | ✓ Downloaded via easyeda2kicad (LCSC C14259) |
 | H11AA1 | `Isolator:H11AA1` | ✓ In KiCad standard lib |
 | 74LVC1G86 | `74xGxx:74LVC1G86` | ✓ In KiCad standard lib |
 | 74LVC2G08 | `74xGxx:74LVC2G08` | ✓ In KiCad standard lib |
 | MOC3021 | `Relay_SolidState:MOC3021M` | ✓ In KiCad standard lib (M = DIP-6 package) |
-| BTA204-600E | KiCad Triac_Thyristor | **Not in KiCad — download via easyeda2kicad** |
+| BT134W-600D | `traincontrol-shield` (local) | ✓ Downloaded via easyeda2kicad (LCSC C253549) — replaces BTA204-600E |
 | All passives | `Device:R/C/L/CP/LED` | ✓ In KiCad standard lib |
 | Connectors | `Connector_Generic:Conn_01x*` | ✓ In KiCad standard lib |
 
@@ -64,7 +64,7 @@ Each phase ends with user review and a git commit before the next phase begins.
 
 | Phase | Deliverable |
 |-------|-------------|
-| 0 | Download DB107 + BTA204-600E via easyeda2kicad into local lib |
+| 0 | ✓ Download DB107 (C2492) + BT134W-600D (C253549) via easyeda2kicad into local lib |
 | 1 | Create `traincontrol-shield.kicad_pro`; verify all symbols + footprints accessible |
 | 2 | Create 8 empty `.kicad_sch` skeletons (title blocks only) |
 | 3 | Implement sub-sheets 1–7 with components and net labels |

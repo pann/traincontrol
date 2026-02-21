@@ -23,7 +23,7 @@
 | U5, U6 | MOC3021 opto-TRIAC | MOC3021 | `Relay_SolidState:MOC3021M` | `Package_DIP:DIP-6_W7.62mm` | — | No |
 | R3, R4 | Opto LED resistors | 330Ω | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
 | R5, R6 | TRIAC gate resistors | 360Ω | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
-| Q1, Q2 | BTA204-600E TRIAC | BTA204-600E | `traincontrol-shield:BTA204-600E` | *(from easyeda2kicad)* | Search LCSC | **Yes** |
+| Q1, Q2 | BT134W-600D TRIAC | BT134W-600D | `traincontrol-shield:BT134W-600D` | `traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR` | C253549 | Already done |
 | R7, R8 | Snubber resistors | 39Ω | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
 | R9 | Voltage divider high | 100kΩ | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
 | R10 | Voltage divider low | **27kΩ** | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | — | No |
@@ -38,8 +38,8 @@
 ## Notes
 
 - All passive components use 0603 (1608 Metric) SMD package; exception: C1 (electrolytic, through-hole)
-- **DB107** not in KiCad standard Diode_Bridge library — must be downloaded via easyeda2kicad into `traincontrol-shield` local lib
-- **BTA204-600E** not in KiCad standard Triac_Thyristor library — must be downloaded via easyeda2kicad into `traincontrol-shield` local lib. SOT-223 package.
+- **DB107** not in KiCad standard Diode_Bridge library — downloaded via easyeda2kicad (LCSC C2492) into `traincontrol-shield` local lib. Footprint: DIO-BG-TH_DF (through-hole DIP-4).
+- **BT134W-600D** replaces BTA204-600E (original design). BTA204-600E is TO-220AB through-hole and not available on LCSC. BT134W-600D is SOT-223 SMD, 1A/600V, WeEn (LCSC C253549). Downloaded via easyeda2kicad. Footprint: SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR.
 - **MP2359DJ** already downloaded via easyeda2kicad (LCSC C14259)
 - **MOC3021M** is the KiCad library name for the MOC3021 in DIP-6 package (M = package variant, same electrical part)
 - **R10 changed to 27kΩ** (was 33kΩ): 33kΩ gives 3.84V at 15.5V peak rail — above ESP32-S3 ADC max 3.3V. 27kΩ gives 3.30V.
