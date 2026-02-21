@@ -6,7 +6,7 @@
     (on_board yes)
     (property
       "Reference"
-      "U"
+      "U?"
       (id 0)
       (at 0 7.62 0)
       (effects (font (size 1.27 1.27) ) )
@@ -90,7 +90,7 @@
     (on_board yes)
     (property
       "Reference"
-      "UR"
+      "D?"
       (id 0)
       (at 0 7.62 0)
       (effects (font (size 1.27 1.27) ) )
@@ -104,7 +104,7 @@
     )
     (property
       "Footprint"
-      "easyeda2kicad:DIO-BG-TH_DF"
+      "traincontrol-shield:DIO-BG-TH_DF"
       (id 2)
       (at 0 -10.16 0)
       (effects (font (size 1.27 1.27) ) hide)
@@ -145,13 +145,13 @@
       (pin unspecified line
         (at -10.16 2.54 0)
         (length 5.08)
-        (name "&#126;" (effects (font (size 1.27 1.27))))
+        (name "~" (effects (font (size 1.27 1.27)) (hide yes)))
         (number "3" (effects (font (size 1.27 1.27))))
       )
       (pin unspecified line
         (at -10.16 -2.54 0)
         (length 5.08)
-        (name "&#126;" (effects (font (size 1.27 1.27))))
+        (name "~" (effects (font (size 1.27 1.27)) (hide yes)))
         (number "4" (effects (font (size 1.27 1.27))))
       )
     )
@@ -162,7 +162,7 @@
     (on_board yes)
     (property
       "Reference"
-      "Q"
+      "Q?"
       (id 0)
       (at 0 7.62 0)
       (effects (font (size 1.27 1.27) ) )
@@ -176,7 +176,7 @@
     )
     (property
       "Footprint"
-      "easyeda2kicad:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR"
+      "traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR"
       (id 2)
       (at 0 -10.16 0)
       (effects (font (size 1.27 1.27) ) hide)

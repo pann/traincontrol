@@ -68,7 +68,7 @@ Isolation boundaries (optocouplers cross the AC/logic divide):
 | `74xGxx:74LVC1G86` | 74xGxx.kicad_sym | ✓ Found |
 | `74xGxx:74LVC2G08` | 74xGxx.kicad_sym | ✓ Found |
 | `Relay_SolidState:MOC3021M` | Relay_SolidState.kicad_sym | ✓ Found (M = DIP-6 package) |
-| `Device:R`, `Device:C`, `Device:L`, `Device:CP`, `Device:LED` | Device.kicad_sym | ✓ Found |
+| `Device:R`, `Device:C`, `Device:C_Polarized`, `Device:L`, `Device:LED` | Device.kicad_sym | ✓ Found |
 | `Connector_Generic:Conn_01x02/03/22` | Connector_Generic.kicad_sym | ✓ Found |
 
 ### Local library (`libs/traincontrol-shield.kicad_sym`) — already downloaded
@@ -136,7 +136,7 @@ The top-level sheet (`traincontrol-shield.kicad_sch`) contains:
 | Ref | Symbol | Value | Footprint | Note |
 |-----|--------|-------|-----------|------|
 | D1 | `traincontrol-shield:DB107` | DB107 | *(downloaded)* | Bridge rectifier |
-| C1 | `Device:CP` | 220 µF / 25 V | `Capacitor_THT:CP_Radial_D8.0mm_P3.50mm` | Bulk capacitor |
+| C1 | `Device:C_Polarized` | 220 µF / 25 V | `Capacitor_THT:CP_Radial_D8.0mm_P3.50mm` | Bulk capacitor |
 | U1 | `traincontrol-shield:MP2359DJ-LF-Z` | MP2359DJ | `traincontrol-shield:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR` | Buck converter |
 | L1 | `Device:L` | 4.7 µH | `Inductor_SMD:L_0805_2012Metric` | Buck inductor |
 | C2 | `Device:C` | 22 µF | `Capacitor_SMD:C_0603_1608Metric` | Buck output cap |
@@ -408,7 +408,7 @@ D2 cathode ──stub──► GND
 | D1 | DB107 bridge rectifier | DB107 | `traincontrol-shield:DB107` | *(from easyeda2kicad)* | Search LCSC | **Yes** |
 | U1 | MP2359DJ buck converter | MP2359DJ | `traincontrol-shield:MP2359DJ-LF-Z` | `traincontrol-shield:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR` | C14259 | Already done |
 | L1 | 4.7 µH inductor | 4.7 µH | `Device:L` | `Inductor_SMD:L_0805_2012Metric` | — | No |
-| C1 | Bulk cap | 220 µF / 25 V | `Device:CP` | `Capacitor_THT:CP_Radial_D8.0mm_P3.50mm` | — | No |
+| C1 | Bulk cap | 220 µF / 25 V | `Device:C_Polarized` | `Capacitor_THT:CP_Radial_D8.0mm_P3.50mm` | — | No |
 | C2 | Output decoupling | 22 µF | `Device:C` | `Capacitor_SMD:C_0603_1608Metric` | — | No |
 | C3–C6 | Decoupling caps | 100 nF | `Device:C` | `Capacitor_SMD:C_0603_1608Metric` | — | No |
 | C7, C8 | Snubber caps | 10 nF | `Device:C` | `Capacitor_SMD:C_0603_1608Metric` | — | No |
@@ -449,14 +449,16 @@ D2 cathode ──stub──► GND
 4. ✓ All footprints verified in `libs/traincontrol-shield.pretty/`
 5. **→ Review + commit**
 
-### Phase 1 — Create KiCad Project File + Verify Libraries
-1. Create `traincontrol-shield.kicad_pro` with project-local library table entries:
-   - `sym_lib_table`: `traincontrol-shield` → `${KIPRJMOD}/libs/traincontrol-shield.kicad_sym`
-   - `fp_lib_table`: `traincontrol-shield` → `${KIPRJMOD}/libs/traincontrol-shield.pretty`
-2. **Verify** local library contents — confirm DB107, BTA204-600E, and MP2359DJ symbols are all present in `traincontrol-shield.kicad_sym`
-3. **Verify** footprint files exist in `traincontrol-shield.pretty/` for all three downloaded components
-4. Only proceed if all checks pass
-5. **→ Review + commit**
+### Phase 1 — Create KiCad Project File + Verify Libraries ✓ COMPLETE
+1. ✓ `traincontrol-shield.kicad_pro` created (version 3 JSON)
+2. ✓ `sym-lib-table` created: `traincontrol-shield` → `${KIPRJMOD}/libs/traincontrol-shield.kicad_sym`
+3. ✓ `fp-lib-table` created: `traincontrol-shield` → `${KIPRJMOD}/libs/traincontrol-shield.pretty`
+4. ✓ All local symbols verified: MP2359DJ-LF-Z, DB107, BT134W-600D
+5. ✓ All local footprints verified: 3× .kicad_mod files present
+6. ✓ All standard KiCad symbols verified (H11AA1, 74LVC1G86, 74LVC2G08, MOC3021M, Device:*, Connectors)
+7. ✓ All standard KiCad footprints verified (11 footprints confirmed on disk)
+8. ✓ Correction: C1 symbol changed from `Device:CP` (does not exist) to `Device:C_Polarized`
+9. **→ Review + commit**
 
 ### Phase 2 — Create Schematic Skeletons
 Create 8 empty `.kicad_sch` files with title blocks, paper size A4, and hierarchical sheet declarations. No components placed yet.

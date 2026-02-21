@@ -7,7 +7,7 @@
 | D1 | DB107 bridge rectifier | DB107 | `traincontrol-shield:DB107` | *(from easyeda2kicad)* | Search LCSC | **Yes** |
 | U1 | MP2359DJ buck converter | MP2359DJ | `traincontrol-shield:MP2359DJ-LF-Z` | `traincontrol-shield:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR` | C14259 | Already done |
 | L1 | 4.7µH inductor | 4.7µH | `Device:L` | `Inductor_SMD:L_0805_2012Metric` | — | No |
-| C1 | Input bulk cap | 220µF/25V | `Device:CP` | `Capacitor_THT:CP_Radial_D8.0mm_P3.50mm` | — | No |
+| C1 | Input bulk cap | 220µF/25V | `Device:C_Polarized` | `Capacitor_THT:CP_Radial_D8.0mm_P3.50mm` | — | No |
 | C2 | Output decoupling | 22µF | `Device:C` | `Capacitor_SMD:C_0603_1608Metric` | — | No |
 | C3 | U1 IN decoupling | 100nF | `Device:C` | `Capacitor_SMD:C_0603_1608Metric` | — | No |
 | C4, C5, C6 | MCU VCC decoupling | 100nF | `Device:C` | `Capacitor_SMD:C_0603_1608Metric` | — | No |
