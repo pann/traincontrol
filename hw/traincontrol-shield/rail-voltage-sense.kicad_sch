@@ -5,15 +5,482 @@
 	(uuid "e779d9a9-4c11-42ff-bec5-a02605591825")
 	(paper "A4")
 	(title_block
-		(title "Traincontrol Shield — Rail Voltage Sense")
+		(title "Rail Voltage Sense")
 		(date "2026-02-21")
 		(rev "1")
 		(company "")
 	)
-	(lib_symbols)
+	(lib_symbols
+		(symbol "Device:R"
+				(pin_numbers
+					(hide yes)
+				)
+				(pin_names
+					(offset 0)
+				)
+				(exclude_from_sim no)
+				(in_bom yes)
+				(on_board yes)
+				(property "Reference" "R"
+					(at 2.032 0 90)
+					(effects (font (size 1.27 1.27)))
+				)
+				(property "Value" "R"
+					(at 0 0 90)
+					(effects (font (size 1.27 1.27)))
+				)
+				(property "Footprint" ""
+					(at -1.778 0 90)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Datasheet" "~"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Description" "Resistor"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "ki_keywords" "R res resistor"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "ki_fp_filters" "R_*"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(symbol "R_0_1"
+					(rectangle
+						(start -1.016 -2.54)
+						(end 1.016 2.54)
+						(stroke
+							(width 0.254)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+				)
+				(symbol "R_1_1"
+					(pin passive line
+						(at 0 3.81 270)
+						(length 1.27)
+						(name "~"
+							(effects (font (size 1.27 1.27)))
+						)
+						(number "1"
+							(effects (font (size 1.27 1.27)))
+						)
+					)
+					(pin passive line
+						(at 0 -3.81 90)
+						(length 1.27)
+						(name "~"
+							(effects (font (size 1.27 1.27)))
+						)
+						(number "2"
+							(effects (font (size 1.27 1.27)))
+						)
+					)
+				)
+				(embedded_fonts no)
+			)
+		(symbol "power:GND"
+				(power)
+				(pin_numbers
+					(hide yes)
+				)
+				(pin_names
+					(offset 0)
+					(hide yes)
+				)
+				(exclude_from_sim no)
+				(in_bom yes)
+				(on_board yes)
+				(property "Reference" "#PWR"
+					(at 0 -6.35 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Value" "GND"
+					(at 0 -3.81 0)
+					(effects (font (size 1.27 1.27)))
+				)
+				(property "Footprint" ""
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Datasheet" ""
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "ki_keywords" "global power"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(symbol "GND_0_1"
+					(polyline
+						(pts
+							(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+						)
+						(stroke
+							(width 0)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+				)
+				(symbol "GND_1_1"
+					(pin power_in line
+						(at 0 0 270)
+						(length 0)
+						(name "~"
+							(effects (font (size 1.27 1.27)))
+						)
+						(number "1"
+							(effects (font (size 1.27 1.27)))
+						)
+					)
+				)
+				(embedded_fonts no)
+			)
+		(symbol "power:+15V"
+				(power)
+				(pin_numbers
+					(hide yes)
+				)
+				(pin_names
+					(offset 0)
+					(hide yes)
+				)
+				(exclude_from_sim no)
+				(in_bom yes)
+				(on_board yes)
+				(property "Reference" "#PWR"
+					(at 0 -3.81 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Value" "+15V"
+					(at 0 3.556 0)
+					(effects (font (size 1.27 1.27)))
+				)
+				(property "Footprint" ""
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Datasheet" ""
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Description" "Power symbol creates a global label with name \"+15V\""
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "ki_keywords" "global power"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(symbol "+15V_0_1"
+					(polyline
+						(pts
+							(xy -0.762 1.27) (xy 0 2.54)
+						)
+						(stroke
+							(width 0)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(polyline
+						(pts
+							(xy 0 2.54) (xy 0.762 1.27)
+						)
+						(stroke
+							(width 0)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(polyline
+						(pts
+							(xy 0 0) (xy 0 2.54)
+						)
+						(stroke
+							(width 0)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+				)
+				(symbol "+15V_1_1"
+					(pin power_in line
+						(at 0 0 90)
+						(length 0)
+						(name "~"
+							(effects (font (size 1.27 1.27)))
+						)
+						(number "1"
+							(effects (font (size 1.27 1.27)))
+						)
+					)
+				)
+				(embedded_fonts no)
+			)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 80.01 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e0f52f71-ec7b-478d-9894-c5d126e1987b")
+		(property "Reference" "R9"
+			(at 80.01 76.01 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "100kΩ"
+			(at 80.01 84.01 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 80.01 80.01 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 80.01 80.01 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "ad685997-3457-45fd-bb71-5d211b008cc1"))
+		(pin "2" (uuid "135fbcdf-5c9e-479d-a195-02e03955bfe5"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
+					(reference "R9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 80.01 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a6cdc7c6-f3f8-4a69-bda0-1dd4bbcea6c5")
+		(property "Reference" "R10"
+			(at 80.01 83.63 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "27kΩ"
+			(at 80.01 91.63 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 80.01 87.63 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 80.01 87.63 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "da34a1b5-0a30-4d4b-90ec-920e4f8f68ed"))
+		(pin "2" (uuid "b1867468-3991-4fca-90b9-b294bf2f2a79"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
+					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+15V")
+		(at 80.01 76.2 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "bced59ee-648e-433c-8644-19702873af93")
+		(property "Reference" "#PWR01"
+			(at 80.01 74.2 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+15V"
+			(at 80.01 78.2 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 80.01 76.2 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 80.01 76.2 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "58f1a8c2-53e5-4d4a-a11d-aaf6428b6d5b"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
+					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 80.01 91.44 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "3794ba29-0258-4937-841c-6c7d40e40f6e")
+		(property "Reference" "#PWR02"
+			(at 80.01 89.44 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 80.01 93.44 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 80.01 91.44 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 80.01 91.44 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "25b34a09-a7cf-44cb-8a2c-fc2579eef7dc"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
+					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(junction
+		(at 80.01 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "04db071e-89c7-4437-83fa-3f29fc685346")
+	)
+	(global_label "VSENSE"
+		(shape output)
+		(at 92.71 83.82 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "abcfce43-02e8-408c-acad-8b56d37ae778")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 92.71 83.82 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 80.01 83.82) (xy 92.71 83.82))
+		(stroke (width 0) (type solid))
+		(uuid "8ed6957a-c03a-400c-b25f-371f98739e99")
+	)
 	(sheet_instances
-		(path "/"
-			(page "1")
+		(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
+			(page "7")
 		)
 	)
 )
