@@ -485,3 +485,83 @@ D2 cathode ──stub──► GND
 ### Phase 4 — Implement Top-Level Sheet
 Add sub-sheet instances, external connectors (J4, J5, J6), global power symbols, and hierarchical net labels.
 - **→ Review + commit**
+
+### Phase 5 — Schematic Correctness Checks
+
+After generating schematics, run the following checks before considering any sheet complete.
+Correct the generator scripts and regenerate; do not hand-edit the `.kicad_sch` files.
+
+---
+
+#### 5.1 Structural validation
+
+Run `kicad-cli sch export netlist --output /dev/null <file>.kicad_sch` on every sheet.
+- **Required:** exit code 0 on all 8 files.
+- Annotation warnings are non-fatal and expected (auto-annotation not run).
+- Any other warning or error must be investigated and resolved.
+
+---
+
+#### 5.2 Wire stub conflict check
+
+Every power symbol (`power:GND`, `power:+3V3`, etc.) and every global label gets a
+2.54 mm wire stub between the component pin and the symbol/label body (see design rule 6).
+
+**Because the stub length equals the standard 2.54 mm pin pitch**, a stub can accidentally
+land on an adjacent pin and create an unintended net connection. This must be checked
+exhaustively for every power placement.
+
+**Rules:**
+
+| Symbol type | Stub direction | Endpoint formula |
+|-------------|---------------|-----------------|
+| `power:GND` (and any net with "GND" in name) | DOWN (+y) | `(x, y + 2.54)` |
+| `power:+V` (any positive supply) | UP (−y) | `(x, y − 2.54)` |
+| `global_label` angle=0 | LEFT (−x) | `(x − 2.54, y)` |
+| `global_label` angle=180 | RIGHT (+x) | `(x + 2.54, y)` |
+
+For every `P(net, x, y)` call and every `glabel(name, x, y, angle)` call, verify:
+**nothing else exists at the stub endpoint** — no component pin, no net label, no other
+power symbol.
+
+If a conflict exists, resolve it by **routing the power symbol away from the conflict**
+before placing the stub, using a short extra wire:
+
+```python
+# Example: GND stub would hit a pin 2.54 mm below — route left first
+elements.append(wire(x, y, x - 2.54, y))   # horizontal route
+P("GND", x - 2.54, y)                       # stub now at (x-2.54, y+2.54) — clear
+```
+
+**Special cases requiring routing:**
+
+- **Tightly-packed ICs** (SOT-23-6, DIP-6 etc.) where vertical pin spacing equals the
+  stub length: always check above and below every power pin.
+- **Connector headers** with 2.54 mm pin pitch: all power pins (GND, +3V3) must be
+  routed horizontally away from the connector column (left for left-hand connectors)
+  before applying the vertical stub. Otherwise the stub will hit the adjacent signal pin.
+- **`PWR_FLAG` symbols**: these have explicit wires added manually and must **not** receive
+  an auto-stub (set `net == "PWR_FLAG"` to skip stub logic in the generator).
+
+**Conflicts found and fixed in this project:**
+
+| Sheet | Symbol call | Conflict | Fix applied |
+|-------|-------------|----------|-------------|
+| power-supply | `P("GND", 99.06, 68.58)` — U1 GND pin2 | Stub hit `VBST` net label at (99.06, 71.12) = U1 BST pin1 | Route left 2.54 mm; `P("GND", 96.52, 68.58)` |
+| power-supply | `P("+15V", 119.38, 68.58)` — U1 IN pin5 | Stub hit EN pin+15V symbol at (119.38, 66.04) | Route right 2.54 mm; `P("+15V", 121.92, 68.58)` |
+| zero-crossing | `P("GND", 87.63, 87.63)` — U2 pin4 emitter | Stub hit U2 pin5 (ZC_OUT node) at (87.63, 90.17) | Route right 2.54 mm; `P("GND", 90.17, 87.63)` |
+| mcu | `P("+3V3", 74.93, 143.51)` — J1 pin2 | Stub hit J1 pin3 `CTRL_A` global label at (74.93, 140.97) | Route all J1/J2 power pins left 2.54 mm in connector loop |
+| mcu | `P("+3V3", 154.94, 143.51)` — J2 pin2 | Stub hit J2 pin3 `VSENSE` global label at (154.94, 140.97) | (same fix) |
+| mcu | `P("GND", 74.93, 95.25)` — J1 pin21 | Stub hit J1 pin20 `GPIO20` net label at (74.93, 97.79) | (same fix) |
+| mcu | `P("GND", 154.94, 95.25)` — J2 pin21 | Stub hit J2 pin20 `GPIO12` net label at (154.94, 97.79) | (same fix) |
+
+---
+
+#### 5.3 ERC cross-net check
+
+Open each sheet in KiCad and run ERC (or inspect the netlist). The error
+**"Both \<NET_A\> and \<NET_B\> are connected to the same item"** where NET_A ≠ NET_B
+is always a real error, not a warning. It indicates two different nets accidentally share
+a wire endpoint — typically caused by a stub conflict as described in §5.2.
+
+Annotation errors and "pin unconnected" warnings for NC pins are acceptable.
