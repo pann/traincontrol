@@ -316,31 +316,31 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 80.01 80.01 0)
+		(at 80.01 76.2 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f6a6d18f-c917-4351-b768-2b813a3465ba")
+		(uuid "2dc9f396-cd2f-4c25-b7e9-f43e8fd8b03f")
 		(property "Reference" "R9"
-			(at 80.01 76.01 0)
+			(at 80.01 72.2 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Value" "100kΩ"
-			(at 80.01 84.01 0)
+			(at 80.01 80.2 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 80.01 80.01 0)
+			(at 80.01 76.2 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" "~"
-			(at 80.01 80.01 0)
+			(at 80.01 76.2 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "8f64662b-1d07-4116-aad6-20664dc770cc"))
-		(pin "2" (uuid "f09ad35b-3f69-445c-bde1-794dbe07aa14"))
+		(pin "1" (uuid "d8a0af98-c4cd-4b95-907d-b9625e74c53c"))
+		(pin "2" (uuid "bc32474a-8fe2-424c-b003-e6be7039d798"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
@@ -352,31 +352,31 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 80.01 87.63 0)
+		(at 80.01 91.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a4255e77-ab29-4cef-9cb3-5906edd92f8f")
+		(uuid "ec922ec2-43ab-4dd6-9462-146f0600cc6f")
 		(property "Reference" "R10"
-			(at 80.01 83.63 0)
+			(at 80.01 87.44 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Value" "27kΩ"
-			(at 80.01 91.63 0)
+			(at 80.01 95.44 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 80.01 87.63 0)
+			(at 80.01 91.44 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" "~"
-			(at 80.01 87.63 0)
+			(at 80.01 91.44 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "f24e9916-262e-42e0-a577-dffc94f9e987"))
-		(pin "2" (uuid "15893c49-f235-46ef-aad4-efa63385347e"))
+		(pin "1" (uuid "8040ae5b-ba40-4e32-9c67-7b5e186f6690"))
+		(pin "2" (uuid "d7648d5e-9ffa-4f50-ad7e-0de310d77412"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
@@ -387,36 +387,36 @@
 		)
 	)
 	(wire
-		(pts (xy 80.01 76.2) (xy 80.01 73.66))
+		(pts (xy 80.01 72.39) (xy 80.01 64.77))
 		(stroke (width 0) (type solid))
-		(uuid "4c05e233-5fa1-4ecb-bdd3-d4a8d5f0da78")
+		(uuid "b01981a7-ae62-4e6f-a8f9-12a50af6f15c")
 	)
 	(symbol
 		(lib_id "power:+15V")
-		(at 80.01 73.66 0)
+		(at 80.01 64.77 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "65fdf1a9-e2ff-4d24-b88b-402a6503ed17")
+		(uuid "9b78e548-6d9b-471a-a1c6-d82f8389ac0b")
 		(property "Reference" "#PWR01"
-			(at 80.01 71.66 0)
+			(at 80.01 62.769999999999996 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Value" "+15V"
-			(at 80.01 75.66 0)
+			(at 80.01 66.77 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" ""
-			(at 80.01 73.66 0)
+			(at 80.01 64.77 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 80.01 73.66 0)
+			(at 80.01 64.77 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "292337dc-0514-4380-afbd-43a23fc97509"))
+		(pin "1" (uuid "5044c50f-3b81-4da0-829c-10eb3261dab9"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
@@ -427,36 +427,36 @@
 		)
 	)
 	(wire
-		(pts (xy 80.01 91.44) (xy 80.01 93.98))
+		(pts (xy 80.01 95.25) (xy 80.01 102.87))
 		(stroke (width 0) (type solid))
-		(uuid "dabcf9fe-a703-47e7-8078-27f7bfee6029")
+		(uuid "b63f4674-0176-4876-bb3b-979852935143")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 80.01 93.98 0)
+		(at 80.01 102.87 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "7ac43454-2498-43d8-8e5d-2af6e502a2ff")
+		(uuid "a9915ae4-7502-4ae2-97b4-3d7d8004e0a7")
 		(property "Reference" "#PWR02"
-			(at 80.01 91.98 0)
+			(at 80.01 100.87 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Value" "GND"
-			(at 80.01 95.98 0)
+			(at 80.01 104.87 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" ""
-			(at 80.01 93.98 0)
+			(at 80.01 102.87 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 80.01 93.98 0)
+			(at 80.01 102.87 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "650fd8b0-3886-4e92-81ec-0b7f99e16581"))
+		(pin "1" (uuid "37d15b9e-9fd6-44d1-90f4-4416eeb520af"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
@@ -466,32 +466,37 @@
 			)
 		)
 	)
+	(wire
+		(pts (xy 80.01 80.01) (xy 80.01 87.63))
+		(stroke (width 0) (type solid))
+		(uuid "fd974a9c-5b11-41ff-9de9-24bd575cbb8a")
+	)
 	(junction
 		(at 80.01 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "4b82a845-04e2-4b96-9aec-b7b7eba127c0")
+		(uuid "6c06d97d-fe37-406c-9c5c-1fd960addbc1")
 	)
 	(wire
-		(pts (xy 90.16999999999999 83.82) (xy 92.71 83.82))
+		(pts (xy 80.01 83.82) (xy 109.22 83.82))
 		(stroke (width 0) (type solid))
-		(uuid "2495f5bc-646a-443e-b8fd-7a714e6ee3a7")
+		(uuid "8ba93bda-b264-42c0-859f-1ff18dfccae6")
+	)
+	(wire
+		(pts (xy 101.6 83.82) (xy 109.22 83.82))
+		(stroke (width 0) (type solid))
+		(uuid "33e9a100-7920-4819-a7d5-cd8ce3cf5e4b")
 	)
 	(hierarchical_label "VSENSE"
 		(shape output)
-		(at 90.16999999999999 83.82 0)
+		(at 101.6 83.82 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "a0a6ed15-0014-44d4-b2f7-3609f5ad44e9")
+		(uuid "360c2305-3b4b-4291-8785-c4bd98e74ad6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 90.16999999999999 83.82 0)
+			(at 101.6 83.82 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-	)
-	(wire
-		(pts (xy 80.01 83.82) (xy 92.71 83.82))
-		(stroke (width 0) (type solid))
-		(uuid "31dd3e60-1a44-4b5b-baa0-bb5cda176e91")
 	)
 	(sheet_instances
 		(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"

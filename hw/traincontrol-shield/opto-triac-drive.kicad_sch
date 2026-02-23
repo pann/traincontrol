@@ -487,7 +487,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "34258bd7-4481-4266-b1ea-413cc5793553")
+		(uuid "748f00a4-8137-4daa-8825-691d95d86cd1")
 		(property "Reference" "U5"
 			(at 80.01 86.17 0)
 			(effects (font (size 1.27 1.27)))
@@ -504,12 +504,12 @@
 			(at 80.01 90.17 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "ed922568-939b-400b-a355-eaafffaa2318"))
-		(pin "2" (uuid "581fd38b-3c4b-4080-9697-77dbb6c88a63"))
-		(pin "3" (uuid "95ee18ed-db05-446c-ad32-1397bfa89d66"))
-		(pin "4" (uuid "df9b1c21-58ed-44fd-ba2f-fb58787a25b6"))
-		(pin "5" (uuid "d13a72ae-bb61-4e47-9b5a-79d0e00cc1ee"))
-		(pin "6" (uuid "eddfbe95-50a8-43b6-a654-27148a233c47"))
+		(pin "1" (uuid "8485143e-e0cb-4c3f-8839-3f00e68d1e6c"))
+		(pin "2" (uuid "c444e9c3-279a-45c3-96e0-e4d40e6492a4"))
+		(pin "3" (uuid "bc12adce-0ff2-4879-9b47-08c7b4b9cc42"))
+		(pin "4" (uuid "736f62ef-7631-4caa-b3a2-fd5f0a49ad94"))
+		(pin "5" (uuid "4551fbc8-50a1-4013-90a9-1248362fd082"))
+		(pin "6" (uuid "2e2b7c1b-9741-4e18-91db-572cd5b1aab8"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
@@ -520,36 +520,36 @@
 		)
 	)
 	(wire
-		(pts (xy 72.39 87.63) (xy 72.39 90.17))
+		(pts (xy 72.39 87.63) (xy 72.39 95.25))
 		(stroke (width 0) (type solid))
-		(uuid "b7c6f498-4579-4a18-af1a-894b62680138")
+		(uuid "9a60f6d7-87d4-4b56-9b75-7f4bbf929ae1")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 72.39 90.17 0)
+		(at 72.39 95.25 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "cdfd5e8f-c5e3-435a-9e33-3357dc7dc27c")
+		(uuid "72cc122a-c574-4525-9e95-df4bf40a13fc")
 		(property "Reference" "#PWR03"
-			(at 72.39 88.17 0)
+			(at 72.39 93.25 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Value" "GND"
-			(at 72.39 92.17 0)
+			(at 72.39 97.25 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" ""
-			(at 72.39 90.17 0)
+			(at 72.39 95.25 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 72.39 90.17 0)
+			(at 72.39 95.25 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "974f1e59-4ecb-47d4-abc9-06bea8a6ba39"))
+		(pin "1" (uuid "3773f124-a3b3-4804-90c0-da1db059da6f"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
@@ -560,18 +560,18 @@
 		)
 	)
 	(wire
-		(pts (xy 85.09 92.71000000000001) (xy 87.63000000000001 92.71000000000001))
+		(pts (xy 80.01 92.71000000000001) (xy 87.63000000000001 92.71000000000001))
 		(stroke (width 0) (type solid))
-		(uuid "dc7c59c6-3d28-4711-b88c-3bee018985b1")
+		(uuid "8ca74e46-c7e5-4918-81db-9fb7ce36c2ad")
 	)
 	(hierarchical_label "AC_RTN"
 		(shape bidirectional)
-		(at 85.09 92.71000000000001 0)
+		(at 80.01 92.71000000000001 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "758fdef7-6f81-403e-b17f-d323c6254d4d")
+		(uuid "981d0038-305e-4dcf-94b4-b700f2a03192")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 85.09 92.71000000000001 0)
+			(at 80.01 92.71000000000001 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 	)
@@ -583,7 +583,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "2ef1508d-b214-46dd-b322-c8f93900488b")
+		(uuid "325203fd-998a-4548-853a-b0f693dbd544")
 		(property "Reference" "R3"
 			(at 68.58 88.71000000000001 0)
 			(effects (font (size 1.27 1.27)))
@@ -600,8 +600,8 @@
 			(at 68.58 92.71000000000001 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "b062598f-fba0-48e4-a3dc-cbcffd6bc72f"))
-		(pin "2" (uuid "d8932a3d-ea20-43aa-ace4-98db10b6fac1"))
+		(pin "1" (uuid "1a911fd9-6718-4bf6-b997-aee01e49fc20"))
+		(pin "2" (uuid "16b2197d-c64f-4490-8d78-81c45d90872e"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
@@ -612,18 +612,18 @@
 		)
 	)
 	(wire
-		(pts (xy 62.23 92.71000000000001) (xy 64.77 92.71000000000001))
+		(pts (xy 57.15 92.71000000000001) (xy 64.77 92.71000000000001))
 		(stroke (width 0) (type solid))
-		(uuid "079dc970-4717-4720-b8f2-8d6a875010d2")
+		(uuid "2d67eb9c-362d-4554-9a25-f5ae0598187b")
 	)
 	(hierarchical_label "PHASE_A"
 		(shape input)
-		(at 62.23 92.71000000000001 0)
+		(at 57.15 92.71000000000001 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "39e81f1e-9f82-4b11-9c9b-f21476ebc021")
+		(uuid "ebfcd990-84f6-4f2d-8eba-e47e7f855936")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 62.23 92.71000000000001 0)
+			(at 57.15 92.71000000000001 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 	)
@@ -635,7 +635,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "edb2a31f-d914-4f45-8352-8d3a95c82421")
+		(uuid "5f26ce02-75ad-483c-a2df-eabe20300ba5")
 		(property "Reference" "R5"
 			(at 91.44000000000001 83.63 0)
 			(effects (font (size 1.27 1.27)))
@@ -652,8 +652,8 @@
 			(at 91.44000000000001 87.63 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "823010a6-7fce-4da8-85b5-d4186a95fa0b"))
-		(pin "2" (uuid "761b5d93-cce1-4a51-b254-0a6c4eea0d55"))
+		(pin "1" (uuid "32327cf0-55af-440f-8fc3-d44689cb1bee"))
+		(pin "2" (uuid "69cb32e0-cc07-42dc-9b5c-c28150011a87"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
@@ -666,63 +666,63 @@
 	(wire
 		(pts (xy 87.63000000000001 87.63) (xy 87.63000000000001 87.63))
 		(stroke (width 0) (type solid))
-		(uuid "2cb026f4-a115-42f9-ae24-c056b5090c6f")
+		(uuid "c15c8470-ffb1-41e3-a6f0-547ff2499df2")
 	)
 	(wire
-		(pts (xy 92.71000000000001 87.63) (xy 95.25000000000001 87.63))
+		(pts (xy 87.63000000000001 87.63) (xy 95.25000000000001 87.63))
 		(stroke (width 0) (type solid))
-		(uuid "1b019970-5eb5-4857-be7d-f4721277ec57")
+		(uuid "76671ffa-c06c-4020-a217-ee15ea2b4dd0")
 	)
 	(hierarchical_label "TRIAC_A_GATE"
 		(shape output)
-		(at 92.71000000000001 87.63 0)
+		(at 87.63000000000001 87.63 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "aa38b7f4-9cc9-4a7a-b4fa-b78c4b7363f6")
+		(uuid "54da83cb-cddd-4491-a1ce-939115238895")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 92.71000000000001 87.63 0)
+			(at 87.63000000000001 87.63 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 	)
 	(no_connect
 		(at 74.93 90.17)
-		(uuid "a47b8816-a6de-499b-866e-6ed5ba5ddb19")
+		(uuid "1a47a2af-0b75-4cdc-b258-56ef99002dcb")
 	)
 	(no_connect
 		(at 85.09 90.17)
-		(uuid "40df76e6-b21d-4ca7-bc94-808283e828b4")
+		(uuid "b90712d0-0eae-48bf-9e50-69b320c4f567")
 	)
 	(symbol
 		(lib_id "Relay_SolidState:MOC3021M")
-		(at 80.01 120.65 0)
+		(at 80.01 154.94 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5876fe47-8b2c-40ef-a637-c7caaae642bb")
+		(uuid "91f59af1-f007-4ff7-b027-ddc8a8948a0c")
 		(property "Reference" "U6"
-			(at 80.01 116.65 0)
+			(at 80.01 150.94 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Value" "MOC3021M"
-			(at 80.01 124.65 0)
+			(at 80.01 158.94 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" "Package_DIP:DIP-6_W7.62mm"
-			(at 80.01 120.65 0)
+			(at 80.01 154.94 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" "~"
-			(at 80.01 120.65 0)
+			(at 80.01 154.94 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "fe33208e-8d4c-4ca5-8e9e-72d3843eb1d9"))
-		(pin "2" (uuid "58d58c67-ac89-480b-a4a6-aa467f26c03e"))
-		(pin "3" (uuid "feeaa773-6e42-4438-96dd-4423bebeb831"))
-		(pin "4" (uuid "ab982881-36bc-4580-b602-de56498d12c5"))
-		(pin "5" (uuid "cf2cd6cf-0c2c-4577-92de-dd07983f15da"))
-		(pin "6" (uuid "b119acd9-6f72-4768-86e3-409f179d3450"))
+		(pin "1" (uuid "2579beb2-65fe-455a-9409-9ba0a5974d9f"))
+		(pin "2" (uuid "080123a4-a2ba-4715-a8e9-08b6ddcaf3b4"))
+		(pin "3" (uuid "6bb4a197-b024-43c8-b564-b218933fd389"))
+		(pin "4" (uuid "ffd5446f-967e-4644-a095-dd949cdc7aee"))
+		(pin "5" (uuid "ea20c56a-1e58-4199-b700-1f3d5127d14c"))
+		(pin "6" (uuid "e77f8cf2-af50-469e-b4d0-5cf26628f343"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
@@ -733,36 +733,36 @@
 		)
 	)
 	(wire
-		(pts (xy 72.39 118.11) (xy 72.39 120.65))
+		(pts (xy 72.39 152.4) (xy 72.39 160.02))
 		(stroke (width 0) (type solid))
-		(uuid "f1b1729c-b845-4b3b-a029-a6f92b09ff87")
+		(uuid "09c08580-a2a0-4234-8328-50cffccd5db4")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 72.39 120.65 0)
+		(at 72.39 160.02 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "815b2966-f7ec-41e1-b227-03edd662d4d6")
+		(uuid "31303d95-24d4-4545-acd2-3d51ec965b93")
 		(property "Reference" "#PWR04"
-			(at 72.39 118.65 0)
+			(at 72.39 158.02 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Value" "GND"
-			(at 72.39 122.65 0)
+			(at 72.39 162.02 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" ""
-			(at 72.39 120.65 0)
+			(at 72.39 160.02 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 72.39 120.65 0)
+			(at 72.39 160.02 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "e6c9ed8d-de1b-493a-8d0b-bfa2d46fe4b2"))
+		(pin "1" (uuid "d79eba2a-906d-4d50-8a26-2acc76076710"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
@@ -773,48 +773,48 @@
 		)
 	)
 	(wire
-		(pts (xy 85.09 123.19000000000001) (xy 87.63000000000001 123.19000000000001))
+		(pts (xy 80.01 157.48) (xy 87.63000000000001 157.48))
 		(stroke (width 0) (type solid))
-		(uuid "5b90fae3-c5d8-4cd3-b411-18564bb24548")
+		(uuid "c8acd3a1-9e3a-498d-8d28-a813d77aedbe")
 	)
 	(hierarchical_label "AC_RTN"
 		(shape bidirectional)
-		(at 85.09 123.19000000000001 0)
+		(at 80.01 157.48 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "d910e896-61ac-47a4-aef5-4abd6658e976")
+		(uuid "4dff95b7-0242-43bf-a093-3d5631ec6d30")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 85.09 123.19000000000001 0)
+			(at 80.01 157.48 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 68.58 123.19000000000001 90)
+		(at 68.58 157.48 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "09e99f3c-b9b2-4686-b29c-f004162af79e")
+		(uuid "4d2a20a0-9781-491e-a283-4cc696449362")
 		(property "Reference" "R4"
-			(at 68.58 119.19000000000001 0)
+			(at 68.58 153.48 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Value" "330Ω"
-			(at 68.58 127.19000000000001 0)
+			(at 68.58 161.48 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 68.58 123.19000000000001 0)
+			(at 68.58 157.48 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" "~"
-			(at 68.58 123.19000000000001 0)
+			(at 68.58 157.48 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "0d77bc43-efbe-4bb8-a6e5-d9d233aba914"))
-		(pin "2" (uuid "6ee371df-a7fb-4c8e-be4a-c43339c3de40"))
+		(pin "1" (uuid "baf9cede-490b-4357-9f0e-098543873b99"))
+		(pin "2" (uuid "e596d3f2-26f3-4c4e-bd5d-4b5600bf9a8d"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
@@ -825,48 +825,48 @@
 		)
 	)
 	(wire
-		(pts (xy 62.23 123.19000000000001) (xy 64.77 123.19000000000001))
+		(pts (xy 57.15 157.48) (xy 64.77 157.48))
 		(stroke (width 0) (type solid))
-		(uuid "3fa28102-c8a5-4da9-a82b-4417f3cdd3e0")
+		(uuid "6ae3cf0b-bfaf-4a5c-878a-58a9c4375227")
 	)
 	(hierarchical_label "PHASE_B"
 		(shape input)
-		(at 62.23 123.19000000000001 0)
+		(at 57.15 157.48 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "c17d564c-0c79-456b-ac15-ff8ac4701791")
+		(uuid "672ba69c-ca65-4920-87ff-e0567b29d1f1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 62.23 123.19000000000001 0)
+			(at 57.15 157.48 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 91.44000000000001 118.11 90)
+		(at 91.44000000000001 152.4 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "23789d13-0884-4881-bdac-15a910f54635")
+		(uuid "fded340a-3b9b-4a35-9660-bb8cef61f26b")
 		(property "Reference" "R6"
-			(at 91.44000000000001 114.11 0)
+			(at 91.44000000000001 148.4 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Value" "360Ω"
-			(at 91.44000000000001 122.11 0)
+			(at 91.44000000000001 156.4 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 91.44000000000001 118.11 0)
+			(at 91.44000000000001 152.4 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" "~"
-			(at 91.44000000000001 118.11 0)
+			(at 91.44000000000001 152.4 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "9ea5b517-5ab4-453c-945d-1643ff4ee662"))
-		(pin "2" (uuid "c5a4e0a6-bbe0-486e-9943-fbbf26b6d84c"))
+		(pin "1" (uuid "66d7f923-6434-4677-a42e-574361a474a5"))
+		(pin "2" (uuid "a96cbbb5-6c30-49e1-9ce3-772c8e69fb6b"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
@@ -877,33 +877,33 @@
 		)
 	)
 	(wire
-		(pts (xy 87.63000000000001 118.11) (xy 87.63000000000001 118.11))
+		(pts (xy 87.63000000000001 152.4) (xy 87.63000000000001 152.4))
 		(stroke (width 0) (type solid))
-		(uuid "ffdcc6b6-4ef6-4edd-aee5-0497044faacd")
+		(uuid "f755d8b5-e14e-4d44-a905-fae2b54bbe11")
 	)
 	(wire
-		(pts (xy 92.71000000000001 118.11) (xy 95.25000000000001 118.11))
+		(pts (xy 87.63000000000001 152.4) (xy 95.25000000000001 152.4))
 		(stroke (width 0) (type solid))
-		(uuid "789e4a45-89e6-48b4-8acb-c256675caf55")
+		(uuid "c5f2db4b-a356-4c1d-958d-9a6df48708c9")
 	)
 	(hierarchical_label "TRIAC_B_GATE"
 		(shape output)
-		(at 92.71000000000001 118.11 0)
+		(at 87.63000000000001 152.4 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "7fa4c7a0-3f28-467a-8fe5-7cfc95e6bf87")
+		(uuid "4df2e80c-ebd4-417b-b50d-25b0fd3e78be")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 92.71000000000001 118.11 0)
+			(at 87.63000000000001 152.4 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 	)
 	(no_connect
-		(at 74.93 120.65)
-		(uuid "96a84aab-3893-4738-8a64-f6ba805fd28c")
+		(at 74.93 154.94)
+		(uuid "5a4d6fc8-ad7b-4e08-abb9-d1136a3cb01d")
 	)
 	(no_connect
-		(at 85.09 120.65)
-		(uuid "4bfd7eb8-3140-491b-bc32-4ecdf2cbc71b")
+		(at 85.09 154.94)
+		(uuid "3a3b57e4-5467-45ff-94d3-2665742bb66a")
 	)
 	(sheet_instances
 		(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/1155aa41-bfef-4df9-96ba-c8e7c9de0aa7"
