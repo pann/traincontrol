@@ -320,9 +320,11 @@ def gen_zero_crossing():
              "U2", "H11AA1", "Package_DIP:DIP-6_W7.62mm", ["1","2","3","4","5","6"]))
 
     # R1 (220kΩ) horizontal: angle=90 → pin1 at (+3.81,0), pin2 at (-3.81,0)
-    # Centre at (85.09,92.71): pin1@(88.90,92.71)=U2pin2(Anode B), pin2@(81.28,92.71)→AC_IN
-    E.append(placed_sym(SINST, "Device:R", 85.09, 92.71, 90,
+    # Centre at (77.47,92.71): pin1@(81.28,92.71), pin2@(73.66,92.71)→AC_IN
+    # Wire bridges R1 pin1 to U2 pin2(Anode B)@(88.90,92.71)
+    E.append(placed_sym(SINST, "Device:R", 77.47, 92.71, 90,
              "R1", "220kΩ", "Resistor_SMD:R_0603_1608Metric", ["1","2"]))
+    E.append(wire(81.28, 92.71, 88.90, 92.71))
 
     # R2 (10kΩ) vertical: angle=0, spread further right for label room
     # Centre at (116.84,82.55): pin2(top)@(116.84,78.74)=+3V3, pin1(btm)@(116.84,86.36)→node
@@ -345,7 +347,7 @@ def gen_zero_crossing():
     # Hierarchical labels (inter-sheet ports)
     # Left-side inputs: angle=180 → body extends LEFT (outside); x = circuit endpoint.
     # Right-side output: angle=0  → body extends RIGHT (outside); x = circuit endpoint.
-    E.append(hlabel("AC_IN",  81.28,  92.71, 180, "input"))   # left-side; R1 pin2
+    E.append(hlabel("AC_IN",  73.66,  92.71, 180, "input"))   # left-side; R1 pin2
     E.append(hlabel("AC_RTN", 71.12,  87.63, 180, "input"))   # left-side; U2 pin1
     E.append(hlabel("ZC_OUT", 131.04, 90.17, 0,   "output"))  # right-side
 
@@ -386,12 +388,12 @@ def gen_xor_interlock():
     P("+3V3", 63.5, 100.33, 1)   # U3 VCC
     P("GND",  63.5,  80.01, 2)   # U3 GND
 
-    # C10 (100nF decoupling for U3) at (76.20, 91.44) angle=180
-    # pin1@(76.20,87.63)→+3V3, pin2@(76.20,95.25)→GND
-    E.append(placed_sym(SINST, "Device:C", 76.20, 91.44, 180,
+    # C10 (100nF decoupling for U3) at (91.44, 90.17) angle=180
+    # Moved right of U3 output wire; pin1@(91.44,86.36)→+3V3, pin2@(91.44,93.98)→GND
+    E.append(placed_sym(SINST, "Device:C", 91.44, 90.17, 180,
              "C10", "100nF", "Capacitor_SMD:C_0603_1608Metric", ["1","2"]))
-    P("+3V3", 76.20, 87.63, 3)
-    P("GND",  76.20, 95.25, 4)
+    P("+3V3", 91.44, 86.36, 3)
+    P("GND",  91.44, 93.98, 4)
 
     # U4 unit 1 (74LVC2G08 AND gate A) at (127.00, 90.17) — shifted right vs U3
     # Pins unit1: 1@(111.76,92.71), 2@(111.76,87.63), 7(Y)@(139.70,90.17)
@@ -411,12 +413,12 @@ def gen_xor_interlock():
     P("+3V3", 152.40, 119.38, 5)  # U4 VCC
     P("GND",  152.40,  99.06, 6)  # U4 GND
 
-    # C11 (100nF decoupling for U4) at (167.64, 109.22) angle=180
-    # pin1@(167.64,105.41)→+3V3, pin2@(167.64,113.03)→GND
-    E.append(placed_sym(SINST, "Device:C", 167.64, 109.22, 180,
+    # C11 (100nF decoupling for U4) at (177.80, 109.22) angle=180
+    # Moved further right of U4 power unit; pin1@(177.80,105.41)→+3V3, pin2@(177.80,113.03)→GND
+    E.append(placed_sym(SINST, "Device:C", 177.80, 109.22, 180,
              "C11", "100nF", "Capacitor_SMD:C_0603_1608Metric", ["1","2"]))
-    P("+3V3", 167.64, 105.41, 7)
-    P("GND",  167.64, 113.03, 8)
+    P("+3V3", 177.80, 105.41, 7)
+    P("GND",  177.80, 113.03, 8)
 
     # Hierarchical labels — inputs to U3 (left-side: angle=180, x = circuit pin)
     E.append(hlabel("CTRL_A",  48.26, 92.71, 180, "input"))   # U3 pin1
@@ -458,6 +460,7 @@ def gen_opto_triac():
 
     def moc_sheet(ref, cy, phase, gate, pwr_n, no_cnt_offset):
         cx = 80.01
+        COMP_GAP = 7.62   # spacing gap between component pin and adjacent resistor pin
         # Component
         E.append(placed_sym(SINST, "Relay_SolidState:MOC3021M", cx, cy, 0,
                  ref, "MOC3021M", "Package_DIP:DIP-6_W7.62mm",
@@ -466,22 +469,22 @@ def gen_opto_triac():
         P("GND", cx-7.62, cy-2.54, pwr_n)
         # AC_RTN at pin6 (MT1, lower-right); right-side: angle=0, x = circuit pin
         E.append(hlabel("AC_RTN", cx+7.62, cy+2.54, 0, "bidirectional"))
-        # LED series resistor R3/R4 horizontal at left of pin1
-        r_cx = cx - 7.62 - 3.81  # centre so pin1(right) touches U5 pin1
-        # With angle=90: pin1@(r_cx+3.81, cy+2.54)=cx-7.62,cy+2.54 ✓
+        # LED series resistor R3/R4 horizontal, spaced COMP_GAP left of MOC pin1
+        # Centre at (cx-7.62-COMP_GAP-3.81): pin1@(cx-7.62-COMP_GAP), pin2→PHASE label
         rval = "330Ω"
         rfp  = "Resistor_SMD:R_0603_1608Metric"
-        rref_n = pwr_n  # reuse counter for label name
-        E.append(placed_sym(SINST, "Device:R", cx-7.62-3.81, cy+2.54, 90,
+        E.append(placed_sym(SINST, "Device:R", cx-7.62-COMP_GAP-3.81, cy+2.54, 90,
                  f"R{pwr_n}", rval, rfp, ["1","2"]))
-        E.append(hlabel(phase, cx-7.62-3.81-3.81, cy+2.54, 180, "input"))  # R pin2
-        # Gate resistor R5/R6 horizontal at right of pin4
-        # With angle=90: pin2(left)@(gx-3.81, cy-2.54) → wire from pin4
-        gx = cx + 7.62 + 3.81
+        # Wire from R pin1 to MOC pin1(LED+)
+        E.append(wire(cx-7.62-COMP_GAP, cy+2.54, cx-7.62, cy+2.54))
+        E.append(hlabel(phase, cx-7.62-COMP_GAP-3.81-3.81, cy+2.54, 180, "input"))  # R pin2
+        # Gate resistor R5/R6 horizontal, spaced COMP_GAP right of MOC pin4
+        # Centre at gx=cx+7.62+COMP_GAP+3.81: pin2(left)@(gx-3.81) bridges via wire to MOC pin4
+        gx = cx + 7.62 + COMP_GAP + 3.81
         g_pwr_n = pwr_n + 2
         E.append(placed_sym(SINST, "Device:R", gx, cy-2.54, 90,
                  f"R{g_pwr_n}", "360Ω", rfp, ["1","2"]))
-        # Wire from pin4 (cx+7.62, cy-2.54) to R gate pin2 (gx-3.81, cy-2.54)
+        # Wire from MOC pin4 (cx+7.62) to R gate pin2 (gx-3.81)
         E.append(wire(cx+7.62, cy-2.54, gx-3.81, cy-2.54))
         E.append(hlabel(gate, gx+3.81, cy-2.54, 0, "output"))  # R gate pin1
         # No-connects on hidden NC pins
@@ -534,25 +537,24 @@ def gen_triacs_snubbers():
         E.append(hlabel(gate,    cx-2.54, cy-2.54, 180, "input"))
 
         # Snubber: R_sn series + C_sn in series from winding to AC_RTN
-        # R_sn vertical at (99.06, cy-0.635): pin2(top,y-3.81) = winding, pin1(btm)=SN
-        sn_cx = 99.06
-        r_cy  = cy - 0.635   # centre: pin2 at cy-0.635-3.81=cy-4.445? not on grid
-        # Use: R centre at (99.06, cy+1.27), pin2=cy+1.27-3.81=cy-2.54=winding level
+        # R_sn vertical: pin2(top)=winding level, pin1(btm)=SN_x node
+        sn_cx = 109.22   # moved right for clearance from TRIAC
+        # R centre: pin2 at cy-2.54 (winding), pin1 at cy+5.08
         r_cy = cy - 2.54 + 3.81  # = cy+1.27
         E.append(placed_sym(SINST, "Device:R", sn_cx, r_cy, 0,
                  ref_r_sn, "39Ω", "Resistor_SMD:R_0603_1608Metric", ["1","2"]))
-        # R pin2 at (99.06, r_cy-3.81=cy-2.54): label winding net
+        # R pin2 at (sn_cx, r_cy-3.81=cy-2.54): label winding net
         E.append(hlabel(winding, sn_cx, r_cy-3.81, 0, "bidirectional"))
-        # R pin1 at (99.06, r_cy+3.81=cy+5.08): label SN_x
+        # R pin1 at (sn_cx, r_cy+3.81=cy+5.08): junction + SN_x label
         sn_label = f"SN_{winding[-1]}"  # SN_A or SN_B
         E.append(net_label(sn_label, sn_cx, r_cy+3.81))
-        # C_sn vertical: pin2(top)=r_cy+3.81, pin1(btm)=AC_RTN
-        c_cy = r_cy + 3.81 + 3.81  # centre: pin2=r_cy+3.81=cy+5.08
+        # C_sn vertical: gap of 7.62mm between R pin1 and C pin2 — bridged by wire
+        c_cy = r_cy + 3.81 + 7.62 + 3.81  # centre: pin2 at r_cy+3.81+7.62
+        E.append(wire(sn_cx, r_cy+3.81, sn_cx, c_cy-3.81))   # R pin1 → C pin2
         E.append(placed_sym(SINST, "Device:C", sn_cx, c_cy, 0,
                  ref_c_sn, "10nF", "Capacitor_SMD:C_0603_1608Metric", ["1","2"]))
-        E.append(net_label(sn_label, sn_cx, c_cy-3.81))       # C pin2 = SN_x
         E.append(hlabel("AC_RTN", sn_cx, c_cy+3.81, 0, "bidirectional"))  # C pin1
-        E.append(junction(sn_cx, r_cy+3.81))                   # R pin1 = C pin2
+        E.append(junction(sn_cx, r_cy+3.81))                   # R pin1 / wire / SN label
 
     triac_set("Q1", "R7", "C7",  90.17, "WINDING_A", "TRIAC_A_GATE")
     triac_set("Q2", "R8", "C8", 177.80, "WINDING_B", "TRIAC_B_GATE")
@@ -724,7 +726,7 @@ def gen_mcu():
 
     # C4, C5, C6 (100nF decoupling) placed to the right of J2 (at 200.02)
     # angle=180: pin1(top=+3V3), pin2(bottom=GND)
-    for i, dx in enumerate([215.90, 223.52, 231.14]):
+    for i, dx in enumerate([215.90, 226.06, 236.22]):
         cy_c = 107.95
         E.append(placed_sym(SINST, "Device:C", dx, cy_c, 180,
                  f"C{4+i}", "100nF",

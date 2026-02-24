@@ -312,7 +312,7 @@ lib_section = f"\t(lib_symbols\n{lib_section_body}\n\t)"
 #   L1  (190.50, 68.58)   4.7µH inductor  (angle=0)
 #   C2  (215.90, 68.58)   22µF output cap  (angle=180)
 #   R12 (157.48, 43.18)   150kΩ FB top  (angle=0)
-#   R13 (157.48, 50.80)   47kΩ  FB bottom  (angle=0)
+#   R13 (157.48, 58.42)   47kΩ  FB bottom  (angle=0)
 #
 # Passive pin offsets (angle=0): Pin2 at y-3.81 (top), Pin1 at y+3.81 (bottom)
 # With angle=180 rotation:       Pin1 at y-3.81 (top), Pin2 at y+3.81 (bottom)
@@ -359,7 +359,7 @@ elements.append(placed_sym(
     "Resistor_SMD:R_0603_1608Metric", ["1","2"]
 ))
 elements.append(placed_sym(
-    "Device:R", 157.48, 50.80, 0, "R13", "47kΩ",
+    "Device:R", 157.48, 58.42, 0, "R13", "47kΩ",
     "Resistor_SMD:R_0603_1608Metric", ["1","2"]
 ))
 
@@ -394,8 +394,8 @@ P("+3V3", 215.90, 64.77)
 P("GND",  215.90, 72.39)
 # R12 pin2(top)@(157.48,39.37) → +3V3
 P("+3V3", 157.48, 39.37)
-# R13 pin1(btm)@(157.48,54.61) → GND
-P("GND",  157.48, 54.61)
+# R13 pin1(btm)@(157.48,62.23) → GND
+P("GND",  157.48, 62.23)
 # PWR_FLAG on +15V and +3V3 rails
 P("PWR_FLAG", 63.50, 66.04)
 P("PWR_FLAG", 218.44, 64.77)
@@ -413,7 +413,8 @@ elements.append(net_label("VSW", 177.80, 71.12))
 elements.append(net_label("VSW", 149.86, 54.61))
 elements.append(net_label("VSW", 190.50, 72.39))
 # VFB: U1 FB pin3@(157.48,66.04) ↔ R12/R13 node@(157.48,46.99)
-# R12 pin1(btm)=43.18+3.81=46.99, R13 pin2(top)=50.80-3.81=46.99 → shared
+# R12 pin1(btm)=43.18+3.81=46.99, R13 pin2(top)=58.42-3.81=54.61 → bridged by wire
+elements.append(wire(157.48, 46.99, 157.48, 54.61))   # R12 pin1 → R13 pin2
 elements.append(net_label("VFB", 157.48, 66.04))
 elements.append(net_label("VFB", 157.48, 46.99))
 

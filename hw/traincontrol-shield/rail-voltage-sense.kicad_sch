@@ -322,7 +322,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "02b1b0dd-5c61-4dda-b761-6f39d584134e")
+		(uuid "b1b42c77-9ce5-4c54-9cc4-00165965b511")
 		(property "Reference" "R9"
 			(at 80.01 72.2 0)
 			(effects (font (size 1.27 1.27)))
@@ -339,8 +339,8 @@
 			(at 80.01 76.2 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "6012a4fd-fc8a-4d35-85f7-6f93e03e1b14"))
-		(pin "2" (uuid "058956e3-005e-4b98-89f6-424142dea281"))
+		(pin "1" (uuid "f6fa9b50-700b-46d8-b4ec-9151f6636246"))
+		(pin "2" (uuid "8f00b911-fa10-41ba-92de-ca66fe8b2e66"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
@@ -358,7 +358,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f14ac170-95dc-4abd-8599-966405968a7a")
+		(uuid "b9fdea1a-fdcd-4542-ba7d-bf0666053ee4")
 		(property "Reference" "R10"
 			(at 80.01 87.44 0)
 			(effects (font (size 1.27 1.27)))
@@ -375,8 +375,8 @@
 			(at 80.01 91.44 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "583c3c99-4647-4d58-9b86-3bdea75e77a9"))
-		(pin "2" (uuid "4b8bfa12-aab6-473d-95cb-78020347f24b"))
+		(pin "1" (uuid "f4f21db2-9cb2-4caf-96af-1753b2f7ef73"))
+		(pin "2" (uuid "9c398e7c-0449-4de3-8e6f-dbbcdb5eb014"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
@@ -389,7 +389,7 @@
 	(wire
 		(pts (xy 80.01 72.39) (xy 80.01 64.77))
 		(stroke (width 0) (type solid))
-		(uuid "3afcff21-121a-4982-80a9-958a7c95d64c")
+		(uuid "ee324831-d43c-4dcf-8c70-b06ee98a035b")
 	)
 	(symbol
 		(lib_id "power:+15V")
@@ -399,7 +399,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "1e9323d6-7935-4f83-8adb-6067682cb57f")
+		(uuid "f923eab9-1c5d-4e11-8b7c-9b5f0463e606")
 		(property "Reference" "#PWR0701"
 			(at 80.01 62.769999999999996 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -416,7 +416,7 @@
 			(at 80.01 64.77 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "c0f2cc21-f9f6-4dd2-9647-6f9f838be579"))
+		(pin "1" (uuid "a588dd57-b937-4748-b676-346a7415bb7b"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
@@ -429,7 +429,7 @@
 	(wire
 		(pts (xy 80.01 95.25) (xy 80.01 102.87))
 		(stroke (width 0) (type solid))
-		(uuid "0a16bc98-6a38-492d-8e37-6465fd6b0d3a")
+		(uuid "7b5b4ab4-84ad-444b-976e-4cd856b0a142")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -439,7 +439,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "69cc3248-c811-4cf1-bb52-954395c87a7a")
+		(uuid "d58bc1ef-40a9-4c41-b4ea-a34855235fae")
 		(property "Reference" "#PWR0702"
 			(at 80.01 100.87 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -456,7 +456,7 @@
 			(at 80.01 102.87 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "12342fb7-f903-4f12-9358-d03711c73c21"))
+		(pin "1" (uuid "e544ad3c-3ee7-47c2-8f1b-1ad32db24b8d"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/a8cf3e0f-6d5f-4a60-9682-8cd8e6228106"
@@ -469,30 +469,30 @@
 	(wire
 		(pts (xy 80.01 80.01) (xy 80.01 87.63))
 		(stroke (width 0) (type solid))
-		(uuid "aca87de4-8767-4b87-bcee-34389d31900d")
+		(uuid "56eb4c25-4730-4855-a2f2-526e3e4c441f")
 	)
 	(junction
 		(at 80.01 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "e228b05f-5e8b-438d-af67-520757615a98")
+		(uuid "2bf9dc04-a19f-4d7f-ac80-e8c58e36d29d")
 	)
 	(wire
 		(pts (xy 80.01 83.82) (xy 109.22 83.82))
 		(stroke (width 0) (type solid))
-		(uuid "0ea91a28-0b06-4e98-89ba-0fe0ab5bae5c")
+		(uuid "3fd9474a-6aee-4537-8989-ab632b777eb8")
 	)
 	(wire
 		(pts (xy 109.22 83.82) (xy 116.84 83.82))
 		(stroke (width 0) (type solid))
-		(uuid "4afe9556-173a-4058-a80d-8f18e424b531")
+		(uuid "479fd04b-0fcb-4e27-87c9-df54c57d59f1")
 	)
 	(hierarchical_label "VSENSE"
 		(shape output)
 		(at 116.84 83.82 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "6c11b118-e2bb-4210-b515-a65dea6ca7b8")
+		(uuid "791cb7b9-2a3d-4c79-a3f3-330400cbf9c0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 116.84 83.82 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
