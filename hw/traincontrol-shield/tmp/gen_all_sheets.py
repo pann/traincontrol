@@ -229,20 +229,21 @@ def glabel(name, x, y, angle, shape="input"):
 def hlabel(name, x, y, angle, shape="input"):
     """Hierarchical label — creates a port on the parent sheet's sub-sheet symbol.
 
-    x is the circuit connection point (where the wire from the component ends).
-    angle=0  → label body extends RIGHT from x (for right-side / output labels).
-    angle=180 → label body extends LEFT  from x (for left-side / input labels).
-    Stub wire from lx to x (outward from IC): angle=180 → stub goes LEFT; angle=0 → RIGHT.
+    x   = IC/component pin tip (inner wire end).
+    lx  = label connection point (outer stub end), offset by ±STUB from x.
+    angle=180 → lx is LEFT  of x (left-side inputs);  label body extends further left.
+    angle=0   → lx is RIGHT of x (right-side outputs); label body extends further right.
+    Wire runs from x (pin) to lx (label), label sits at lx.
     """
     just = "right" if angle == 180 else "left"
     dx = -STUB if angle == 180 else STUB
     lx = x + dx
     label = (f'\t(hierarchical_label "{name}"\n\t\t(shape {shape})\n'
-             f'\t\t(at {x} {y} {angle})\n\t\t(fields_autoplaced yes)\n'
+             f'\t\t(at {lx} {y} {angle})\n\t\t(fields_autoplaced yes)\n'
              f'\t\t(effects (font (size 1.27 1.27)) (justify {just} bottom))\n'
              f'\t\t(uuid "{u()}")\n'
              f'\t\t(property "Intersheetrefs" "${{INTERSHEET_REFS}}"\n'
-             f'\t\t\t(at {x} {y} 0)\n'
+             f'\t\t\t(at {lx} {y} 0)\n'
              f'\t\t\t(effects (font (size 1.27 1.27)) (hide yes))\n'
              f'\t\t)\n\t)')
     return wire(min(x, lx), y, max(x, lx), y) + '\n' + label
