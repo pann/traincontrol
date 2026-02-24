@@ -165,20 +165,18 @@ def placed_sym(lib_id, x, y, angle, ref, value, footprint, pin_nums, unit=1,
 def power_sym(net_name, x, y, pwr_ref, angle=0):
     """Place a power symbol with a wire stub from (x,y) to symbol pin.
 
-    angle=0   (default): VCC stub goes UP (y-STUB), GND stub goes DOWN (y+STUB).
-    angle=180 (flipped):  VCC stub goes DOWN (y+STUB), GND stub goes UP (y-STUB).
-                         Use when IC power unit has VCC at bottom and GND at top.
+    (x,y) is the IC/component pin tip. VCC stub goes UP (y-STUB);
+    GND stub goes DOWN (y+STUB). Always pass the correct pin position
+    (VCC at top = smaller y, GND at bottom = larger y).
     """
     path = f"/{ROOT_UUID}/{INST_UUID}"
     lib_id = f"power:{net_name}"
     if net_name == "PWR_FLAG":
         sx, sy = x, y
     elif "GND" in net_name:
-        sy = y - STUB if angle == 180 else y + STUB
-        sx = x
+        sx, sy = x, y + STUB
     else:
-        sy = y + STUB if angle == 180 else y - STUB
-        sx = x
+        sx, sy = x, y - STUB
     sym = (f'\t(symbol\n'
            f'\t\t(lib_id "{lib_id}")\n'
            f'\t\t(at {sx} {sy} {angle})\n'

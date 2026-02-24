@@ -177,21 +177,17 @@ def placed_sym(inst_uuid, lib_id, x, y, angle, ref, value, footprint, pin_nums,
 def power_sym(inst_uuid, net, x, y, ref, angle=0):
     """Place a power symbol with a wire stub from (x,y) to symbol pin.
 
-    angle=0   (default): VCC stub goes UP (y-STUB), GND stub goes DOWN (y+STUB).
-                         Use for pins at the top (VCC) or bottom (GND) of an IC.
-    angle=180 (flipped):  VCC stub goes DOWN (y+STUB), GND stub goes UP (y-STUB).
-                         Use when the IC power unit has VCC at the bottom and GND
-                         at the top (common for SOT-23/VSSOP power units).
+    (x,y) is the IC/component pin tip. VCC stub goes UP (y-STUB);
+    GND stub goes DOWN (y+STUB). Always pass the correct pin position
+    (VCC at top = smaller y, GND at bottom = larger y).
     """
     path = f"/{ROOT_UUID}/{inst_uuid}"
     if net == "PWR_FLAG":
         sx, sy = x, y
     elif "GND" in net:
-        sy = y - STUB if angle == 180 else y + STUB
-        sx = x
+        sx, sy = x, y + STUB
     else:
-        sy = y + STUB if angle == 180 else y - STUB
-        sx = x
+        sx, sy = x, y - STUB
     sym = (f'\t(symbol\n\t\t(lib_id "power:{net}")\n\t\t(at {sx} {sy} {angle})\n'
            f'\t\t(unit 1)\n\t\t(exclude_from_sim no)\n\t\t(in_bom no)\n'
            f'\t\t(on_board yes)\n\t\t(dnp no)\n\t\t(uuid "{u()}")\n'
@@ -392,11 +388,11 @@ def gen_xor_interlock():
 
     # U3 (74LVC1G86 XOR) at (63.5, 90.17) — anchor
     # Pins: 1@(48.26,92.71), 2@(48.26,87.63), 4(Y)@(76.20,90.17)
-    #       5(VCC)@(63.5,100.33), 3(GND)@(63.5,80.01)
+    #       5(VCC)@(63.5,80.01) [top], 3(GND)@(63.5,100.33) [bottom]
     E.append(placed_sym(SINST, "74xGxx:74LVC1G86", 63.5, 90.17, 0,
              "U3", "74LVC1G86", "Package_TO_SOT_SMD:SOT-23-5", ["1","2","3","4","5"]))
-    P("+3V3", 63.5, 100.33, 1, 180)   # U3 VCC — pin at BOTTOM of SOT-23 body → stub DOWN
-    P("GND",  63.5,  80.01, 2, 180)   # U3 GND — pin at TOP  of SOT-23 body → stub UP
+    P("+3V3", 63.5,  80.01, 1)   # U3 VCC — pin 5 at TOP    (stub UP)
+    P("GND",  63.5, 100.33, 2)   # U3 GND — pin 3 at BOTTOM (stub DOWN)
 
     # C10 (100nF decoupling for U3) at (91.44, 90.17) angle=180
     # Moved right of U3 output wire; pin1@(91.44,86.36)→+3V3, pin2@(91.44,93.98)→GND
@@ -416,12 +412,12 @@ def gen_xor_interlock():
              "U4", "74LVC2G08", "Package_SO:VSSOP-8_2.3x2mm_P0.5mm", ["5","6","3"],
              unit=2))
     # U4 unit 3 (power) at (152.40, 109.22)
-    # Pins: 8(VCC)@(152.40,119.38), 4(GND)@(152.40,99.06)
+    # Pins: 8(VCC)@(152.40,99.06) [top], 4(GND)@(152.40,119.38) [bottom]
     E.append(placed_sym(SINST, "74xGxx:74LVC2G08", 152.40, 109.22, 0,
              "U4", "74LVC2G08", "Package_SO:VSSOP-8_2.3x2mm_P0.5mm", ["4","8"],
              unit=3))
-    P("+3V3", 152.40, 119.38, 5, 180)  # U4 VCC — pin at BOTTOM of VSSOP body → stub DOWN
-    P("GND",  152.40,  99.06, 6, 180)  # U4 GND — pin at TOP  of VSSOP body → stub UP
+    P("+3V3", 152.40,  99.06, 5)  # U4 VCC — pin 8 at TOP    (stub UP)
+    P("GND",  152.40, 119.38, 6)  # U4 GND — pin 4 at BOTTOM (stub DOWN)
 
     # C11 (100nF decoupling for U4) at (177.80, 109.22) angle=180
     # Moved further right of U4 power unit; pin1@(177.80,105.41)→+3V3, pin2@(177.80,113.03)→GND
