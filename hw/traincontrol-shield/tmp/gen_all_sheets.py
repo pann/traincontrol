@@ -206,11 +206,20 @@ def wire(x1,y1,x2,y2):
             f'\t\t(stroke (width 0) (type solid))\n\t\t(uuid "{u()}")\n\t)')
 
 def net_label(name, x, y, angle=0):
+    """Net label with wire stub — mirrors hlabel convention.
+
+    x = component pin tip (inner wire end).
+    Label sits at lx (outer stub end):
+      angle=180 → lx = x - STUB (left-side); angle=0 → lx = x + STUB (right-side).
+    """
     just = "right" if angle == 180 else "left"
-    return (f'\t(label "{name}"\n\t\t(at {x} {y} {angle})\n'
-            f'\t\t(fields_autoplaced yes)\n'
-            f'\t\t(effects (font (size 1.27 1.27)) (justify {just} bottom))\n'
-            f'\t\t(uuid "{u()}")\n\t)')
+    dx = -STUB if angle == 180 else STUB
+    lx = x + dx
+    label = (f'\t(label "{name}"\n\t\t(at {lx} {y} {angle})\n'
+             f'\t\t(fields_autoplaced yes)\n'
+             f'\t\t(effects (font (size 1.27 1.27)) (justify {just} bottom))\n'
+             f'\t\t(uuid "{u()}")\n\t)')
+    return wire(min(x, lx), y, max(x, lx), y) + '\n' + label
 
 def glabel(name, x, y, angle, shape="input"):
     just = "right" if angle == 180 else "left"
@@ -413,9 +422,9 @@ def gen_xor_interlock():
     E.append(hlabel("CTRL_A",  48.26, 92.71, 180, "input"))   # U3 pin1
     E.append(hlabel("CTRL_B",  48.26, 87.63, 180, "input"))   # U3 pin2
     # Local labels — XOR_OUT (sheet-local) connects U3 Y → U4 AND inputs
-    E.append(net_label("XOR_OUT", 76.20,  90.17))             # U3 pin4 (Y)
-    E.append(net_label("XOR_OUT", 111.76, 92.71))             # U4 unit1 pin1
-    E.append(net_label("XOR_OUT", 111.76, 111.76))            # U4 unit2 pin5
+    E.append(net_label("XOR_OUT", 76.20,  90.17))             # U3 pin4 (Y)    — right-side output
+    E.append(net_label("XOR_OUT", 111.76, 92.71,  180))      # U4 unit1 pin1  — left-side input
+    E.append(net_label("XOR_OUT", 111.76, 111.76, 180))      # U4 unit2 pin5  — left-side input
     # CTRL_A/B also fed to U4 AND gates (left-side: angle=180, x = circuit pin)
     E.append(hlabel("CTRL_A", 111.76, 87.63,  180, "input"))  # U4 unit1 pin2
     E.append(hlabel("CTRL_B", 111.76, 106.68, 180, "input"))  # U4 unit2 pin6

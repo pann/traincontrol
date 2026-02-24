@@ -214,12 +214,21 @@ def wire(x1, y1, x2, y2):
             f'\t\t(uuid "{u()}")\n\t)')
 
 def net_label(name, x, y, angle=0):
+    """Net label with wire stub — mirrors hlabel convention.
+
+    x = component pin tip (inner wire end).
+    Label sits at lx (outer stub end):
+      angle=180 → lx = x - STUB (left-side); angle=0 → lx = x + STUB (right-side).
+    """
     just = "right" if angle == 180 else "left"
-    return (f'\t(label "{name}"\n'
-            f'\t\t(at {x} {y} {angle})\n'
-            f'\t\t(fields_autoplaced yes)\n'
-            f'\t\t(effects (font (size 1.27 1.27)) (justify {just} bottom))\n'
-            f'\t\t(uuid "{u()}")\n\t)')
+    dx = -STUB if angle == 180 else STUB
+    lx = x + dx
+    label = (f'\t(label "{name}"\n'
+             f'\t\t(at {lx} {y} {angle})\n'
+             f'\t\t(fields_autoplaced yes)\n'
+             f'\t\t(effects (font (size 1.27 1.27)) (justify {just} bottom))\n'
+             f'\t\t(uuid "{u()}")\n\t)')
+    return wire(min(x, lx), y, max(x, lx), y) + '\n' + label
 
 def global_label(name, x, y, angle, shape="input"):
     just = "right" if angle == 180 else "left"
