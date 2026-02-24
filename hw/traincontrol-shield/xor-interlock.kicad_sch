@@ -760,7 +760,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3d054eb7-2545-4eab-b40e-2814d935cc50")
+		(uuid "770a2c8d-47e5-48ad-a614-1dd781151e8c")
 		(property "Reference" "U3"
 			(at 63.5 86.17 0)
 			(effects (font (size 1.27 1.27)))
@@ -777,11 +777,11 @@
 			(at 63.5 90.17 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "113f242d-8e48-4255-8764-4911c4a97566"))
-		(pin "2" (uuid "c86cefd5-1837-4c37-b91b-4642b184b0a0"))
-		(pin "3" (uuid "de045d02-a051-4b41-b304-3688a4a49adc"))
-		(pin "4" (uuid "2b4f1040-d787-4bb9-af64-a6c2989dbb0b"))
-		(pin "5" (uuid "c9a6ba30-31f5-4c7c-82c8-ac04d66502a3"))
+		(pin "1" (uuid "739fa335-c402-4b0d-b532-a808608cd72f"))
+		(pin "2" (uuid "7c35f414-a6a0-4ab9-bdae-69423b6c471d"))
+		(pin "3" (uuid "ed06ecd4-5d65-46cc-95a0-47277ed3a237"))
+		(pin "4" (uuid "c65f5597-3e52-461b-97bd-79a93b457f1f"))
+		(pin "5" (uuid "52f115fd-69f9-4e20-bc56-38f5d66ce093"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -794,7 +794,7 @@
 	(wire
 		(pts (xy 63.5 100.33) (xy 63.5 92.71))
 		(stroke (width 0) (type solid))
-		(uuid "2f3eea5a-ac7a-4326-a17e-e0e926765bac")
+		(uuid "16123c05-26b2-467c-a8cc-181c1d570197")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -804,7 +804,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "f05accad-2fa7-4d72-a3a3-ba66fb705ecd")
+		(uuid "4eeb086b-ef81-461e-a13f-e6e0e65f5254")
 		(property "Reference" "#PWR0401"
 			(at 63.5 90.71 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -821,7 +821,7 @@
 			(at 63.5 92.71 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "cba0d41e-dd7b-449b-bf62-3b2c5455233f"))
+		(pin "1" (uuid "3659b2df-12d9-42d9-b110-9ec80b58a27f"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -834,7 +834,7 @@
 	(wire
 		(pts (xy 63.5 80.01) (xy 63.5 87.63000000000001))
 		(stroke (width 0) (type solid))
-		(uuid "32a124df-c748-4562-ad34-7b909276b27d")
+		(uuid "90e926d6-86a3-480a-b53e-d77e0b670921")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -844,7 +844,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "0a8730fc-0bc5-4cf3-ba22-e26210779192")
+		(uuid "8710a8f0-57bb-4e76-89a8-ce366cd0e0f5")
 		(property "Reference" "#PWR0402"
 			(at 63.5 85.63000000000001 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -861,7 +861,7 @@
 			(at 63.5 87.63000000000001 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "243a0d0d-53a2-459e-92f9-d2c64978cf8d"))
+		(pin "1" (uuid "422befb2-d548-48de-b1b9-fa7d766fdf32"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -879,7 +879,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "11d10db9-7141-481d-b2ef-b6c760b1f22a")
+		(uuid "871dad7f-a571-44a0-a7d2-276546efc77a")
 		(property "Reference" "C10"
 			(at 76.2 87.44 0)
 			(effects (font (size 1.27 1.27)))
@@ -896,8 +896,8 @@
 			(at 76.2 91.44 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "c28f3935-e829-4746-b296-7eb7313484ae"))
-		(pin "2" (uuid "1472dc7a-8b63-45b6-81ad-949bb882745b"))
+		(pin "1" (uuid "029a4593-0d4f-4cc7-a1ee-5794bf1f5949"))
+		(pin "2" (uuid "34b41f13-8f06-4f79-9cbb-01adf3085171"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -910,7 +910,7 @@
 	(wire
 		(pts (xy 76.2 87.63) (xy 76.2 80.00999999999999))
 		(stroke (width 0) (type solid))
-		(uuid "239232dd-f9e5-4d4c-b31a-febd4e104cba")
+		(uuid "1fcb1a7d-52c5-4e59-9c53-580558279716")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -920,7 +920,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "795b43f8-d818-437a-82bb-eb75d65808ec")
+		(uuid "e90f5609-1e8e-41eb-a450-8fdf5d2d9240")
 		(property "Reference" "#PWR0403"
 			(at 76.2 78.00999999999999 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -937,7 +937,7 @@
 			(at 76.2 80.00999999999999 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "7ec3b54c-67c9-421a-832f-a17545e94a4e"))
+		(pin "1" (uuid "7c15f76e-bc02-4bf8-946b-0ac13fe83217"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -950,7 +950,7 @@
 	(wire
 		(pts (xy 76.2 95.25) (xy 76.2 102.87))
 		(stroke (width 0) (type solid))
-		(uuid "87ac7ecd-07e4-4e47-8c62-09d0daaa50c1")
+		(uuid "4d40403d-6a29-4a6a-833a-d0493cacee64")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -960,7 +960,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "df66ed09-e677-4734-8bef-aac8c75834c5")
+		(uuid "7cf102b5-836e-4a4a-8fb9-51acf7a14556")
 		(property "Reference" "#PWR0404"
 			(at 76.2 100.87 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -977,7 +977,7 @@
 			(at 76.2 102.87 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "c549b49b-498f-4ab5-b433-3d870f5c91c9"))
+		(pin "1" (uuid "dbefcaf2-a6ca-449a-a9fe-970987772354"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -995,7 +995,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a2598eaa-a3eb-4963-b398-135de20ee9ba")
+		(uuid "ce000db2-a45e-4300-bf11-46511e438c79")
 		(property "Reference" "U4"
 			(at 127.0 86.17 0)
 			(effects (font (size 1.27 1.27)))
@@ -1012,9 +1012,9 @@
 			(at 127.0 90.17 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "22cbd6a0-a584-4254-b87f-f97e79201c61"))
-		(pin "2" (uuid "b9d72c9c-e437-42b6-a60c-98607e76be7c"))
-		(pin "7" (uuid "97351dc7-ed58-420e-8d98-8b345a8f7101"))
+		(pin "1" (uuid "e3dcd831-b71a-4484-b380-5c4238dd9161"))
+		(pin "2" (uuid "d3095a61-5c91-4aea-85d9-3a339abf1526"))
+		(pin "7" (uuid "ac9aff28-deb9-4d1e-b3c7-5ce95f0c4c6f"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -1032,7 +1032,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "db6f3631-5573-4063-ad78-a2f88e679f6f")
+		(uuid "38f680fc-4d9c-4d30-82e5-e29c4211cd76")
 		(property "Reference" "U4"
 			(at 127.0 105.22 0)
 			(effects (font (size 1.27 1.27)))
@@ -1049,9 +1049,9 @@
 			(at 127.0 109.22 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "5" (uuid "6933e97b-0a67-40c2-8684-7ad10ce288d5"))
-		(pin "6" (uuid "dd37fcbc-7df8-45e2-abc4-4ae62653faf3"))
-		(pin "3" (uuid "ed78e49a-5c4b-4352-8830-460b0cf8676e"))
+		(pin "5" (uuid "20bdee16-480b-4ae8-8c75-974e13eb066a"))
+		(pin "6" (uuid "be9f9567-97d5-4597-acf2-df6b20dace51"))
+		(pin "3" (uuid "dc55c54d-5efa-45b0-865b-d868f1a81334"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -1069,7 +1069,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "bf62cda9-28bb-4154-aa91-1ccd2dfda283")
+		(uuid "a2346016-46d1-4764-a4d6-3ed4cddff3b1")
 		(property "Reference" "U4"
 			(at 152.4 105.22 0)
 			(effects (font (size 1.27 1.27)))
@@ -1086,8 +1086,8 @@
 			(at 152.4 109.22 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "4" (uuid "27306fcf-c0f8-4d5f-a06e-55ca741441e2"))
-		(pin "8" (uuid "1103f7e8-67ed-4319-a446-6e4be545803e"))
+		(pin "4" (uuid "e74af901-ed41-438e-8b55-ec4e8abda05b"))
+		(pin "8" (uuid "b4ea1b69-e243-4899-8a58-f9437ada9b63"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -1100,7 +1100,7 @@
 	(wire
 		(pts (xy 152.4 119.38) (xy 152.4 111.75999999999999))
 		(stroke (width 0) (type solid))
-		(uuid "385b44e0-5893-438f-8e3b-ceb1c9c0a4e2")
+		(uuid "555a85d3-2f4f-45cd-858d-6f4737ed3390")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -1110,7 +1110,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "75d8235f-fd44-43bc-ae8a-86e23ab730ad")
+		(uuid "7c17d512-f151-4aea-9e51-cd24a3306773")
 		(property "Reference" "#PWR0405"
 			(at 152.4 109.75999999999999 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1127,7 +1127,7 @@
 			(at 152.4 111.75999999999999 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "70f4eedb-1147-4710-af38-dde503715683"))
+		(pin "1" (uuid "9cd6e734-6d2c-4c1a-a8e1-38d39b2487b8"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -1140,7 +1140,7 @@
 	(wire
 		(pts (xy 152.4 99.06) (xy 152.4 106.68))
 		(stroke (width 0) (type solid))
-		(uuid "9f520ce8-9526-41f1-99d0-ab638fd2e1a2")
+		(uuid "ca693a97-8849-4cd8-b482-5ddd955d0400")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -1150,7 +1150,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "533cca7e-d9ba-428d-b45e-d89487e81056")
+		(uuid "a0a6450f-107e-43cc-b677-9093c7b178ff")
 		(property "Reference" "#PWR0406"
 			(at 152.4 104.68 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1167,7 +1167,7 @@
 			(at 152.4 106.68 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "9b1dabad-453b-4132-922f-b2dd0d048a67"))
+		(pin "1" (uuid "80613b8c-8ffe-433a-874b-1bd99d4b33f8"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -1185,7 +1185,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f4d9a202-c7be-45dc-a504-9813733bafcf")
+		(uuid "04664149-4ed7-4b72-9f78-1a4797759e30")
 		(property "Reference" "C11"
 			(at 167.64 105.22 0)
 			(effects (font (size 1.27 1.27)))
@@ -1202,8 +1202,8 @@
 			(at 167.64 109.22 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "6febf847-a01b-4d6e-afc8-186400ffe911"))
-		(pin "2" (uuid "20f8719f-a61b-4bd6-9bd0-4ed8ac6e933b"))
+		(pin "1" (uuid "ffd05308-0408-411b-836c-f6b7afd55e3f"))
+		(pin "2" (uuid "540c677d-f7d8-406f-af46-28a86eb0ddac"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -1216,7 +1216,7 @@
 	(wire
 		(pts (xy 167.64 105.41) (xy 167.64 97.78999999999999))
 		(stroke (width 0) (type solid))
-		(uuid "290f4877-4985-4650-9fb5-ae2804ffa857")
+		(uuid "f3e2f48c-2d2f-49c6-a14c-ddd775cc7fd9")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -1226,7 +1226,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "cfc7f3d8-a1ea-4b9d-b981-231b7a3dd76b")
+		(uuid "6254209c-1583-4c4e-baf4-7612bbe16272")
 		(property "Reference" "#PWR0407"
 			(at 167.64 95.78999999999999 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1243,7 +1243,7 @@
 			(at 167.64 97.78999999999999 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "623a4232-cfa4-4948-a768-38a27bb9dcf9"))
+		(pin "1" (uuid "d2bee3a5-27fa-4b33-88ea-f0d489fcbe67"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -1256,7 +1256,7 @@
 	(wire
 		(pts (xy 167.64 113.03) (xy 167.64 120.65))
 		(stroke (width 0) (type solid))
-		(uuid "85c46fee-e479-4d75-89ce-75f64de67b74")
+		(uuid "57f6ba9d-7bc6-4138-b427-44fef7222fa8")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -1266,7 +1266,7 @@
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "cb7a2a29-1dff-4cf7-8b73-8afc52ab6bca")
+		(uuid "1efee526-6307-4dcf-924c-479c4bd0a075")
 		(property "Reference" "#PWR0408"
 			(at 167.64 118.65 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1283,7 +1283,7 @@
 			(at 167.64 120.65 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(pin "1" (uuid "b549c062-f541-4c27-88cd-1d42ed3e7ec5"))
+		(pin "1" (uuid "8871c56e-c709-4bad-a8e2-3dfb5142621a"))
 		(instances
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/e0f8704d-1e30-470b-9f75-e6a1f31638d7"
@@ -1296,14 +1296,14 @@
 	(wire
 		(pts (xy 40.64 92.71) (xy 48.26 92.71))
 		(stroke (width 0) (type solid))
-		(uuid "b3b99693-10fe-401b-8bb3-68efb0cfab22")
+		(uuid "4f0f0ebe-51c9-495a-9372-ae7ae131bfdd")
 	)
 	(hierarchical_label "CTRL_A"
 		(shape input)
 		(at 48.26 92.71 180)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify right bottom))
-		(uuid "4660f332-0510-4d75-b979-56597bbc6d6c")
+		(uuid "d2315abd-19a5-4d64-8f41-aa15b73793d8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 48.26 92.71 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1312,14 +1312,14 @@
 	(wire
 		(pts (xy 40.64 87.63) (xy 48.26 87.63))
 		(stroke (width 0) (type solid))
-		(uuid "fc0c2c2e-f744-4671-bb5a-151034ab2904")
+		(uuid "00e0af34-5a3f-42ac-b014-f96a23cf15c0")
 	)
 	(hierarchical_label "CTRL_B"
 		(shape input)
 		(at 48.26 87.63 180)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify right bottom))
-		(uuid "992bdd02-76cd-47b5-bb5d-1fe1970b17e2")
+		(uuid "f5705e0b-2743-45dd-9b3e-80894f2df2ff")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 48.26 87.63 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1329,31 +1329,31 @@
 		(at 76.2 90.17 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "620519bc-6d0c-42fb-a714-f3d6a71f7f82")
+		(uuid "2ece3f9a-3512-4497-b985-ec68fb7bccc6")
 	)
 	(label "XOR_OUT"
-		(at 111.76 92.71 180)
+		(at 111.76 92.71 0)
 		(fields_autoplaced yes)
-		(effects (font (size 1.27 1.27)) (justify right bottom))
-		(uuid "3e897347-2923-43d1-a870-9318e7674a9f")
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "a6325627-f832-4cec-8621-5a95c374157f")
 	)
 	(label "XOR_OUT"
-		(at 111.76 111.76 180)
+		(at 111.76 111.76 0)
 		(fields_autoplaced yes)
-		(effects (font (size 1.27 1.27)) (justify right bottom))
-		(uuid "5869e564-1a9a-46d3-bd0d-036b6b520ba4")
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "00fefa53-bd4d-47ca-8ea4-69684de95403")
 	)
 	(wire
 		(pts (xy 104.14 87.63) (xy 111.76 87.63))
 		(stroke (width 0) (type solid))
-		(uuid "28e07de0-c4aa-4d01-a7e3-ce5ad3a2aa27")
+		(uuid "587ad786-ed1c-4d57-93ba-d94e1367aca3")
 	)
 	(hierarchical_label "CTRL_A"
 		(shape input)
 		(at 111.76 87.63 180)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify right bottom))
-		(uuid "399f30ee-f2ab-4907-bcde-70e240791c5d")
+		(uuid "fa2e0fa5-e716-41d0-b893-c18e2548e44d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 111.76 87.63 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1362,14 +1362,14 @@
 	(wire
 		(pts (xy 104.14 106.68) (xy 111.76 106.68))
 		(stroke (width 0) (type solid))
-		(uuid "3c0d4ba3-8cbd-4e7b-81c7-37b832cb6f7c")
+		(uuid "4de920d0-5492-46a5-a0dc-3258642f485a")
 	)
 	(hierarchical_label "CTRL_B"
 		(shape input)
 		(at 111.76 106.68 180)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify right bottom))
-		(uuid "cf4529ca-a151-4c9e-9590-fe1055808002")
+		(uuid "667f6ab3-066e-4a67-a519-0814282418c6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 111.76 106.68 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1378,14 +1378,14 @@
 	(wire
 		(pts (xy 139.7 90.17) (xy 147.32 90.17))
 		(stroke (width 0) (type solid))
-		(uuid "33508cae-07cf-4550-a7a4-668a3fdb977a")
+		(uuid "bf7d3c94-fb55-45ee-87ca-e372c26a3c16")
 	)
 	(hierarchical_label "PHASE_A"
 		(shape output)
 		(at 139.7 90.17 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "9f57f772-b179-45f6-a82c-10a395e7c04f")
+		(uuid "9edd2505-dccd-485b-8dd5-2b076529cb76")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 139.7 90.17 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
@@ -1394,14 +1394,14 @@
 	(wire
 		(pts (xy 139.7 109.22) (xy 147.32 109.22))
 		(stroke (width 0) (type solid))
-		(uuid "ea2223ea-c8f7-44c4-b4e2-4296d83cc2e7")
+		(uuid "72737960-9838-4bc9-a8ac-7c175b88c6ac")
 	)
 	(hierarchical_label "PHASE_B"
 		(shape output)
 		(at 139.7 109.22 0)
 		(fields_autoplaced yes)
 		(effects (font (size 1.27 1.27)) (justify left bottom))
-		(uuid "b88ac7a7-b40f-48a6-aa7e-425dac159da8")
+		(uuid "5cc686a5-f4f7-4183-94f5-5d610c39a3b1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 139.7 109.22 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
