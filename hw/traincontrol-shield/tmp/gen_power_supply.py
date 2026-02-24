@@ -314,7 +314,7 @@ lib_section = f"\t(lib_symbols\n{lib_section_body}\n\t)"
 #   C1  ( 96.52, 68.58)   220µF bulk cap  (angle=180 → + at top)
 #   C3  (121.92, 68.58)   100nF U1 IN bypass  (angle=180)
 #   U1  (167.64, 68.58)   MP2359DJ buck IC
-#   C9  (149.86, 58.42)   100nF BST cap  (angle=0)
+#   C9  (134.62, 58.42)   100nF BST cap  (angle=0)   moved 2×STUB left of U1 pin column
 #   L1  (190.50, 68.58)   4.7µH inductor  (angle=0)
 #   C2  (215.90, 68.58)   22µF output cap  (angle=180)
 #   R12 (157.48, 30.48)   150kΩ FB top  (angle=0)
@@ -350,7 +350,7 @@ elements.append(placed_sym(
     "traincontrol-shield:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR", ["1","2","3","4","5","6"]
 ))
 elements.append(placed_sym(
-    "Device:C", 149.86, 58.42, 0, "C9", "100nF",
+    "Device:C", 134.62, 58.42, 0, "C9", "100nF",
     "Capacitor_SMD:C_0603_1608Metric", ["1","2"]
 ))
 elements.append(placed_sym(
@@ -412,17 +412,21 @@ elements.append(wire(60.96, 66.04, 63.50, 66.04))     # +15V PWR_FLAG stub
 elements.append(wire(215.90, 64.77, 218.44, 64.77))   # +3V3 PWR_FLAG stub
 
 # ── Local net labels ──
-# VBST: U1 BST pin1@(157.48,71.12) ↔ C9 pin1(btm)@(149.86,62.23)
-elements.append(net_label("VBST", 157.48, 71.12))
-elements.append(net_label("VBST", 149.86, 62.23))
-# VSW: U1 SW pin6@(177.80,71.12) ↔ C9 pin2(top)@(149.86,54.61) ↔ L1 pin1(btm)@(190.50,72.39)
+# VBST: U1 BST pin1@(157.48,71.12) ↔ C9 pin1(btm)@(134.62,62.23)
+# U1 side: angle=180 → stub goes LEFT (away from IC body)
+elements.append(net_label("VBST", 157.48, 71.12, 180))
+# C9 side: angle=0  → stub goes RIGHT; ends at 142.24, clear of U1 pin column (157.48)
+elements.append(net_label("VBST", 134.62, 62.23))
+# VSW: U1 SW pin6@(177.80,71.12) ↔ C9 pin2(top)@(134.62,54.61) ↔ L1 pin1(btm)@(190.50,72.39)
 elements.append(net_label("VSW", 177.80, 71.12))
-elements.append(net_label("VSW", 149.86, 54.61))
+elements.append(net_label("VSW", 134.62, 54.61))
 elements.append(net_label("VSW", 190.50, 72.39))
 # VFB: U1 FB pin3@(157.48,66.04) ↔ R12/R13 node@(157.48,34.29)
+# U1 side: angle=180 → stub goes LEFT (away from IC body)
+# R12/R13 side: angle=0 → stub goes RIGHT (into open space above U1)
 # R12 pin1(btm)=30.48+3.81=34.29, R13 pin2(top)=45.72-3.81=41.91 → bridged by wire
 elements.append(wire(157.48, 34.29, 157.48, 41.91))   # R12 pin1 → R13 pin2
-elements.append(net_label("VFB", 157.48, 66.04))
+elements.append(net_label("VFB", 157.48, 66.04, 180))
 elements.append(net_label("VFB", 157.48, 34.29))
 
 # ── Hierarchical labels ──
