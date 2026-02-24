@@ -326,39 +326,41 @@ def gen_zero_crossing():
              "U2", "H11AA1", "Package_DIP:DIP-6_W7.62mm", ["1","2","3","4","5","6"]))
 
     # R1 (220kΩ) horizontal: angle=90 → pin1 at (+3.81,0), pin2 at (-3.81,0)
-    # Centre at (77.47,92.71): pin1@(81.28,92.71), pin2@(73.66,92.71)→AC_IN
+    # Centre at (73.66,92.71): pin1@(77.47,92.71), pin2@(69.85,92.71)→AC_IN
+    # Body right edge 76.20; U2 body left edge 91.44 → gap 15.24mm = 2×STUB ✓
     # Wire bridges R1 pin1 to U2 pin2(Anode B)@(88.90,92.71)
-    E.append(placed_sym(SINST, "Device:R", 77.47, 92.71, 90,
+    E.append(placed_sym(SINST, "Device:R", 73.66, 92.71, 90,
              "R1", "220kΩ", "Resistor_SMD:R_0603_1608Metric", ["1","2"]))
-    E.append(wire(81.28, 92.71, 88.90, 92.71))
+    E.append(wire(77.47, 92.71, 88.90, 92.71))
 
-    # R2 (10kΩ) vertical: angle=0, spread further right for label room
-    # Centre at (116.84,82.55): pin2(top)@(116.84,78.74)=+3V3, pin1(btm)@(116.84,86.36)→node
-    E.append(placed_sym(SINST, "Device:R", 116.84, 82.55, 0,
+    # R2 (10kΩ) vertical: angle=0
+    # Centre at (119.38,82.55): pin2(top)@(119.38,78.74)=+3V3, pin1(btm)@(119.38,86.36)→node
+    # Body left edge 118.36; U2 body right edge 101.60 → gap 16.76mm > 2×STUB ✓
+    E.append(placed_sym(SINST, "Device:R", 119.38, 82.55, 0,
              "R2", "10kΩ",  "Resistor_SMD:R_0603_1608Metric", ["1","2"]))
 
     # Power
     # GND: U2 pin4(E)@(104.14,92.71) — cy+2.54 is the emitter (lower-right)
     E.append(wire(cx+7.62, cy+2.54, cx+7.62+STUB, cy+2.54))
     P("GND",  cx+7.62+STUB, cy+2.54, 1)   # U2 pin4 (emitter) → GND
-    P("+3V3", 116.84, 78.74, 2)            # R2 pin2 (top) → +3V3
+    P("+3V3", 119.38, 78.74, 2)            # R2 pin2 (top) → +3V3
 
     # Wires
-    E.append(wire(116.84, 86.36, 116.84, 90.17))  # R2 pin1 down to junction
-    E.append(wire(116.84, 90.17, cx+7.62, cy))    # junction to U2 pin5(C)@(104.14,90.17)
-    E.append(wire(116.84, 90.17, 131.04, 90.17))  # junction to ZC_OUT label
+    E.append(wire(119.38, 86.36, 119.38, 90.17))  # R2 pin1 down to junction
+    E.append(wire(119.38, 90.17, cx+7.62, cy))    # junction to U2 pin5(C)@(104.14,90.17)
+    E.append(wire(119.38, 90.17, 131.04, 90.17))  # junction to ZC_OUT label
     # U2 pin1(Anode A)@(88.90,87.63) — cy-2.54 is upper-left → AC_RTN
     E.append(wire(cx-7.62, cy-2.54, 71.12, cy-2.54))
 
     # Hierarchical labels (inter-sheet ports)
     # Left-side inputs: angle=180 → body extends LEFT (outside); x = circuit endpoint.
     # Right-side output: angle=0  → body extends RIGHT (outside); x = circuit endpoint.
-    E.append(hlabel("AC_IN",  73.66,  92.71, 180, "input"))   # left-side; R1 pin2
+    E.append(hlabel("AC_IN",  69.85,  92.71, 180, "input"))   # left-side; R1 pin2
     E.append(hlabel("AC_RTN", 71.12,  87.63, 180, "input"))   # left-side; U2 pin1
     E.append(hlabel("ZC_OUT", 131.04, 90.17, 0,   "output"))  # right-side
 
     # Junctions
-    E.append(junction(116.84, 90.17))   # R2↔U2pin5↔ZC_OUT
+    E.append(junction(119.38, 90.17))   # R2↔U2pin5↔ZC_OUT
 
     # No-connects
     E.append(no_connect(cx-5.08, cy))       # U2 pin3 NC at (91.44,90.17)
@@ -466,7 +468,7 @@ def gen_opto_triac():
 
     def moc_sheet(ref, cy, phase, gate, pwr_n, no_cnt_offset):
         cx = 80.01
-        COMP_GAP = 7.62   # spacing gap between component pin and adjacent resistor pin
+        COMP_GAP = 15.24  # 2×STUB: IC body edge to passive body edge ≥ 2×STUB
         # Component
         E.append(placed_sym(SINST, "Relay_SolidState:MOC3021M", cx, cy, 0,
                  ref, "MOC3021M", "Package_DIP:DIP-6_W7.62mm",
