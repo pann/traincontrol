@@ -22,5 +22,6 @@
     "editor.formatOnSave": false,
     "[c]": {
         "editor.tabSize": 4
-    }
+    },
+    "idf.currentSetup": "/home/pa/.espressif/v5.5.2/esp-idf"
 }
