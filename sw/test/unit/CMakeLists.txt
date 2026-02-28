@@ -38,7 +38,43 @@ target_include_directories(test_config PRIVATE
 )
 target_link_libraries(test_config PRIVATE unity)
 
+# --- test_wifi_manager ---
+add_executable(test_wifi_manager
+    test_wifi_manager.c
+    fakes/fakes_state.c
+)
+target_include_directories(test_wifi_manager PRIVATE
+    ${FAKES_DIR}
+    ${PROD_DIR}
+)
+target_link_libraries(test_wifi_manager PRIVATE unity)
+
+# --- test_provisioning ---
+add_executable(test_provisioning
+    test_provisioning.c
+    fakes/fakes_state.c
+)
+target_include_directories(test_provisioning PRIVATE
+    ${FAKES_DIR}
+    ${PROD_DIR}
+)
+target_link_libraries(test_provisioning PRIVATE unity)
+
+# --- test_modbus_server ---
+add_executable(test_modbus_server
+    test_modbus_server.c
+    fakes/fakes_state.c
+)
+target_include_directories(test_modbus_server PRIVATE
+    ${FAKES_DIR}
+    ${PROD_DIR}
+)
+target_link_libraries(test_modbus_server PRIVATE unity)
+
 # CTest registration
 enable_testing()
-add_test(NAME motor_control COMMAND test_motor_control)
-add_test(NAME config        COMMAND test_config)
+add_test(NAME motor_control   COMMAND test_motor_control)
+add_test(NAME config          COMMAND test_config)
+add_test(NAME wifi_manager    COMMAND test_wifi_manager)
+add_test(NAME provisioning    COMMAND test_provisioning)
+add_test(NAME modbus_server   COMMAND test_modbus_server)
