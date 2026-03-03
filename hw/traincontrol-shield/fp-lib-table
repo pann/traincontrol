@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "traincontrol-shield")(type "KiCad")(uri "${KIPRJMOD}/libs/traincontrol-shield.pretty")(options "")(descr "Project-local footprints: MP2359DJ SOT-23-6, DB107 DIP-4, BT134W-600D SOT-223"))
+)

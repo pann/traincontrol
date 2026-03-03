@@ -1,0 +1,763 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "ab7d41de-f42d-490a-9017-d92213e7ec79")
+	(paper "A4")
+	(title_block
+		(title "TRIACs & Snubbers")
+		(date "2026-02-21")
+		(rev "1")
+		(company "")
+	)
+	(lib_symbols
+		(symbol "traincontrol-shield:BT134W-600D"
+		    (exclude_from_sim no)
+		  (in_bom yes)
+		    (on_board yes)
+		    (property "Reference" "Q?"
+		      (at 0 7.62 0)
+		      (effects (font (size 1.27 1.27)))
+		    )
+		    (property "Value" "BT134W-600D"
+		      (at 0 -7.62 0)
+		      (effects (font (size 1.27 1.27)))
+		    )
+		    (property "Footprint" "traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR"
+		      (at 0 -10.16 0)
+		      (effects (font (size 1.27 1.27)) (hide yes))
+		    )
+		    (property "Datasheet" "https://lcsc.com/product-detail/Others_WeEn-Semicon-BT134W-600D-115_C253549.html"
+		      (at 0 -12.70 0)
+		      (effects (font (size 1.27 1.27)) (hide yes))
+		    )
+		    (property "LCSC Part" "C253549"
+		      (at 0 -15.24 0)
+		      (effects (font (size 1.27 1.27)) (hide yes))
+		    )
+		    (symbol "BT134W-600D_0_1"
+		      (rectangle
+		        (start 0.00 5.08)
+		        (end 10.16 -5.08)
+		        (stroke (width 0) (type default))
+		        (fill (type background))
+		      )
+		      (circle
+		        (center 1.27 3.81)
+		        (radius 0.38)
+		        (stroke (width 0) (type default))
+		        (fill (type none))
+		      )
+		      (pin unspecified line
+		        (at -2.54 2.54 0)
+		        (length 2.54)
+		        (name "T1" (effects (font (size 1.27 1.27))))
+		        (number "1" (effects (font (size 1.27 1.27))))
+		      )
+		      (pin unspecified line
+		        (at -2.54 -0.00 0)
+		        (length 2.54)
+		        (name "T2" (effects (font (size 1.27 1.27))))
+		        (number "2" (effects (font (size 1.27 1.27))))
+		      )
+		      (pin unspecified line
+		        (at -2.54 -2.54 0)
+		        (length 2.54)
+		        (name "G" (effects (font (size 1.27 1.27))))
+		        (number "3" (effects (font (size 1.27 1.27))))
+		      )
+		      (pin unspecified line
+		        (at 12.70 -0.00 180)
+		        (length 2.54)
+		        (name "T2" (effects (font (size 1.27 1.27))))
+		        (number "4" (effects (font (size 1.27 1.27))))
+		      )
+		    )
+		  (embedded_fonts no)
+		)
+		(symbol "Device:R"
+				(pin_numbers
+					(hide yes)
+				)
+				(pin_names
+					(offset 0)
+				)
+				(exclude_from_sim no)
+				(in_bom yes)
+				(on_board yes)
+				(property "Reference" "R"
+					(at 2.032 0 90)
+					(effects (font (size 1.27 1.27)))
+				)
+				(property "Value" "R"
+					(at 0 0 90)
+					(effects (font (size 1.27 1.27)))
+				)
+				(property "Footprint" ""
+					(at -1.778 0 90)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Datasheet" "~"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Description" "Resistor"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "ki_keywords" "R res resistor"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "ki_fp_filters" "R_*"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(symbol "R_0_1"
+					(rectangle
+						(start -1.016 -2.54)
+						(end 1.016 2.54)
+						(stroke
+							(width 0.254)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+				)
+				(symbol "R_1_1"
+					(pin passive line
+						(at 0 3.81 270)
+						(length 1.27)
+						(name "~"
+							(effects (font (size 1.27 1.27)))
+						)
+						(number "1"
+							(effects (font (size 1.27 1.27)))
+						)
+					)
+					(pin passive line
+						(at 0 -3.81 90)
+						(length 1.27)
+						(name "~"
+							(effects (font (size 1.27 1.27)))
+						)
+						(number "2"
+							(effects (font (size 1.27 1.27)))
+						)
+					)
+				)
+				(embedded_fonts no)
+			)
+		(symbol "Device:C"
+				(pin_numbers
+					(hide yes)
+				)
+				(pin_names
+					(offset 0.254)
+				)
+				(exclude_from_sim no)
+				(in_bom yes)
+				(on_board yes)
+				(property "Reference" "C"
+					(at 0.635 2.54 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(justify left)
+					)
+				)
+				(property "Value" "C"
+					(at 0.635 -2.54 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(justify left)
+					)
+				)
+				(property "Footprint" ""
+					(at 0.9652 -3.81 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Datasheet" "~"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "Description" "Unpolarized capacitor"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "ki_keywords" "cap capacitor"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(property "ki_fp_filters" "C_*"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+						(hide yes)
+					)
+				)
+				(symbol "C_0_1"
+					(polyline
+						(pts
+							(xy -2.032 0.762) (xy 2.032 0.762)
+						)
+						(stroke
+							(width 0.508)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(polyline
+						(pts
+							(xy -2.032 -0.762) (xy 2.032 -0.762)
+						)
+						(stroke
+							(width 0.508)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+				)
+				(symbol "C_1_1"
+					(pin passive line
+						(at 0 3.81 270)
+						(length 2.794)
+						(name "~"
+							(effects (font (size 1.27 1.27)))
+						)
+						(number "1"
+							(effects (font (size 1.27 1.27)))
+						)
+					)
+					(pin passive line
+						(at 0 -3.81 90)
+						(length 2.794)
+						(name "~"
+							(effects (font (size 1.27 1.27)))
+						)
+						(number "2"
+							(effects (font (size 1.27 1.27)))
+						)
+					)
+				)
+				(embedded_fonts no)
+			)
+	)
+	(symbol
+		(lib_id "traincontrol-shield:BT134W-600D")
+		(at 80.01 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "88cf8e79-3ff8-4b5c-a9cc-b01b9282f153")
+		(property "Reference" "Q1"
+			(at 80.01 86.17 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "BT134W-600D"
+			(at 80.01 94.17 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR"
+			(at 80.01 90.17 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 80.01 90.17 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "9801b9ec-0f1d-49f1-8ee5-591444cc560b"))
+		(pin "2" (uuid "75e05544-d0b3-498f-bb85-4a53f2d5b5c6"))
+		(pin "3" (uuid "2c5ac280-b753-4893-af8e-d9b7bc6ca7ed"))
+		(pin "4" (uuid "46577aa8-a1b3-413d-ba18-82eb1eb79b25"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/d4fe8f86-314f-434b-af4a-2b112cc8638c"
+					(reference "Q1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 69.85 87.63) (xy 77.47 87.63))
+		(stroke (width 0) (type solid))
+		(uuid "3e9ada92-7ef9-497b-b23b-0b74be89a457")
+	)
+	(hierarchical_label "AC_RTN"
+		(shape bidirectional)
+		(at 69.85 87.63 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right bottom))
+		(uuid "726d8c6a-0192-49b0-b52e-361b5ce4fe04")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 87.63 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 69.85 90.17) (xy 77.47 90.17))
+		(stroke (width 0) (type solid))
+		(uuid "9da4d70c-092a-4c9d-92e2-19b75090eab4")
+	)
+	(hierarchical_label "WINDING_A"
+		(shape bidirectional)
+		(at 69.85 90.17 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right bottom))
+		(uuid "5b62c634-80e2-446d-9d25-7c5be5ef7308")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 90.17 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 92.71000000000001 90.17) (xy 100.33000000000001 90.17))
+		(stroke (width 0) (type solid))
+		(uuid "c1bec7ff-e2df-49fd-8496-f27b2080aabf")
+	)
+	(hierarchical_label "WINDING_A"
+		(shape bidirectional)
+		(at 100.33000000000001 90.17 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "1bcf5668-104b-4840-be87-2b575e143868")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 100.33000000000001 90.17 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 69.85 92.71000000000001) (xy 77.47 92.71000000000001))
+		(stroke (width 0) (type solid))
+		(uuid "ef95255f-1cc6-4773-bfb1-2f78d0d26451")
+	)
+	(hierarchical_label "TRIAC_A_GATE"
+		(shape input)
+		(at 69.85 92.71000000000001 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right bottom))
+		(uuid "0dfc3a6f-1ac2-4e4f-9c7e-6cfb1f05446d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 92.71000000000001 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 109.22 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9dad4b19-c5d2-4a7b-a0d7-d761304595c5")
+		(property "Reference" "R7"
+			(at 109.22 87.44 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "39Ω"
+			(at 109.22 95.44 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 109.22 91.44 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 109.22 91.44 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "3fe6b203-9540-4849-86c2-272fa306669d"))
+		(pin "2" (uuid "5e8674c5-f0fb-44d9-a3a4-cb0753b0e08e"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/d4fe8f86-314f-434b-af4a-2b112cc8638c"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 109.22 87.63) (xy 116.84 87.63))
+		(stroke (width 0) (type solid))
+		(uuid "35c07587-c5b6-44e9-8787-2ecb176641a7")
+	)
+	(hierarchical_label "WINDING_A"
+		(shape bidirectional)
+		(at 116.84 87.63 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "cba77c05-ddf9-41cd-be4b-377b023c27bd")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 87.63 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 109.22 95.25) (xy 116.84 95.25))
+		(stroke (width 0) (type solid))
+		(uuid "1a082a29-239c-4e9a-a572-234ad81885bd")
+	)
+	(label "SN_A"
+		(at 116.84 95.25 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "bf41409d-7281-42dd-8729-14e162021c59")
+	)
+	(wire
+		(pts (xy 109.22 95.25) (xy 109.22 102.87))
+		(stroke (width 0) (type solid))
+		(uuid "e0defc76-7027-4ee9-ad73-e5beb59058ad")
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 109.22 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ab1e189d-f21b-47f2-9f64-84d62b416336")
+		(property "Reference" "C7"
+			(at 109.22 102.68 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "10nF"
+			(at 109.22 110.68 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 109.22 106.68 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 109.22 106.68 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "4f472882-de0e-4214-a40e-3c83b5dc7a31"))
+		(pin "2" (uuid "0a80ac1f-f0a4-46fd-b5d5-f5f3ef09a641"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/d4fe8f86-314f-434b-af4a-2b112cc8638c"
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 109.22 110.49000000000001) (xy 116.84 110.49000000000001))
+		(stroke (width 0) (type solid))
+		(uuid "0a13e8f2-cca8-4961-9be1-95ee28a5657a")
+	)
+	(hierarchical_label "AC_RTN"
+		(shape bidirectional)
+		(at 116.84 110.49000000000001 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "278976a6-9162-40a5-9e0a-6c25ee7632f1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 110.49000000000001 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(junction
+		(at 109.22 95.25)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "565a5177-9164-4a24-b151-732b03898ae5")
+	)
+	(symbol
+		(lib_id "traincontrol-shield:BT134W-600D")
+		(at 80.01 177.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8884bd42-3018-42e1-8e15-f8d9cec6d74e")
+		(property "Reference" "Q2"
+			(at 80.01 173.8 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "BT134W-600D"
+			(at 80.01 181.8 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR"
+			(at 80.01 177.8 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 80.01 177.8 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "e90a5788-7c26-454b-8814-268630c2b4ba"))
+		(pin "2" (uuid "7a19388a-acb3-49dd-8e02-719dda1ad8e7"))
+		(pin "3" (uuid "7668553e-cf95-4a8a-9977-fdcc25594281"))
+		(pin "4" (uuid "9fabdf40-39eb-44b5-bb91-cca71d512feb"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/d4fe8f86-314f-434b-af4a-2b112cc8638c"
+					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 69.85 175.26000000000002) (xy 77.47 175.26000000000002))
+		(stroke (width 0) (type solid))
+		(uuid "e836821b-79d8-4372-9c6a-591c6d897e1f")
+	)
+	(hierarchical_label "AC_RTN"
+		(shape bidirectional)
+		(at 69.85 175.26000000000002 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right bottom))
+		(uuid "62649139-4ad6-4c7e-8f1d-f98aeab5ba89")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 175.26000000000002 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 69.85 177.8) (xy 77.47 177.8))
+		(stroke (width 0) (type solid))
+		(uuid "f02ec2f9-f407-4450-9b8e-5d0aaad9e7b0")
+	)
+	(hierarchical_label "WINDING_B"
+		(shape bidirectional)
+		(at 69.85 177.8 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right bottom))
+		(uuid "3d419715-bc0b-4e1b-8e7f-050615707a1e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 177.8 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 92.71000000000001 177.8) (xy 100.33000000000001 177.8))
+		(stroke (width 0) (type solid))
+		(uuid "4fb3c27a-2c25-4ee4-b22d-ffeadf8da0de")
+	)
+	(hierarchical_label "WINDING_B"
+		(shape bidirectional)
+		(at 100.33000000000001 177.8 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "b955751e-3273-4185-9d7f-f9b7267deccb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 100.33000000000001 177.8 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 69.85 180.34) (xy 77.47 180.34))
+		(stroke (width 0) (type solid))
+		(uuid "2ec35d58-4cf1-40a8-87e3-652bc2d27045")
+	)
+	(hierarchical_label "TRIAC_B_GATE"
+		(shape input)
+		(at 69.85 180.34 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right bottom))
+		(uuid "ebb284d9-7b53-4990-8b5d-e43d209e1df1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 180.34 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 109.22 179.07000000000002 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f4e083f8-cda1-4cbd-83e5-ee4dfc0ac4ef")
+		(property "Reference" "R8"
+			(at 109.22 175.07000000000002 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "39Ω"
+			(at 109.22 183.07000000000002 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 109.22 179.07000000000002 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 109.22 179.07000000000002 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "c1a394eb-50cb-4bef-88f4-c5883e0bcbef"))
+		(pin "2" (uuid "2655ee30-caee-4205-825b-2245928ab15e"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/d4fe8f86-314f-434b-af4a-2b112cc8638c"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 109.22 175.26000000000002) (xy 116.84 175.26000000000002))
+		(stroke (width 0) (type solid))
+		(uuid "0a907382-8714-4365-863d-7dc9fd59c65d")
+	)
+	(hierarchical_label "WINDING_B"
+		(shape bidirectional)
+		(at 116.84 175.26000000000002 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "734bfc84-044c-4aa9-aaa1-7b574358dd09")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 175.26000000000002 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(wire
+		(pts (xy 109.22 182.88000000000002) (xy 116.84 182.88000000000002))
+		(stroke (width 0) (type solid))
+		(uuid "83307627-9972-4ae9-84aa-c08e72d1c18e")
+	)
+	(label "SN_B"
+		(at 116.84 182.88000000000002 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "2b4f73cf-a6c2-4942-935c-49b4b800d678")
+	)
+	(wire
+		(pts (xy 109.22 182.88000000000002) (xy 109.22 190.50000000000003))
+		(stroke (width 0) (type solid))
+		(uuid "8b86370e-7c2f-4ad1-9679-a40bb56f610a")
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 109.22 194.31000000000003 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4db05f10-93e2-4a49-b023-0ae1d4ed1532")
+		(property "Reference" "C8"
+			(at 109.22 190.31000000000003 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "10nF"
+			(at 109.22 198.31000000000003 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 109.22 194.31000000000003 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 109.22 194.31000000000003 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "bb521474-33f9-4fc5-aea3-f26963277012"))
+		(pin "2" (uuid "f03b8ea4-0a3e-4b0e-a41a-8cf3310c7072"))
+		(instances
+			(project "traincontrol-shield"
+				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/d4fe8f86-314f-434b-af4a-2b112cc8638c"
+					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 109.22 198.12000000000003) (xy 116.84 198.12000000000003))
+		(stroke (width 0) (type solid))
+		(uuid "60568030-34bb-4dd0-a1e4-5f7bd135d500")
+	)
+	(hierarchical_label "AC_RTN"
+		(shape bidirectional)
+		(at 116.84 198.12000000000003 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left bottom))
+		(uuid "011cbd4c-d11f-43b9-975a-02695f19febc")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 198.12000000000003 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+	)
+	(junction
+		(at 109.22 182.88000000000002)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "31153e29-3de8-4613-bce5-87403f283998")
+	)
+	(sheet_instances
+		(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/d4fe8f86-314f-434b-af4a-2b112cc8638c"
+			(page "6")
+		)
+	)
+)
