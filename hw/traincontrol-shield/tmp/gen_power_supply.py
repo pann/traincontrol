@@ -386,14 +386,23 @@ P("GND",  96.52, 72.39)
 # C3 angle=180: pin1(+,top)@(121.92,64.77), pin2(-,btm)@(121.92,72.39)
 P("+15V", 121.92, 64.77)
 P("GND",  121.92, 72.39)
-# U1 GND pin2@(157.48,68.58): stub left to avoid BST pin
+# U1 pin positions (Y-flip: sch_y = cy - sym_y, cy=68.58):
+#   Pin 1 (BST): sym(-10.16, +2.54) → sch(157.48, 66.04)
+#   Pin 2 (GND): sym(-10.16,  0.00) → sch(157.48, 68.58)
+#   Pin 3 (FB):  sym(-10.16, -2.54) → sch(157.48, 71.12)
+#   Pin 4 (EN):  sym(+10.16, -2.54) → sch(177.80, 71.12)
+#   Pin 5 (IN):  sym(+10.16,  0.00) → sch(177.80, 68.58)
+#   Pin 6 (SW):  sym(+10.16, +2.54) → sch(177.80, 66.04)
+# U1 GND pin2@(157.48,68.58): stub left to avoid BST pin above
 elements.append(wire(157.48, 68.58, 154.94, 68.58))
 P("GND",  154.94, 68.58)
-# U1 EN pin4@(177.80,66.04): tie to VIN (+15V)
-P("+15V", 177.80, 66.04)
-# U1 IN pin5@(177.80,68.58): stub right to avoid EN pin above
-elements.append(wire(177.80, 68.58, 180.34, 68.58))
-P("+15V", 180.34, 68.58)
+# U1 EN pin4@(177.80,71.12): route right to avoid SW pin at (177.80,66.04)
+# +15V stub goes UP and would cross SW pin, so route right first
+elements.append(wire(177.80, 71.12, 180.34, 71.12))
+P("+15V", 180.34, 71.12)
+# U1 IN pin5@(177.80,68.58): route right to avoid EN/SW pins in same column
+elements.append(wire(177.80, 68.58, 182.88, 68.58))
+P("+15V", 182.88, 68.58)
 # L1 angle=0: pin2(top)@(190.50,64.77) → +3V3
 P("+3V3", 190.50, 64.77)
 # C2 angle=180: pin1(+,top)@(215.90,64.77), pin2(-,btm)@(215.90,72.39)
@@ -403,30 +412,33 @@ P("GND",  215.90, 72.39)
 P("+3V3", 157.48, 26.67)
 # R13 pin1(btm)@(157.48,49.53) → GND
 P("GND",  157.48, 49.53)
-# PWR_FLAG on +15V and +3V3 rails
+# PWR_FLAG on +15V, +3V3, and GND rails
 P("PWR_FLAG", 63.50, 66.04)
 P("PWR_FLAG", 218.44, 64.77)
+P("PWR_FLAG", 63.50, 78.74)
 
 # ── Wires ──
 elements.append(wire(60.96, 66.04, 63.50, 66.04))     # +15V PWR_FLAG stub
 elements.append(wire(215.90, 64.77, 218.44, 64.77))   # +3V3 PWR_FLAG stub
+elements.append(wire(60.96, 78.74, 63.50, 78.74))     # GND PWR_FLAG stub
+elements.append(junction(60.96, 78.74))                # junction at GND wire endpoint
 
 # ── Local net labels ──
-# VBST: U1 BST pin1@(157.48,71.12) ↔ C9 pin1(btm)@(134.62,62.23)
+# VBST: U1 BST pin1@(157.48,66.04) ↔ C9 pin1(btm)@(134.62,62.23)
 # U1 side: angle=180 → stub goes LEFT (away from IC body)
-elements.append(net_label("VBST", 157.48, 71.12, 180))
+elements.append(net_label("VBST", 157.48, 66.04, 180))
 # C9 side: angle=0  → stub goes RIGHT; ends at 142.24, clear of U1 pin column (157.48)
 elements.append(net_label("VBST", 134.62, 62.23))
-# VSW: U1 SW pin6@(177.80,71.12) ↔ C9 pin2(top)@(134.62,54.61) ↔ L1 pin1(btm)@(190.50,72.39)
-elements.append(net_label("VSW", 177.80, 71.12))
+# VSW: U1 SW pin6@(177.80,66.04) ↔ C9 pin2(top)@(134.62,54.61) ↔ L1 pin1(btm)@(190.50,72.39)
+elements.append(net_label("VSW", 177.80, 66.04))
 elements.append(net_label("VSW", 134.62, 54.61))
 elements.append(net_label("VSW", 190.50, 72.39))
-# VFB: U1 FB pin3@(157.48,66.04) ↔ R12/R13 node@(157.48,34.29)
+# VFB: U1 FB pin3@(157.48,71.12) ↔ R12/R13 node@(157.48,34.29)
 # U1 side: angle=180 → stub goes LEFT (away from IC body)
 # R12/R13 side: angle=0 → stub goes RIGHT (into open space above U1)
 # R12 pin1(btm)=30.48+3.81=34.29, R13 pin2(top)=45.72-3.81=41.91 → bridged by wire
 elements.append(wire(157.48, 34.29, 157.48, 41.91))   # R12 pin1 → R13 pin2
-elements.append(net_label("VFB", 157.48, 66.04, 180))
+elements.append(net_label("VFB", 157.48, 71.12, 180))
 elements.append(net_label("VFB", 157.48, 34.29))
 
 # ── Hierarchical labels ──

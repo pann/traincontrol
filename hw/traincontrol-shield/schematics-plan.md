@@ -557,11 +557,98 @@ P("GND", x - 2.54, y)                       # stub now at (x-2.54, y+2.54) — c
 
 ---
 
-#### 5.3 ERC cross-net check
+#### 5.3 ERC check (automated, full-project)
 
-Open each sheet in KiCad and run ERC (or inspect the netlist). The error
-**"Both \<NET_A\> and \<NET_B\> are connected to the same item"** where NET_A ≠ NET_B
-is always a real error, not a warning. It indicates two different nets accidentally share
-a wire endpoint — typically caused by a stub conflict as described in §5.2.
+Run ERC on the **top-level** schematic (includes all sub-sheets automatically):
 
-Annotation errors and "pin unconnected" warnings for NC pins are acceptable.
+```bash
+kicad-cli sch erc --output /tmp/erc.json --format json traincontrol-shield.kicad_sch
+```
+
+Then categorize violations:
+
+```bash
+python3 -c "
+import json, collections
+with open('/tmp/erc.json') as f:
+    d = json.load(f)
+c = collections.Counter()
+for s in d.get('sheets', []):
+    for v in s.get('violations', []):
+        c[v['type'] + ':' + v['severity']] += 1
+for k, n in c.most_common():
+    print(f'{n:4d}  {k}')
+"
+```
+
+**Critical errors (must be zero):**
+
+| ERC type | Meaning | Fix |
+|----------|---------|-----|
+| `multiple_net_names` | Two different nets share a wire endpoint (cross-net short) | §5.2 stub conflict — route power pins away |
+| `power_pin_not_driven` | Power net has no `PWR_FLAG` symbol | Add `PWR_FLAG` on the sub-sheet where the net originates |
+| `pin_not_connected` (for real component pins) | Connector or IC pin has no wire at its location | Check Y-flip convention (§5.4) |
+
+**Acceptable / cosmetic issues:**
+
+| ERC type | Severity | Notes |
+|----------|----------|-------|
+| `endpoint_off_grid` | warning | Off-grid from non-2.54mm component pin positions; harmless |
+| `unresolved_variable` | error | `${INTERSHEET_REFS}` in hierarchical labels; KiCad auto-fills at runtime |
+| `label_dangling` | error | Unused GPIO labels on MCU connector; expected for spare pins |
+| `pin_to_pin` | warning | Passive + unspecified type mismatch between components; benign |
+| `unconnected_wire_endpoint` | warning | Wire stubs that don't terminate at a pin; review but usually cosmetic |
+
+**Cross-net short detection** — the most dangerous class of bug:
+
+The error `multiple_net_names` (or "Both NET_A and NET_B are connected to the same item"
+where NET_A ≠ NET_B) is **always a real error**. It indicates two different nets accidentally
+share a wire endpoint — typically caused by a stub conflict as described in §5.2.
+
+---
+
+#### 5.4 Pin coordinate Y-flip convention (CRITICAL)
+
+KiCad symbol libraries use a Y-up coordinate system; schematics use Y-down.
+When computing schematic pin positions from library symbol pin coordinates,
+the Y-axis must be flipped.
+
+**Rotation formulas** (cx, cy = symbol placement center; px, py = library pin coords):
+
+| Placement angle | Schematic pin position |
+|----------------|-----------------------|
+| 0° | `(cx + px, cy − py)` |
+| 90° | `(cx + py, cy + px)` |
+| 180° | `(cx − px, cy + py)` |
+| 270° | `(cx − py, cy − px)` |
+
+**Common mistakes caught by this rule:**
+- Connector pins assigned to wrong signals (pin 1 at bottom instead of top)
+- LED polarity reversed (anode/cathode swapped)
+- TRIAC gate/main terminal swapped
+
+**Verification:** After generating any sheet with new symbols, use `--verify`
+flag on `gen_all_sheets.py` to export SVG→PNG for visual inspection:
+
+```bash
+python3 gen_all_sheets.py --verify
+```
+
+#### 5.5 PWR_FLAG placement
+
+Every global power net (+15V, +3V3, GND) must have at least one `PWR_FLAG` symbol
+connected to it. Without this, ERC reports `power_pin_not_driven` because all standard
+power symbols (`power:GND`, `power:+15V`, etc.) have `power_in` pins — nothing drives them.
+
+`PWR_FLAG` has a `power_out` pin and satisfies the ERC requirement.
+
+**Best practice:** Place `PWR_FLAG` on the sub-sheet where the net originates
+(e.g., power-supply sheet), connected via a short wire stub to the power rail.
+Do NOT place standalone power symbols + PWR_FLAG on the top-level sheet — this
+creates isolated `pin_not_connected` errors because no real components use those
+nets on the top-level.
+
+Current placement (gen_power_supply.py):
+- `PWR_FLAG` on +15V rail at (63.50, 66.04) with stub wire from (60.96, 66.04)
+- `PWR_FLAG` on +3V3 rail at (218.44, 64.77) with stub wire from (215.90, 64.77)
+- `PWR_FLAG` on GND rail at (63.50, 78.74) with stub wire from (60.96, 78.74)

@@ -605,8 +605,36 @@
   },
   "sheets": [
     [
-      "00000000-0000-0000-0000-000000000001",
+      "12cc2a67-9b1c-41e4-828f-9c2a8df6bb35",
       "Root"
+    ],
+    [
+      "a7305cff-bbaf-4846-983d-83b0ea81fbce",
+      "Power Supply"
+    ],
+    [
+      "94283aa8-ba3a-413b-ba4f-3b3274da13e8",
+      "Zero-Crossing Detector"
+    ],
+    [
+      "e0f8704d-1e30-470b-9f75-e6a1f31638d7",
+      "XOR Interlock"
+    ],
+    [
+      "1155aa41-bfef-4df9-96ba-c8e7c9de0aa7",
+      "Opto-TRIAC Drive"
+    ],
+    [
+      "d4fe8f86-314f-434b-af4a-2b112cc8638c",
+      "TRIACs & Snubbers"
+    ],
+    [
+      "a8cf3e0f-6d5f-4a60-9682-8cd8e6228106",
+      "Rail Voltage Sense"
+    ],
+    [
+      "8c6fba78-5fd4-419a-8456-de6c668aaabc",
+      "MCU (ESP32-S3-DevKitC)"
     ]
   ],
   "text_variables": {}

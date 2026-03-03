@@ -2,7 +2,8 @@
 """Generator for power-supply.kicad_sch sub-sheets 2–7 (Phase 3)
 
 Coordinate conventions (all in mm):
-  - schematic_y = component_y + library_pin_y  (no Y-flip, both Y-down)
+  - KiCad symbol libraries use Y-up; schematics use Y-down.
+  - schematic = (origin_x + sym_x, origin_y - sym_y)   [angle=0, no mirror]
   - For angle=90 rotation: (x,y) -> (y, -x) in schematic pin offset
   - For angle=180 rotation: (x,y) -> (-x, -y) in schematic pin offset
 
@@ -462,9 +463,13 @@ def gen_opto_triac():
     def P(net, x, y, n, angle=0):
         E.append(power_sym(SINST, net, x, y, f"#PWR{PWR_BASE+n:04d}", angle))
 
-    # MOC3021M pin offsets from centre (angle=0):
+    # MOC3021M pin offsets from centre (symbol Y-up coords):
     # Pin1(LED+)@(-7.62,+2.54) Pin2(LED-)@(-7.62,-2.54) Pin3NC@(-5.08,0)
     # Pin4@(+7.62,-2.54) Pin5NC@(+5.08,0) Pin6@(+7.62,+2.54)
+    #
+    # Schematic positions (Y-flip: sch_y = cy - sym_y):
+    # Pin1(LED+)@(cx-7.62, cy-2.54)[upper-L]  Pin2(LED-)@(cx-7.62, cy+2.54)[lower-L]
+    # Pin4@(cx+7.62, cy+2.54)[lower-R]        Pin6@(cx+7.62, cy-2.54)[upper-R]
 
     def moc_sheet(ref, cy, phase, gate, pwr_n, no_cnt_offset):
         cx = 80.01
@@ -473,29 +478,29 @@ def gen_opto_triac():
         E.append(placed_sym(SINST, "Relay_SolidState:MOC3021M", cx, cy, 0,
                  ref, "MOC3021M", "Package_DIP:DIP-6_W7.62mm",
                  ["1","2","3","4","5","6"]))
-        # LED- (pin2) → GND
-        P("GND", cx-7.62, cy-2.54, pwr_n)
-        # AC_RTN at pin6 (MT1, lower-right); right-side: angle=0, x = circuit pin
-        E.append(hlabel("AC_RTN", cx+7.62, cy+2.54, 0, "bidirectional"))
-        # LED series resistor R3/R4 horizontal, spaced COMP_GAP left of MOC pin1
+        # Pin2 LED- (Cathode) at (cx-7.62, cy+2.54) [lower-left] → GND
+        P("GND", cx-7.62, cy+2.54, pwr_n)
+        # Pin6 (MT, upper-right) at (cx+7.62, cy-2.54) → AC_RTN
+        E.append(hlabel("AC_RTN", cx+7.62, cy-2.54, 0, "bidirectional"))
+        # LED series resistor R3/R4 horizontal, at Pin1 LED+ (Anode) y-level (cy-2.54)
         # Centre at (cx-7.62-COMP_GAP-3.81): pin1@(cx-7.62-COMP_GAP), pin2→PHASE label
         rval = "330Ω"
         rfp  = "Resistor_SMD:R_0603_1608Metric"
-        E.append(placed_sym(SINST, "Device:R", cx-7.62-COMP_GAP-3.81, cy+2.54, 90,
+        E.append(placed_sym(SINST, "Device:R", cx-7.62-COMP_GAP-3.81, cy-2.54, 90,
                  f"R{pwr_n}", rval, rfp, ["1","2"]))
-        # Wire from R pin1 to MOC pin1(LED+)
-        E.append(wire(cx-7.62-COMP_GAP, cy+2.54, cx-7.62, cy+2.54))
-        E.append(hlabel(phase, cx-7.62-COMP_GAP-3.81-3.81, cy+2.54, 180, "input"))  # R pin2
-        # Gate resistor R5/R6 horizontal, spaced COMP_GAP right of MOC pin4
-        # Centre at gx=cx+7.62+COMP_GAP+3.81: pin2(left)@(gx-3.81) bridges via wire to MOC pin4
+        # Wire from R pin1 to MOC Pin1(LED+, Anode) at (cx-7.62, cy-2.54)
+        E.append(wire(cx-7.62-COMP_GAP, cy-2.54, cx-7.62, cy-2.54))
+        E.append(hlabel(phase, cx-7.62-COMP_GAP-3.81-3.81, cy-2.54, 180, "input"))  # R pin2
+        # Gate resistor R5/R6 horizontal, at Pin4 (MT, lower-right) y-level (cy+2.54)
+        # Centre at gx=cx+7.62+COMP_GAP+3.81: pin2(left)@(gx-3.81) bridges via wire to Pin4
         gx = cx + 7.62 + COMP_GAP + 3.81
         g_pwr_n = pwr_n + 2
-        E.append(placed_sym(SINST, "Device:R", gx, cy-2.54, 90,
+        E.append(placed_sym(SINST, "Device:R", gx, cy+2.54, 90,
                  f"R{g_pwr_n}", "360Ω", rfp, ["1","2"]))
-        # Wire from MOC pin4 (cx+7.62) to R gate pin2 (gx-3.81)
-        E.append(wire(cx+7.62, cy-2.54, gx-3.81, cy-2.54))
-        E.append(hlabel(gate, gx+3.81, cy-2.54, 0, "output"))  # R gate pin1
-        # No-connects on hidden NC pins
+        # Wire from MOC Pin4 (cx+7.62, cy+2.54) to R gate pin2 (gx-3.81)
+        E.append(wire(cx+7.62, cy+2.54, gx-3.81, cy+2.54))
+        E.append(hlabel(gate, gx+3.81, cy+2.54, 0, "output"))  # R gate pin1
+        # No-connects on hidden NC pins (sym_y=0 → sch_y=cy)
         E.append(no_connect(cx-5.08, cy))         # pin3
         E.append(no_connect(cx+5.08, cy))          # pin5
 
@@ -521,8 +526,12 @@ def gen_triacs_snubbers():
     ]
     E = []
 
-    # BT134W-600D pin offsets (angle=0):
+    # BT134W-600D pin offsets (symbol Y-up coords):
     # T1(1)@(-2.54,+2.54)  T2(2)@(-2.54,0)  G(3)@(-2.54,-2.54)  T2tab(4)@(+12.70,0)
+    #
+    # Schematic positions (Y-flip: sch_y = cy - sym_y):
+    # T1(1)@(cx-2.54, cy-2.54)[upper-L]  T2(2)@(cx-2.54, cy)[mid-L]
+    # G(3)@(cx-2.54, cy+2.54)[lower-L]   T2tab(4)@(cx+12.70, cy)[mid-R]
 
     pwr_n = [601]
     def P(net, x, y, angle=0):
@@ -536,13 +545,13 @@ def gen_triacs_snubbers():
                  ref_q, "BT134W-600D",
                  "traincontrol-shield:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR",
                  ["1","2","3","4"]))
-        # T1 (AC_RTN) at (cx-2.54, cy+2.54)
-        E.append(hlabel("AC_RTN", cx-2.54, cy+2.54, 180, "bidirectional"))
+        # T1 (AC_RTN) at (cx-2.54, cy-2.54) [upper-left]
+        E.append(hlabel("AC_RTN", cx-2.54, cy-2.54, 180, "bidirectional"))
         # T2 (winding) at (cx-2.54, cy) and T2tab (cx+12.70, cy) both = winding
         E.append(hlabel(winding, cx-2.54,   cy, 180, "bidirectional"))
         E.append(hlabel(winding, cx+12.70,  cy,   0, "bidirectional"))
-        # Gate at (cx-2.54, cy-2.54) from opto-triac
-        E.append(hlabel(gate,    cx-2.54, cy-2.54, 180, "input"))
+        # Gate at (cx-2.54, cy+2.54) [lower-left] from opto-triac
+        E.append(hlabel(gate,    cx-2.54, cy+2.54, 180, "input"))
 
         # Snubber: R_sn series + C_sn in series from winding to AC_RTN
         # R_sn vertical: pin2(top)=winding level, pin1(btm)=SN_x node
@@ -598,9 +607,10 @@ def gen_rail_voltage_sense():
     P("+15V", 80.01, 72.39, 1)   # R9 pin2 (top)
     P("GND",  80.01, 95.25, 2)   # R10 pin1 (bottom)
 
-    # Vertical wire bridging R9 pin1 to R10 pin2
-    E.append(wire(80.01, 80.01, 80.01, 87.63))
-    # VSENSE tap at midpoint of bridge wire
+    # Vertical wire bridging R9 pin1 to R10 pin2, split at VSENSE tap
+    E.append(wire(80.01, 80.01, 80.01, 83.82))   # R9 pin1 → junction
+    E.append(wire(80.01, 83.82, 80.01, 87.63))   # junction → R10 pin2
+    # VSENSE tap at junction
     E.append(junction(80.01, 83.82))
     E.append(wire(80.01, 83.82, 109.22, 83.82))
     E.append(hlabel("VSENSE", 109.22, 83.82, 0, "output"))  # right-side: angle=0
@@ -649,11 +659,14 @@ def gen_mcu():
 
     # Pin labels for J1 (ESP32-S3-DevKitC left header, typical assignment)
     # J1 left side connection x = 74.93, y from pin1 to pin22
+    # Conn_01x22 symbol: pin n at sym_y = 25.4 - (n-1)*2.54.
+    # Y-flip: sch_y = cy - sym_y = cy - 25.4 + (n-1)*2.54.
+    # Pin 1 at top (smallest y), pin 22 at bottom.
     j1x = 74.93
     j2x = 194.94
 
     def pin_y(cy, n):
-        return round(cy + 25.4 - (n-1)*2.54, 3)
+        return round(cy - 25.4 + (n-1)*2.54, 3)
 
     # Key signal assignments for J1 (left header):
     j1_pins = {
@@ -711,9 +724,12 @@ def gen_mcu():
         y = pin_y(cy, n)
         x = j1x
         if kind == "power":
-            # Route left by STUB so vertical power stubs don't hit adjacent signal pins
-            E.append(wire(x, y, x - STUB, y))
-            P(sig, x - STUB, y)
+            # Route GND and +3V3 to different x-columns so their vertical
+            # stubs don't cross each other's horizontal wires.
+            # GND stubs at 2×STUB left, +3V3 stubs at 3×STUB left.
+            px = x - 2*STUB if "GND" in sig else x - 3*STUB
+            E.append(wire(x, y, px, y))
+            P(sig, px, y)
         elif kind in ("output", "input", "bidirectional"):
             shape = kind
             E.append(hlabel(sig, x, y, 180, shape))
@@ -724,9 +740,9 @@ def gen_mcu():
         y = pin_y(cy, n)
         x = j2x
         if kind == "power":
-            # Route left by STUB so vertical power stubs don't hit adjacent signal pins
-            E.append(wire(x, y, x - STUB, y))
-            P(sig, x - STUB, y)
+            px = x - 2*STUB if "GND" in sig else x - 3*STUB
+            E.append(wire(x, y, px, y))
+            P(sig, px, y)
         elif kind in ("output", "input", "bidirectional"):
             E.append(hlabel(sig, x, y, 180, kind))
         else:
@@ -748,23 +764,101 @@ def gen_mcu():
              "D2", "Green", "LED_SMD:LED_0603_1608Metric", ["K","A"]))
     P("GND", 116.84, 162.56)   # D2 cathode
 
-    # R11 (1kΩ) horizontal, pin2@(128.27,162.56) connects to D2 anode@(124.46,162.56)
-    # angle=90: pin1@(cx+3.81,cy), pin2@(cx-3.81,cy) → centre at (131.76,162.56)
+    # R11 (1kΩ) horizontal, centre at (131.76,162.56), angle=90:
+    # sch = (cx + sym_y, cy + sym_x) for angle=90
+    # pin1 at sym(0,3.81) → sch(cx+3.81, cy) = (135.57, 162.56) → LED_CTRL
+    # pin2 at sym(0,-3.81) → sch(cx-3.81, cy) = (127.95, 162.56) → D2 anode
     E.append(placed_sym(SINST, "Device:R", 131.76, 162.56, 90,
              "R11", "1kΩ", "Resistor_SMD:R_0603_1608Metric", ["1","2"]))
     E.append(net_label("LED_CTRL", 135.57, 162.56))   # R11 pin1 → MCU GPIO
     # Wire D2 anode to R11 pin2
-    E.append(wire(124.46, 162.56, 128.27, 162.56))  # D2 A to R11 pin2 (131.76-3.81)
+    E.append(wire(124.46, 162.56, 127.95, 162.56))  # D2 A to R11 pin2 (131.76-3.81=127.95)
 
     return assemble(UUID, SINST, "MCU (ESP32-S3-DevKitC)", "8", libs, E)
 
 
+# ─────────────────────── verification ──────────────────────────────────
+
+def verify_sheets(sheets):
+    """Export generated schematics as SVG+PNG for visual pin verification.
+
+    Requires kicad-cli and ImageMagick convert on PATH.
+    """
+    import subprocess, shutil, tempfile
+
+    kicad_cli = shutil.which("kicad-cli")
+    convert   = shutil.which("convert")
+    if not kicad_cli:
+        print("WARN: kicad-cli not found — skipping visual verification")
+        return
+    if not convert:
+        print("WARN: ImageMagick convert not found — SVG only (no PNG)")
+
+    outdir = os.path.join(BASE, "tmp", "verify")
+    os.makedirs(outdir, exist_ok=True)
+
+    # Also run netlist export to check for structural errors
+    errors = []
+    for sch_file in sheets:
+        sch_path = os.path.join(BASE, sch_file)
+        stem = os.path.splitext(os.path.basename(sch_file))[0]
+
+        # Structural check via netlist export
+        ret = subprocess.run(
+            [kicad_cli, "sch", "export", "netlist", "--output", "/dev/null", sch_path],
+            capture_output=True, text=True)
+        if ret.returncode != 0 and "Failed to load" in ret.stderr:
+            errors.append(f"  FAIL  {sch_file}: {ret.stderr.strip()}")
+        else:
+            print(f"  OK    {sch_file} (netlist check)")
+
+        # SVG export
+        svg_dir = os.path.join(outdir, stem)
+        os.makedirs(svg_dir, exist_ok=True)
+        subprocess.run(
+            [kicad_cli, "sch", "export", "svg", "--output", svg_dir, sch_path],
+            capture_output=True, text=True)
+
+        svg_file = os.path.join(svg_dir, f"{stem}.svg")
+        if os.path.exists(svg_file):
+            if convert:
+                png_file = os.path.join(outdir, f"{stem}.png")
+                subprocess.run(
+                    [convert, svg_file, "-resize", "2500x", png_file],
+                    capture_output=True, text=True)
+                print(f"  PNG   {png_file}")
+            else:
+                print(f"  SVG   {svg_file}")
+
+    if errors:
+        print("\nERRORS:")
+        for e in errors:
+            print(e)
+        return False
+    else:
+        print(f"\nAll {len(sheets)} sheets passed netlist check.")
+        print(f"Visual verification images in: {outdir}")
+        return True
+
+
 # ─────────────────────── main ──────────────────────────────────────────
 if __name__ == "__main__":
-    write_sheet("zero-crossing.kicad_sch",    gen_zero_crossing())
-    write_sheet("xor-interlock.kicad_sch",    gen_xor_interlock())
-    write_sheet("opto-triac-drive.kicad_sch", gen_opto_triac())
-    write_sheet("triacs-snubbers.kicad_sch",  gen_triacs_snubbers())
-    write_sheet("rail-voltage-sense.kicad_sch", gen_rail_voltage_sense())
-    write_sheet("mcu.kicad_sch",              gen_mcu())
+    import sys
+
+    sheets = [
+        ("zero-crossing.kicad_sch",      gen_zero_crossing),
+        ("xor-interlock.kicad_sch",      gen_xor_interlock),
+        ("opto-triac-drive.kicad_sch",   gen_opto_triac),
+        ("triacs-snubbers.kicad_sch",    gen_triacs_snubbers),
+        ("rail-voltage-sense.kicad_sch", gen_rail_voltage_sense),
+        ("mcu.kicad_sch",               gen_mcu),
+    ]
+    for filename, gen_fn in sheets:
+        write_sheet(filename, gen_fn())
     print("All sheets generated.")
+
+    if "--verify" in sys.argv:
+        print("\n--- Verification ---")
+        ok = verify_sheets([s[0] for s in sheets])
+        if not ok:
+            sys.exit(1)

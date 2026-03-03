@@ -171,27 +171,6 @@ def junction(x, y):
     return (f'\t(junction\n\t\t(at {x} {y})\n\t\t(diameter 0)\n'
             f'\t\t(color 0 0 0 0)\n\t\t(uuid "{u()}")\n\t)')
 
-def power_sym(net, x, y, ref, angle=0):
-    if "GND" in net:
-        sx, sy = x, y + STUB
-    else:
-        sx, sy = x, y - STUB
-    sym = (f'\t(symbol\n\t\t(lib_id "power:{net}")\n\t\t(at {sx} {sy} {angle})\n'
-           f'\t\t(unit 1)\n\t\t(exclude_from_sim no)\n\t\t(in_bom no)\n'
-           f'\t\t(on_board yes)\n\t\t(dnp no)\n\t\t(uuid "{u()}")\n'
-           f'\t\t(property "Reference" "{ref}"\n\t\t\t(at {sx} {sy-2} 0)\n'
-           f'\t\t\t(effects (font (size 1.27 1.27)) (hide yes))\n\t\t)\n'
-           f'\t\t(property "Value" "{net}"\n\t\t\t(at {sx} {sy+2} 0)\n'
-           f'\t\t\t(effects (font (size 1.27 1.27)))\n\t\t)\n'
-           f'\t\t(property "Footprint" ""\n\t\t\t(at {sx} {sy} 0)\n'
-           f'\t\t\t(effects (font (size 1.27 1.27)) (hide yes))\n\t\t)\n'
-           f'\t\t(property "Datasheet" ""\n\t\t\t(at {sx} {sy} 0)\n'
-           f'\t\t\t(effects (font (size 1.27 1.27)) (hide yes))\n\t\t)\n'
-           f'\t\t(pin "1" (uuid "{u()}"))\n'
-           f'\t\t(instances\n\t\t\t(project "{PROJ}"\n'
-           f'\t\t\t\t(path "/{ROOT_UUID}"\n\t\t\t\t\t(reference "{ref}")\n'
-           f'\t\t\t\t\t(unit 1)\n\t\t\t\t)\n\t\t\t)\n\t\t)\n\t)')
-    return wire(x, y, sx, sy) + '\n' + sym
 
 def placed_conn(inst_uuid, lib_id, x, y, angle, ref, value, footprint, pin_nums):
     """Place a connector symbol on the top-level sheet."""
@@ -278,17 +257,9 @@ def gen_top_level():
     libs = [
         lib_sym_entry(CONN_LIB, "Conn_01x02", "Connector_Generic"),
         lib_sym_entry(CONN_LIB, "Conn_01x03", "Connector_Generic"),
-        lib_sym_entry(POWER_LIB, "GND",        "power"),
-        lib_sym_entry(POWER_LIB, "+3V3",       "power"),
-        lib_sym_entry(POWER_LIB, "+15V",       "power"),
     ]
 
     E = []
-    pwr_n = [101]
-
-    def P(net, x, y, angle=0):
-        E.append(power_sym(net, x, y, f"#PWR{pwr_n[0]:04d}", angle))
-        pwr_n[0] += 1
 
     # ── Layout: sub-sheet boxes on left/centre, connectors on far right ──
     # Left column  (x=15,  w=65): 5 sheets stacked vertically → right border x=80
@@ -374,42 +345,49 @@ def gen_top_level():
 
     # ── Connectors J4, J5, J6 ──────────────────────────────────────────
     # Placed at x=190 (right of right column at x=110+65=175).
-    # Conn_01x02 pins exit left (angle=0): pin1@(jx-5.08,jy-2.54), pin2@(jx-5.08,jy+2.54)
-    # Conn_01x03: pin1@(jx-5.08,jy-5.08), pin2@(jx-5.08,jy), pin3@(jx-5.08,jy+5.08)
+    # Conn_01x02 pin positions (sym→sch with Y-flip, angle=0):
+    #   Pin 1: sym(-5.08, 0)     → sch(cx-5.08, cy)
+    #   Pin 2: sym(-5.08, -2.54) → sch(cx-5.08, cy+2.54)
+    # Conn_01x03:
+    #   Pin 1: sym(-5.08, 2.54)  → sch(cx-5.08, cy-2.54)
+    #   Pin 2: sym(-5.08, 0)     → sch(cx-5.08, cy)
+    #   Pin 3: sym(-5.08, -2.54) → sch(cx-5.08, cy+2.54)
 
     # J4: Track Input (2-pin): AC_IN, AC_RTN
+    # glabel() x = label position; for angle=180, wire extends right (+STUB) to pin
     j4x, j4y = 190, 110
+    j4px = j4x - 5.08          # pin x-coordinate
     E.append(placed_conn(u(), "Connector_Generic:Conn_01x02",
                          j4x, j4y, 0, "J4", "Track Input",
                          "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",
                          ["1", "2"]))
-    E.append(glabel("AC_IN",  j4x - 5.08, j4y - 2.54, 180, "bidirectional"))
-    E.append(glabel("AC_RTN", j4x - 5.08, j4y + 2.54, 180, "bidirectional"))
+    E.append(glabel("AC_IN",  j4px - STUB, j4y,        180, "bidirectional"))
+    E.append(glabel("AC_RTN", j4px - STUB, j4y + 2.54, 180, "bidirectional"))
 
     # J5: Motor Windings (2-pin): WINDING_A, WINDING_B
     j5x, j5y = 190, 135
+    j5px = j5x - 5.08
     E.append(placed_conn(u(), "Connector_Generic:Conn_01x02",
                          j5x, j5y, 0, "J5", "Motor Windings",
                          "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",
                          ["1", "2"]))
-    E.append(glabel("WINDING_A", j5x - 5.08, j5y - 2.54, 180, "bidirectional"))
-    E.append(glabel("WINDING_B", j5x - 5.08, j5y + 2.54, 180, "bidirectional"))
+    E.append(glabel("WINDING_A", j5px - STUB, j5y,        180, "bidirectional"))
+    E.append(glabel("WINDING_B", j5px - STUB, j5y + 2.54, 180, "bidirectional"))
 
     # J6: Motor+AC (3-pin): AC_IN, WINDING_A, WINDING_B
     j6x, j6y = 190, 165
+    j6px = j6x - 5.08
     E.append(placed_conn(u(), "Connector_Generic:Conn_01x03",
                          j6x, j6y, 0, "J6", "Motor+AC",
                          "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal",
                          ["1", "2", "3"]))
-    E.append(glabel("AC_IN",     j6x - 5.08, j6y - 5.08, 180, "bidirectional"))
-    E.append(glabel("WINDING_A", j6x - 5.08, j6y + 0.00, 180, "bidirectional"))
-    # Pin3 at (j6x-5.08, j6y+5.08) = WINDING_B
-    E.append(glabel("WINDING_B", j6x - 5.08, j6y + 5.08, 180, "bidirectional"))
+    E.append(glabel("AC_IN",     j6px - STUB, j6y - 2.54, 180, "bidirectional"))
+    E.append(glabel("WINDING_A", j6px - STUB, j6y,        180, "bidirectional"))
+    E.append(glabel("WINDING_B", j6px - STUB, j6y + 2.54, 180, "bidirectional"))
 
-    # ── PWR_FLAG for ERC ───────────────────────────────────────────────
-    P("+15V",  30, 15)
-    P("+3V3",  50, 15)
-    P("GND",   70, 15)
+    # NOTE: PWR_FLAG symbols for +15V and +3V3 are on the power-supply
+    # sub-sheet (gen_power_supply.py).  GND is driven by the bridge
+    # rectifier on that same sheet.  No standalone flags needed here.
 
     # ── Assemble ───────────────────────────────────────────────────────
     lib_sec = make_lib_section(libs)
