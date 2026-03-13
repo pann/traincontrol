@@ -19,11 +19,11 @@ The traincontrol shield is a custom PCB designed in KiCad, built around an **ESP
 
 | Subsystem | Components | Function |
 |---|---|---|
-| Power supply | DB107 bridge rectifier, MP2359 buck converter | 12 VAC rail to 3.3 VDC |
-| Motor driver | 2x BTA204 TRIACs, 2x MOC3021 opto-TRIACs | AC phase-angle switching |
+| Power supply | BAT54S/SS34 rectification, MP2359 buck converter | 12 VAC rail to 3.3 VDC |
+| Motor driver | 2x BT134W-600E TRIACs, 2x MOC3021S opto-TRIACs | AC phase-angle switching |
 | Safety interlock | 74LVC1G86 XOR + 74LVC2G08 dual AND | Hardware anti-shoot-through |
-| Zero-crossing | H11AA1 AC optocoupler | AC timing reference |
-| MCU | ESP32-C3-MINI-1 | WiFi, USB, motor control logic |
+| Zero-crossing | EL357N optocoupler | AC timing reference |
+| MCU | ESP32-C3-MINI-1-N4 | WiFi, USB, motor control logic |
 
 Schematic and PCB files are in `hw/traincontrol-shield/`.
 

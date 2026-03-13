@@ -3413,9 +3413,9 @@
 		(at 238.76 93.98 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "00016258-83a9-47a4-9c07-a52f12158972")
 		(property "Reference" "SW2"
 			(at 238.76 89.408 0)
@@ -3489,6 +3489,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "SW2")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "SW?")
 					(unit 1)
 				)
 			)
@@ -3571,6 +3577,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -3578,9 +3590,9 @@
 		(at 238.76 60.96 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "13a9fd62-8c1a-4519-b805-7e278ac11527")
 		(property "Reference" "SW1"
 			(at 239.014 56.642 0)
@@ -3657,6 +3669,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "SW?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -3722,6 +3740,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -3784,6 +3808,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -3860,6 +3890,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "R20")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "R?")
 					(unit 1)
 				)
 			)
@@ -3942,6 +3978,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -4005,6 +4047,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR0813")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -4085,6 +4133,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "CON?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -4161,6 +4215,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -4224,6 +4284,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -4466,6 +4532,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "U?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -4541,6 +4613,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -4604,6 +4682,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -4691,6 +4775,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "D?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -4757,6 +4847,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -4820,6 +4916,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -4899,6 +5001,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -4962,6 +5070,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -5044,6 +5158,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -5107,6 +5227,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -5189,6 +5315,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -5266,6 +5398,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "CON?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -5329,6 +5467,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR0814")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -5410,6 +5554,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -5487,6 +5637,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "CON?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -5549,6 +5705,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -5630,6 +5792,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -5693,6 +5861,12 @@
 			(project "traincontrol-shield"
 				(path "/12cc2a67-9b1c-41e4-828f-9c2a8df6bb35/8c6fba78-5fd4-419a-8456-de6c668aaabc"
 					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
 					(unit 1)
 				)
 			)
@@ -5772,6 +5946,12 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -5837,6 +6017,18 @@
 					(unit 1)
 				)
 			)
+			(project "mcu"
+				(path "/b17ddd41-b910-4f09-a62f-46566a666def"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 		)
 	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
 )

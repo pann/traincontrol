@@ -1,3 +1,6 @@
+# HW temporary files
+hw/*/tmp/*
+*.zip
 # ESP-IDF build output
 sw/build/
 sw/sdkconfig

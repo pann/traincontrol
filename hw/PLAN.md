@@ -2,43 +2,35 @@
 
 ## Design Overview
 
-Rev.1 is a **shield/addon board** that plugs onto an ESP32-S3-DevKitC-1 via
-its two 22-pin headers (J1 and J3, 2.54 mm pitch). The addon carries all the
-analog and power circuitry; the DevKitC provides the MCU, WiFi, USB, and the
-WS2812 status LED (GPIO 48).
+Rev.1 is an **integrated board** with the ESP32-C3-MINI-1 module soldered
+directly on-board, along with all analog, power, and motor drive circuitry.
+Connection to external wiring (AC input, motor windings) is via solder pads.
+USB Micro-B provides programming and debug access.
 
-This board is for **prototyping and validation** — a future Rev.2 will
-integrate the ESP32 module directly onto a miniaturised PCB.
-
-### What goes on the addon board
+### What goes on the board
 
 | Block | Components |
 |-------|-----------|
-| Power supply | DB107 bridge rectifier, MP2359DJ buck (3.3 V), bulk cap, decoupling |
-| Zero-crossing detector | H11AA1 + 220 kΩ + 10 kΩ pull-up |
+| Power supply | BAT54S + SS34 rectification, MP2359DJ buck (3.3 V), bulk caps, decoupling |
+| Zero-crossing detector | EL357N optocoupler + BAT54S protection + 1 kΩ / 10 kΩ |
 | HW XOR interlock | 74LVC1G86 (XOR) + 74LVC2G08 (dual AND) |
 | Opto-TRIAC drivers | 2× MOC3021 + 330 Ω LED resistors |
-| TRIACs | 2× BTA204-600E (SOT-223) + 360 Ω gate resistors + RC snubbers |
-| Rail voltage divider | 100 kΩ / 33 kΩ to ADC (GPIO 2) |
-| Connectors | 2× 22-pin female headers (mate with DevKitC), screw terminal for 12 VAC + motor |
+| TRIACs | 2× BT134W-600E (SOT-223) + 360 Ω gate resistors + RC snubbers |
+| Rail voltage divider | 100 kΩ / 27 kΩ to ADC (GPIO 2) |
+| MCU | ESP32-C3-MINI-1-N4 module, WS2812B RGB LED, push buttons, USB Micro-B |
+| Connectors | USB Micro-B (J1), 7× connection pads (CON1–CON7) |
 
-### What stays on the DevKitC
+### GPIO mapping (ESP32-C3-MINI-1)
 
-- ESP32-S3-WROOM-1 module (MCU + WiFi + flash)
-- USB-C (provisioning/debug)
-- WS2812 RGB LED on GPIO 48
-- 3.3 V LDO (DevKitC on-board regulator — **not** used to power the addon;
-  the addon's own buck supplies 3.3 V to the DevKitC through the 3V3 pin)
-
-### GPIO mapping (unchanged from firmware)
-
-| GPIO | Function | Header pin |
-|------|----------|-----------|
-| 4 | MOTOR_FWD (to XOR interlock) | J1 |
-| 5 | MOTOR_REV (to XOR interlock) | J1 |
-| 6 | ZERO_CROSS input | J1 |
-| 2 | RAIL_VOLTAGE ADC | J3 |
-| 48 | WS2812 LED (on DevKitC) | — |
+| GPIO | Function | Notes |
+|------|----------|-------|
+| 4 | MOTOR_FWD (to XOR interlock) | Output |
+| 5 | MOTOR_REV (to XOR interlock) | Output |
+| 6 | ZERO_CROSS input | Interrupt on edge |
+| 2 | RAIL_VOLTAGE ADC | Analog input |
+| 8 | WS2812B status LED | Addressable RGB |
+| 18 | USB D- | Native USB CDC/ACM |
+| 19 | USB D+ | Native USB CDC/ACM |
 
 ---
 
@@ -50,17 +42,19 @@ Look up LCSC part numbers for every component. Use the `easyeda2kicad` skill
 to download KiCad symbols + footprints for each.
 
 Key parts to source:
-- DB107 bridge rectifier
+- ESP32-C3-MINI-1-N4 WiFi module
 - MP2359DJ buck regulator
 - 4.7 µH inductor (for buck)
-- BTA204-600E TRIAC × 2
-- MOC3021 opto-TRIAC × 2
-- H11AA1 AC optocoupler
+- BT134W-600E TRIAC × 2 (SOT-223, LCSC C5380692)
+- MOC3021S-TA1 opto-TRIAC × 2 (SMD)
+- EL357N optocoupler (zero-crossing)
 - 74LVC1G86 single XOR gate
-- 74LVC2G08 dual AND gate
-- Screw terminal (2-pos and 3-pos, 5.08 mm pitch)
-- 2× 22-pin 2.54 mm female pin headers
-- Bulk electrolytic cap 220 µF / 25 V
+- 74LVC2G08 dual AND gate (VSSOP-8)
+- BAT54S dual Schottky × 5, SS34 Schottky × 1
+- WS2812B-2020 RGB LED
+- USB Micro-B connector (Molex 105017-0001)
+- TL3342 push buttons × 2
+- SMD electrolytic caps 220 µF × 2
 - SMD passives (resistors, ceramic caps) in 0603
 
 ### Step 2 — Create KiCad project
@@ -130,51 +124,59 @@ Draw the schematic in logical blocks:
 
 ---
 
-## Bill of Materials (preliminary)
+## Bill of Materials (current)
 
 | Ref | Component | Package | Qty | Notes |
 |-----|-----------|---------|-----|-------|
-| D1 | DB107 bridge rectifier | DIP-4 | 1 | |
+| U7 | ESP32-C3-MINI-1-N4 | Module | 1 | WiFi MCU |
 | U1 | MP2359DJ buck reg | SOT-23-6 | 1 | 3.3 V output |
-| L1 | 4.7 µH inductor | SMD | 1 | For buck |
-| C1 | 220 µF / 25 V | Radial | 1 | Bulk input |
-| C2 | 22 µF / 10 V | 0603 | 1 | Buck output |
-| C3,C4 | 100 nF | 0603 | 2 | Decoupling |
-| C5 | 10 µF | 0603 | 1 | Buck input |
-| T1,T2 | BTA204-600E | SOT-223 | 2 | Motor TRIACs |
-| U2,U3 | MOC3021 | DIP-6 | 2 | Opto-TRIAC |
-| U4 | H11AA1 | DIP-6 | 1 | ZC detector |
-| U5 | 74LVC1G86 | SOT-23-5 | 1 | XOR gate |
-| U6 | 74LVC2G08 | SOT-23-6 | 1 | Dual AND |
-| R1 | 220 kΩ | 0603 | 1 | ZC input |
-| R2 | 10 kΩ | 0603 | 1 | ZC pull-up |
+| D6 | SS34 Schottky | SMA | 1 | Buck catch diode |
+| D7,D8 | BAT54S dual Schottky | SOT-23 | 2 | AC rectification |
+| L1 | 4.7 µH inductor | 0805 | 1 | For buck |
+| C1,C4 | 220 µF electrolytic | 6.3x7.7 SMD | 2 | Bulk caps |
+| C2 | 22 µF | 0603 | 1 | Buck output |
+| C3,C5,C9–C12 | 100 nF | 0603 | 6 | Decoupling |
+| C6 | 10 µF | 0603 | 1 | MCU decoupling |
+| C13 | 1 µF | 0603 | 1 | |
+| C7,C8 | 10 nF | 0603 | 2 | Snubber caps |
+| Q1,Q2 | BT134W-600E | SOT-223 | 2 | Motor TRIACs (LCSC C5380692) |
+| U5,U6 | MOC3021S-TA1 | SMD-6 | 2 | Opto-TRIAC (SMD) |
+| U8 | EL357N optocoupler | SMD-4 | 1 | ZC detector |
+| U3 | 74LVC1G86 | SOT-23-5 | 1 | XOR gate |
+| U4 | 74LVC2G08 | VSSOP-8 | 1 | Dual AND |
+| D2,D3,D5 | BAT54S dual Schottky | SOT-23 | 3 | Protection |
+| D4 | WS2812B-2020 | PLCC4 2x2mm | 1 | RGB status LED |
 | R3,R4 | 330 Ω | 0603 | 2 | Opto LED |
 | R5,R6 | 360 Ω | 0603 | 2 | TRIAC gate |
-| R7,R8 | 100 Ω | 0603 | 2 | Snubber R |
-| C6,C7 | 100 nF / 50 V | 0603 | 2 | Snubber C (ceramic) |
+| R7,R8 | 39 Ω | 0603 | 2 | Snubber R |
 | R9 | 100 kΩ | 0603 | 1 | Voltage div |
-| R10 | 33 kΩ | 0603 | 1 | Voltage div |
-| J1,J2 | 22-pin female header | 2.54 mm | 2 | DevKitC mate |
-| J3 | Screw terminal 2-pos | 5.08 mm | 1 | 12 VAC in |
-| J4 | Screw terminal 3-pos | 5.08 mm | 1 | Motor out |
+| R10 | 27 kΩ | 0603 | 1 | Voltage div |
+| R11,R18–R20 | 1 kΩ | 0603 | 4 | Current limiters |
+| R12 | 150 kΩ | 0603 | 1 | FB top |
+| R13 | 47 kΩ | 0603 | 1 | FB bottom |
+| R14–R17,R23 | 10 kΩ | 0603 | 5 | Pull-ups |
+| R21 | 1 kΩ | 0603 | 1 | ZC opto current |
+| J1 | USB Micro-B | Molex 105017 | 1 | Programming/debug |
+| SW1,SW2 | Push button | TL3342 | 2 | Reset/boot |
+| CON1–CON7 | Connection pads | D2.0mm | 7 | AC/motor/debug |
+| H1 | Mounting hole | M2 pad | 1 | |
 
 ---
 
 ## Key Design Decisions
 
-1. **Power strategy**: The addon's MP2359DJ buck provides 3.3 V to the
-   DevKitC via its 3V3 header pin, bypassing the DevKitC's on-board LDO.
-   This is safe because the DevKitC LDO input (5V from USB) will be absent
-   when powered from track. When USB is also connected (debug), the higher
-   voltage source wins — need a Schottky diode (or rely on DevKitC's
-   existing power-path design) to prevent backfeed.
+1. **Power strategy**: The MP2359DJ buck converter provides 3.3 V from the
+   rectified AC rail. BAT54S dual Schottky diodes and SS34 handle
+   rectification (replacing the original DB107 bridge rectifier for a
+   more compact SMD design). BAT54S on USB (D3) provides ESD protection.
 
-2. **AC safety**: Opto-couplers (MOC3021, H11AA1) provide galvanic isolation
-   between the 12 VAC motor side and the 3.3 V logic. The PCB layout must
-   maintain adequate creepage between AC and DC zones.
+2. **AC safety**: Opto-couplers (MOC3021S-TA1, EL357N) provide galvanic
+   isolation between the 12 VAC motor side and the 3.3 V logic. The PCB
+   layout must maintain adequate creepage between AC and DC zones.
 
-3. **Snubber capacitors**: 50 V ceramic MLCCs (0603) are adequate — the
-   rectified 12 VAC peak is ~17 V, well within a 50 V rating.
+3. **Snubber values**: 39 Ω / 10 nF per TRIAC — sized for the BT134W-600E
+   and inductive motor load.
 
-4. **Form factor**: This Rev.1 board will be larger than the final product —
-   it's optimised for testability, not for fitting inside a locomotive.
+4. **Integrated design**: ESP32-C3-MINI-1 module on-board with USB Micro-B,
+   WS2812B status LED, and push buttons. No longer requires a separate
+   DevKitC — this board is designed to fit inside a locomotive.

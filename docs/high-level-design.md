@@ -41,8 +41,8 @@ Modbus TCP over WiFi.
 
 The module is powered entirely from the 12 VAC rail pickup.
 
-- **Bridge rectifier** (e.g. DB107) converts 12 VAC to pulsating DC
-  (~15.5 V peak after diode drops).
+- **Schottky rectification** (BAT54S dual diodes + SS34) converts 12 VAC
+  to pulsating DC (~15.5 V peak after diode drops).
 - **Bulk capacitor** (220-470 uF / 25 V) smooths the rectified voltage.
 - **Switching regulator** (e.g. AP2112K-3.3 LDO, or MP2359 buck converter)
   steps down to 3.3 VDC for the microcontroller. A buck converter is
@@ -96,8 +96,8 @@ the motor.
 
 #### 2.3.1 Driver Stage — TRIACs
 
-Two TRIACs (e.g. BTA204-600E, 4A / 600V in SOT-223 — significantly
-overrated for the ~0.5 A motor load, providing good margin) act as AC
+Two TRIACs (BT134W-600E, 1A / 600V in SOT-223 — 2× margin over
+the ~0.5 A motor load) act as AC
 switches, one per winding path. Each TRIAC is triggered through an
 opto-TRIAC coupler (MOC3021) which provides galvanic isolation between
 the 3.3 V logic side and the AC motor side.
@@ -148,7 +148,7 @@ The MOC3021 is a non-zero-crossing type, which is required for
 phase-angle control (a zero-crossing type like MOC3041 would only
 allow on/off control, not variable phase angle).
 
-An RC snubber network (100 Ω + 100 nF) across each TRIAC suppresses
+An RC snubber network (39 Ω + 10 nF) across each TRIAC suppresses
 voltage transients from the inductive motor load and prevents false
 triggering.
 
@@ -202,24 +202,24 @@ GPIO interrupt input.
 
 ```
   12 VAC ──┬──►┌────────┐
-           │   │ 220 kΩ │
+           │   │BAT54S  │ (protection)
            │   └────┬───┘          3.3V
            │        │               │
            │   ┌────▼───┐      ┌───┴───┐
-           │   │H11AA1  │      │ 10 kΩ │ pull-up
-           │   │(AC opto│      └───┬───┘
+           │   │EL357N  │      │ 10 kΩ │ pull-up (R23)
+           │   │(opto-  │      └───┬───┘
            │   │coupler)├──────────┼──────► ZC_OUT to GPIO 6
            │   └────┬───┘          │
-           │        │              │
+           │   1 kΩ │ (R21)        │
   GND ─────┴──►┌────┘         (open collector output,
                │                pulses low at each
               GND               zero crossing)
 ```
 
-The H11AA1 contains two anti-parallel LEDs, producing an output pulse
-on every zero crossing (both positive-to-negative and negative-to-
-positive). The 220 kΩ resistor limits LED current to ~55 uA peak,
-which is sufficient for the H11AA1 and provides safe isolation.
+The EL357N optocoupler (replacing the original H11AA1) produces an
+output pulse at zero crossings. BAT54S dual Schottky diodes (D2, D5)
+provide input protection. R21 (1 kΩ) limits LED current, and R23
+(10 kΩ) provides the output pull-up.
 
 At 50 Hz, zero crossings occur every 10 ms (100 Hz rate). The MCU
 timestamps each crossing via a GPIO interrupt.
@@ -258,14 +258,14 @@ holding the opto-LED on continuously.
 
 ### 2.4 Optional: Rail Voltage Sensing
 
-A resistor divider (e.g. 100k / 33k) feeds the rectified rail voltage
+A resistor divider (100k / 27k) feeds the rectified rail voltage
 to an ADC input, allowing the firmware to monitor supply voltage and
 detect loss-of-track-contact.
 
 ### 2.5 PCB Form Factor
 
 Target: Single-sided PCB, approximately 30 x 15 mm, to fit inside a
-Marklin H0 locomotive body. USB-C connector at one edge for provisioning.
+Marklin H0 locomotive body. USB Micro-B connector at one edge for provisioning.
 
 ## 3. Software Design
 
@@ -434,18 +434,22 @@ traincontrol/
 
 | Component              | Part Number       | Qty | Notes                  |
 |------------------------|-------------------|-----|------------------------|
-| MCU Module             | ESP32-C3-MINI-1   | 1   | WiFi + USB CDC/ACM     |
-| Bridge Rectifier       | DB107             | 1   | 1A, 1000V (MCU PSU)   |
+| MCU Module             | ESP32-C3-MINI-1-N4| 1   | WiFi + USB CDC/ACM     |
+| Schottky Diodes        | BAT54S            | 5   | Rectification + protect|
+| Schottky Diode         | SS34              | 1   | Buck catch diode       |
 | Buck Regulator         | MP2359DJ          | 1   | 4.5-24V in, 3.3V out  |
-| TRIAC                  | BTA204-600E       | 2   | AC motor switch, SOT223|
-| Opto-TRIAC             | MOC3021           | 2   | Non-zero-cross, DIP-6  |
-| AC Optocoupler         | H11AA1            | 1   | Zero-crossing detect   |
+| TRIAC                  | BT134W-600E       | 2   | AC motor switch, SOT223|
+| Opto-TRIAC             | MOC3021S-TA1      | 2   | Non-zero-cross, SMD    |
+| Optocoupler            | EL357N            | 1   | Zero-crossing detect   |
 | XOR Gate               | 74LVC1G86         | 1   | HW interlock           |
-| Dual AND Gate          | 74LVC2G08         | 1   | HW interlock           |
+| Dual AND Gate          | 74LVC2G08         | 1   | HW interlock, VSSOP-8  |
+| RGB LED                | WS2812B-2020      | 1   | Status indicator       |
 | Inductor (buck)        | 4.7 uH            | 1   | For buck regulator     |
-| Bulk cap               | 220 uF / 25 V     | 1   | Input filter           |
-| USB-C connector        | USB4110-GF-A      | 1   | Provisioning + debug   |
-| Resistors, caps        | various           | ~20 | Passives + RC snubbers |
+| Bulk caps              | 220 uF SMD        | 2   | Input filter           |
+| USB Micro-B            | Molex 105017-0001 | 1   | Provisioning + debug   |
+| Push buttons           | TL3342            | 2   | Reset / boot           |
+| Connection pads        | D2.0mm            | 7   | AC/motor/debug         |
+| Resistors, caps        | various           | ~30 | Passives + RC snubbers |
 
 ## 6. Development Phases
 

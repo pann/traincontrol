@@ -1250,15 +1250,15 @@
 		(fields_autoplaced yes)
 		(uuid "222f6068-39e4-4c0c-8903-e790bfacb89d")
 		(property "Reference" "R21"
-			(at 88.9 100.34 90)
+			(at 88.9 100.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "560Ω"
-			(at 88.9 102.88 90)
+		(property "Value" "1kΩ"
+			(at 88.9 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
