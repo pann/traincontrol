@@ -1,12 +1,13 @@
 #include "wifi_manager.h"
 #include "config.h"
+#include "discovery.h"
 #include "esp_log.h"
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_netif.h"
 #include "esp_mac.h"
 #include "event_log.h"
-#include "mdns.h"
+#include "status_led.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include <string.h>
@@ -45,9 +46,11 @@ static void wifi_event_handler(void *arg, esp_event_base_t base,
 
         case WIFI_EVENT_STA_DISCONNECTED: {
             wifi_event_sta_disconnected_t *evt = event_data;
+            bool was_connected = s_is_connected;
             s_is_connected = false;
             memset(s_ip_str, 0, sizeof(s_ip_str));
             event_log(EVT_WIFI, "disconnected reason=%d", evt->reason);
+            if (was_connected) status_led_set_rgb(80, 30, 0);  /* orange */
 
             if (s_retry_count < WIFI_MAX_RETRY) {
                 s_retry_count++;
@@ -69,10 +72,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t base,
         s_retry_count = 0;
         event_log(EVT_WIFI, "connected ip=%s", s_ip_str);
 
-        mdns_init();
-        mdns_hostname_set(s_hostname);
-        mdns_service_add(NULL, "_modbus", "_tcp", 502, NULL, 0);
-        ESP_LOGI(TAG, "mDNS: %s._modbus._tcp", s_hostname);
+        discovery_start(s_hostname);
+        status_led_clear_override();  /* hand LED back to motor-state display */
     }
 }
 
@@ -127,8 +128,7 @@ esp_err_t wifi_manager_start_sta(void)
 
 esp_err_t wifi_manager_stop(void)
 {
-    mdns_service_remove_all();
-    mdns_free();
+    discovery_stop();
     esp_wifi_disconnect();
     esp_wifi_stop();
     s_is_connected = false;

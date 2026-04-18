@@ -5,6 +5,7 @@ idf_component_register(
         "motor_control.c"
         "modbus_server.c"
         "wifi_manager.c"
+        "discovery.c"
         "provisioning.c"
         "config.c"
         "status_led.c"
@@ -12,13 +13,13 @@ idf_component_register(
         "."
     PRIV_REQUIRES
         driver
+        esp_adc
         esp_timer
         esp_wifi
         esp_event
         nvs_flash
         esp_netif
         esp_http_server
-        mdns
         console
         lwip
         led_strip

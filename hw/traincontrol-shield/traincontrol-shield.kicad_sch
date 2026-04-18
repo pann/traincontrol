@@ -2923,7 +2923,7 @@
 			(color 255 255 255 1.0000)
 		)
 		(uuid "8c6fba78-5fd4-419a-8456-de6c668aaabc")
-		(property "Sheetname" "MCU (ESP32-S3-DevKitC)"
+		(property "Sheetname" "MCU (ESP32-C3-MINI-1)"
 			(at 123.19 48.9584 0)
 			(effects
 				(font

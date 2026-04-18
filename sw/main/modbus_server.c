@@ -1,6 +1,7 @@
 #include "modbus_server.h"
 #include "motor_control.h"
 #include "wifi_manager.h"
+#include "status_led.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "event_log.h"
@@ -97,7 +98,7 @@ static void refresh_input_regs(uint16_t *regs)
     if (!motor_get_direction_forward()) status |= (1 << STATUS_BIT_DIRECTION);
 
     regs[IREG_STATUS]        = status;
-    regs[IREG_RAIL_VOLTAGE]  = 0;  /* TODO: ADC reading */
+    regs[IREG_RAIL_VOLTAGE]  = motor_get_rail_voltage_mv();
     regs[IREG_CURRENT_SPEED] = motor_get_current_speed();
     regs[IREG_UPTIME]        = (uint16_t)((esp_timer_get_time() - s_boot_time_us)
                                            / 1000000LL);
@@ -331,6 +332,8 @@ static void modbus_tcp_task(void *arg)
                   inet_ntoa(client_addr.sin_addr));
         ESP_LOGI(TAG, "Client connected from %s",
                  inet_ntoa(client_addr.sin_addr));
+        /* Debug: white flash confirms TCP reachability over WiFi */
+        status_led_flash_rgb(80, 80, 80, 200);
 
         /* Set receive timeout (5 seconds) */
         struct timeval tv = { .tv_sec = 5, .tv_usec = 0 };

@@ -1,5 +1,8 @@
 #include "motor_control.h"
 #include "driver/gpio.h"
+#include "esp_adc/adc_oneshot.h"
+#include "esp_adc/adc_cali.h"
+#include "esp_adc/adc_cali_scheme.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "event_log.h"
@@ -10,6 +13,14 @@ static const char *TAG = "motor";
 #define GPIO_MOTOR_FWD   GPIO_NUM_4
 #define GPIO_MOTOR_REV   GPIO_NUM_5
 #define GPIO_ZERO_CROSS  GPIO_NUM_6
+
+/* Rail-voltage sense: +15V → R9 (100k) → VSENSE → R10 (27k) → GND,
+ * VSENSE wired to ESP32-C3 IO3 = ADC1 channel 3. */
+#define VSENSE_ADC_UNIT   ADC_UNIT_1
+#define VSENSE_ADC_CHAN   ADC_CHANNEL_3
+#define VSENSE_ADC_ATTEN  ADC_ATTEN_DB_12   /* full-scale ≈ 3.3 V */
+#define VSENSE_DIVIDER_N  127               /* (R9 + R10) / R10 numerator   */
+#define VSENSE_DIVIDER_D  27                /* (R9 + R10) / R10 denominator */
 
 /* Phase-angle range in microseconds within a 10 ms half-cycle */
 #define HALF_CYCLE_US    10000
@@ -24,6 +35,9 @@ static volatile uint16_t s_current   = 0;      /* 0-1000, after ramp */
 
 static esp_timer_handle_t s_fire_timer;
 static esp_timer_handle_t s_pulse_timer;
+
+static adc_oneshot_unit_handle_t s_vsense_adc;
+static adc_cali_handle_t         s_vsense_cali;
 
 /* --- Forward declarations --- */
 static void IRAM_ATTR zero_cross_isr(void *arg);
@@ -119,6 +133,27 @@ esp_err_t motor_control_init(void)
     gpio_install_isr_service(0);
     gpio_isr_handler_add(GPIO_ZERO_CROSS, zero_cross_isr, NULL);
 
+    /* Rail-voltage sense ADC */
+    adc_oneshot_unit_init_cfg_t unit_cfg = { .unit_id = VSENSE_ADC_UNIT };
+    adc_oneshot_new_unit(&unit_cfg, &s_vsense_adc);
+
+    adc_oneshot_chan_cfg_t chan_cfg = {
+        .atten    = VSENSE_ADC_ATTEN,
+        .bitwidth = ADC_BITWIDTH_DEFAULT,
+    };
+    adc_oneshot_config_channel(s_vsense_adc, VSENSE_ADC_CHAN, &chan_cfg);
+
+    adc_cali_curve_fitting_config_t cali_cfg = {
+        .unit_id  = VSENSE_ADC_UNIT,
+        .chan     = VSENSE_ADC_CHAN,
+        .atten    = VSENSE_ADC_ATTEN,
+        .bitwidth = ADC_BITWIDTH_DEFAULT,
+    };
+    if (adc_cali_create_scheme_curve_fitting(&cali_cfg, &s_vsense_cali) != ESP_OK) {
+        ESP_LOGW(TAG, "ADC cali unavailable — rail voltage will be uncalibrated");
+        s_vsense_cali = NULL;
+    }
+
     event_log(EVT_MOTOR, "init complete");
     return ESP_OK;
 }
@@ -165,3 +200,17 @@ void motor_emergency_stop(void)
 uint16_t motor_get_current_speed(void) { return s_current; }
 bool     motor_get_enable(void)        { return s_enabled; }
 bool     motor_get_direction_forward(void) { return s_forward; }
+
+uint16_t motor_get_rail_voltage_mv(void)
+{
+    if (!s_vsense_adc || !s_vsense_cali) return 0;
+
+    int raw = 0;
+    if (adc_oneshot_read(s_vsense_adc, VSENSE_ADC_CHAN, &raw) != ESP_OK) return 0;
+
+    int adc_mv = 0;
+    if (adc_cali_raw_to_voltage(s_vsense_cali, raw, &adc_mv) != ESP_OK) return 0;
+
+    uint32_t rail_mv = (uint32_t)adc_mv * VSENSE_DIVIDER_N / VSENSE_DIVIDER_D;
+    return (rail_mv > UINT16_MAX) ? UINT16_MAX : (uint16_t)rail_mv;
+}

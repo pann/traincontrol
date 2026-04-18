@@ -45,3 +45,9 @@ bool motor_get_enable(void);
  * Get motor direction.
  */
 bool motor_get_direction_forward(void);
+
+/**
+ * Read the +15V rail voltage via the on-board divider (VSENSE → ADC1_CH3).
+ * @return  measured rail voltage in millivolts, or 0 if ADC init failed.
+ */
+uint16_t motor_get_rail_voltage_mv(void);

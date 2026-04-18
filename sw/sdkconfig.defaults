@@ -1,11 +1,11 @@
-# Target: ESP32-S3-DevKitC
-CONFIG_IDF_TARGET="esp32s3"
+# Target: ESP32-C3-MINI-1-N4 (on traincontrol-shield)
+CONFIG_IDF_TARGET="esp32c3"
 
 # Serial flasher
 CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
 CONFIG_ESPTOOLPY_FLASHMODE_DIO=y
 
-# USB Serial JTAG console (built-in USB on ESP32-S3-DevKitC)
+# USB Serial JTAG console (built-in USB on ESP32-C3)
 CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
 
 # WiFi

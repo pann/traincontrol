@@ -5,7 +5,7 @@
 	(uuid "b17ddd41-b910-4f09-a62f-46566a666def")
 	(paper "A4")
 	(title_block
-		(title "MCU (ESP32-S3-DevKitC)")
+		(title "MCU (ESP32-C3-MINI-1)")
 		(date "2026-02-21")
 		(rev "1")
 	)
