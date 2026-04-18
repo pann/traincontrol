@@ -6,9 +6,9 @@
  * UDP broadcast discovery beacon.
  *
  * Periodically broadcasts a JSON line on UDP port 55502 containing the
- * board's hostname, IP, and the Modbus TCP port. Any control software on
- * the same L2 subnet can listen on 55502 and pick up the board without
- * mDNS or static IP assignment.
+ * board's hostname, IP, and the Modbus TCP port. Control software on the
+ * same L2 subnet can listen on 55502 and pick up the board without having
+ * to initiate mDNS.
  *
  * Wire format (one datagram per announcement):
  *   {"app":"traincontrol","name":"<host>","ip":"<a.b.c.d>","modbus":502}

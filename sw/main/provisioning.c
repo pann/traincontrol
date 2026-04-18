@@ -538,16 +538,16 @@ esp_err_t provisioning_init(void)
 {
     ESP_LOGI(TAG, "Provisioning init");
 
-    /* Start USB serial CLI (always available) */
-    esp_console_repl_config_t repl_config = ESP_CONSOLE_REPL_CONFIG_DEFAULT();
-    esp_console_dev_usb_serial_jtag_config_t usb_config =
-        ESP_CONSOLE_DEV_USB_SERIAL_JTAG_CONFIG_DEFAULT();
-    esp_console_repl_t *repl = NULL;
-    ESP_ERROR_CHECK(esp_console_new_repl_usb_serial_jtag(&usb_config,
-                                                          &repl_config,
-                                                          &repl));
-    register_cli_commands();
-    ESP_ERROR_CHECK(esp_console_start_repl(repl));
+    /* The USB-Serial-JTAG REPL (esp_console_new_repl_usb_serial_jtag) is
+     * deliberately NOT started. On this board it wedges the scheduler when
+     * no USB host is attached — presumably because its driver install
+     * interacts badly with VBUS-absent state on the C3's native USB
+     * peripheral. Provisioning is done via the SoftAP captive portal; the
+     * default ROM stdout still emits boot logs when USB happens to be
+     * plugged in. Leaving the REPL off is what finally makes the board
+     * actually run its tasks on AC-only power. */
+
+    (void)register_cli_commands;  /* keep symbol referenced for later use */
 
     /* If no credentials, also start SoftAP portal */
     if (!config_has_wifi_credentials()) {

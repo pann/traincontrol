@@ -7,6 +7,7 @@
 #include "esp_netif.h"
 #include "esp_mac.h"
 #include "event_log.h"
+#include "mdns.h"
 #include "status_led.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -24,6 +25,41 @@ static int  s_retry_count = 0;
 #define WIFI_RETRY_INTERVAL_MS  5000
 
 static char s_hostname[32] = {0};
+static bool s_mdns_started = false;
+
+/* mDNS bring-up runs in its own task, NOT inside the IP_EVENT handler:
+ * mdns_hostname_set() triggers the probe, which waits on a semaphore that
+ * the mDNS internal task gives once probing completes. The mDNS task
+ * dispatches work through the default esp_event loop — the same loop our
+ * IP_EVENT handler is running on. Calling mdns_hostname_set directly from
+ * the handler would deadlock the loop against itself. Spawning a separate
+ * task sidesteps that. */
+static void mdns_init_task(void *arg)
+{
+    (void)arg;
+
+    esp_err_t err = mdns_init();
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "mdns_init: %s", esp_err_to_name(err));
+        vTaskDelete(NULL);
+        return;
+    }
+    err = mdns_hostname_set(s_hostname);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "mdns_hostname_set: %s", esp_err_to_name(err));
+        vTaskDelete(NULL);
+        return;
+    }
+    err = mdns_service_add(NULL, "_modbus", "_tcp", 502, NULL, 0);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "mdns_service_add: %s", esp_err_to_name(err));
+        vTaskDelete(NULL);
+        return;
+    }
+    s_mdns_started = true;
+    ESP_LOGI(TAG, "mDNS advertising %s.local / _modbus._tcp:502", s_hostname);
+    vTaskDelete(NULL);
+}
 
 static void build_hostname(void)
 {
@@ -73,6 +109,10 @@ static void wifi_event_handler(void *arg, esp_event_base_t base,
         event_log(EVT_WIFI, "connected ip=%s", s_ip_str);
 
         discovery_start(s_hostname);
+        if (!s_mdns_started) {
+            xTaskCreate(mdns_init_task, "mdns_init", 4096, NULL,
+                        tskIDLE_PRIORITY + 2, NULL);
+        }
         status_led_clear_override();  /* hand LED back to motor-state display */
     }
 }
@@ -129,6 +169,11 @@ esp_err_t wifi_manager_start_sta(void)
 esp_err_t wifi_manager_stop(void)
 {
     discovery_stop();
+    if (s_mdns_started) {
+        mdns_service_remove_all();
+        mdns_free();
+        s_mdns_started = false;
+    }
     esp_wifi_disconnect();
     esp_wifi_stop();
     s_is_connected = false;

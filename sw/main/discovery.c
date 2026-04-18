@@ -66,7 +66,7 @@ static void beacon_task(void *arg)
 
 esp_err_t discovery_start(const char *hostname)
 {
-    if (s_task) return ESP_OK;  /* already running */
+    if (s_task) return ESP_OK;
 
     strncpy(s_hostname, hostname, sizeof(s_hostname) - 1);
     s_hostname[sizeof(s_hostname) - 1] = '\0';

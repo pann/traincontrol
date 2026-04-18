@@ -67,7 +67,19 @@ void status_led_update(void)
     if (s_override_active || s_flash_active) return;
 
     if (!motor_get_enable() || motor_get_current_speed() == 0) {
-        led_strip_clear(s_led);
+        /* Heartbeat: cycle through blue → off → green → off every 500 ms so
+         * "scheduler is running" is visually unambiguous. Impossible to
+         * mistake this for a steady color if led_task is actually being
+         * scheduled. */
+        static uint32_t tick = 0;
+        uint8_t r = 0, g = 0, b = 0;
+        switch ((tick++ / 5) & 3) {
+        case 0: b = 40; break;
+        case 1: /* off */ break;
+        case 2: g = 40; break;
+        case 3: /* off */ break;
+        }
+        led_strip_set_pixel(s_led, 0, r, g, b);
         led_strip_refresh(s_led);
         return;
     }
@@ -94,6 +106,7 @@ static void led_task(void *arg)
         vTaskDelay(pdMS_TO_TICKS(LED_UPDATE_INTERVAL_MS));
     }
 }
+
 
 esp_err_t status_led_init(void)
 {
